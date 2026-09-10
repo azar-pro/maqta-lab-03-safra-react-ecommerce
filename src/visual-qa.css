@@ -1,0 +1,61 @@
+/* Final visual QA refinements after rendering the production build. */
+
+/* Header readability — keep the luxury restraint without micro type. */
+.flagship-announcement { font-size: 8px; }
+.flagship-nav { min-height: 82px; }
+.flagship-brand { gap: 11px; }
+.flagship-brand img { width: 38px; height: 38px; }
+.flagship-brand-word strong { font-size: 26px; }
+.flagship-brand-word small { font-size: 6.5px; }
+.flagship-navlinks a,
+.flagship-utilities a { font-size: 9px; }
+
+/* Product information should feel editorial, not like caption copy. */
+.flagship-product-info p { font-size: 8px; }
+.flagship-product-info h3 { font-size: 25px; }
+.flagship-product-info > strong { font-size: 11px; }
+.flagship-card-color-name { font-size: 8px; }
+
+/* Shop controls need the same visual confidence as the masthead. */
+.fs-category-tabs button { font-size: 8px; min-height: 36px; }
+.fs-search input,
+.fs-sort select { min-height: 39px; font-size: 9px; }
+.fs-results-line { font-size: 8px; }
+.fs-shop-masthead-bottom span { font-size: 8px; }
+
+/* Related products are intentionally a complete three-piece edit. */
+.fs-related .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+@media (max-width: 760px) {
+  .flagship-announcement {
+    grid-template-columns: 1fr;
+    min-height: 28px;
+    text-align: center;
+    font-size: 7px;
+  }
+  .flagship-announcement span:first-child,
+  .flagship-announcement span:last-child { display: none; }
+
+  .flagship-nav { min-height: 69px; }
+  .flagship-brand img { width: 31px; height: 31px; }
+  .flagship-brand-word strong { font-size: 21px; }
+
+  .fs-category-tabs {
+    width: calc(100% + (var(--fs-gutter) * 2));
+    margin-left: calc(var(--fs-gutter) * -1);
+    padding: 0 var(--fs-gutter) 3px;
+  }
+  .fs-category-tabs button {
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 8px;
+  }
+  .fs-search input,
+  .fs-sort select { min-height: 43px; font-size: 9px; }
+
+  .flagship-product-info p { font-size: 7.5px; }
+  .flagship-product-info h3 { font-size: 25px; }
+  .flagship-product-info > strong { font-size: 10px; }
+
+  .fs-related .product-grid { grid-template-columns: 1fr; }
+}
