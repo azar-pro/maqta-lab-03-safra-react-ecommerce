@@ -6,6 +6,7 @@ import { StoreProvider } from './context/StoreContext';
 import './styles.css';
 import './polish.css';
 import './mobile-ux.css';
+import './experience.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
