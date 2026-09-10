@@ -1,41 +1,57 @@
 import { Link } from 'react-router-dom';
 
 export default function About() {
+  const values = [
+    ['01', 'Purpose', 'Every interface decision supports browsing, comparison or purchase.'],
+    ['02', 'Restraint', 'Typography, spacing and photography create character without clutter.'],
+    ['03', 'Rhythm', 'Large editorial moments alternate with precise commerce information.'],
+    ['04', 'Memory', 'Wishlist and bag state persist locally between visits.'],
+  ];
+
   return (
     <main>
-      <section className="about-hero">
-        <div className="shell about-hero-grid">
-          <div>
-            <p className="eyebrow">About SAFRA</p>
-            <h1>Retail with<br />a graphic pulse.</h1>
-          </div>
-          <p>SAFRA is a fictional accessories brand created to practice building a polished React storefront where editorial identity and practical shopping flows work together.</p>
-        </div>
-      </section>
-
-      <section className="about-image" aria-label="Fashion accessories editorial composition"></section>
-
-      <section className="section">
-        <div className="shell about-content-grid">
-          <div><p className="eyebrow">01 · Direction</p><h2>Simple interface.<br />Expressive brand.</h2></div>
-          <div className="rich-copy">
-            <p>The concept is intentionally different from a neutral marketplace. Strong typography, oversized image crops and sharp accent color give SAFRA a recognisable point of view.</p>
-            <p>At the same time, core commerce actions stay familiar: clear prices, obvious filters, persistent cart state, simple variants and an uncluttered checkout path.</p>
+      <section className="fs-about-hero" aria-labelledby="about-title">
+        <div className="shell fs-about-hero-inner">
+          <p className="eyebrow">About SAFRA</p>
+          <h1 className="fs-about-display" id="about-title">A retail identity<br />with <em>presence.</em></h1>
+          <div className="fs-about-hero-foot">
+            <p>SAFRA is a fictional accessories brand built around a simple belief: a digital store can feel editorial, expressive and premium without making shopping difficult.</p>
+            <span>FÈS / MOROCCO · EST. 2026</span>
           </div>
         </div>
       </section>
 
-      <section className="values-band">
-        <div className="shell values-grid">
-          <article><span>01</span><h3>Useful</h3><p>Every feature has a shopping reason to exist.</p></article>
-          <article><span>02</span><h3>Graphic</h3><p>Brand personality is carried by scale, spacing and contrast.</p></article>
-          <article><span>03</span><h3>Responsive</h3><p>The same visual logic adapts cleanly from desktop to phone.</p></article>
-          <article><span>04</span><h3>Stateful</h3><p>Cart and wishlist persist through localStorage.</p></article>
+      <section className="fs-about-story">
+        <div className="shell fs-about-story-grid">
+          <p className="eyebrow">01 / Direction</p>
+          <h2>Commerce first.<br /><em>Identity always.</em></h2>
+          <div className="fs-about-story-copy">
+            <p>The project explores the visual language of high-end international e-commerce: confident typography, controlled whitespace, immersive photography, asymmetrical grids and clear purchasing hierarchy.</p>
+            <p>Rather than reproducing a specific brand, SAFRA uses those principles to create its own system — warmer, more tactile and rooted in a contemporary Moroccan point of view.</p>
+          </div>
         </div>
       </section>
 
-      <section className="section">
-        <div className="shell large-cta"><h2>See the storefront in action.</h2><Link className="btn btn-dark" to="/shop">Explore the shop</Link></div>
+      <section className="fs-about-manifesto">
+        <div className="fs-about-manifesto-head">
+          <div><p className="eyebrow" style={{ color: '#df9787' }}>02 / Principles</p><h2>Designed to sell.<br />Built to be remembered.</h2></div>
+          <p>Premium digital retail is not decoration. It is the discipline of guiding attention: what the eye sees first, where it pauses, what reassures it, and how naturally it reaches the next action.</p>
+        </div>
+
+        <div className="fs-about-values">
+          {values.map(([number, title, body]) => (
+            <article className="fs-about-value" key={number}>
+              <span>{number}</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="shell fs-about-cta">
+        <h2>See the system working in the storefront.</h2>
+        <Link className="btn btn-dark" to="/shop">Explore the shop</Link>
       </section>
     </main>
   );
