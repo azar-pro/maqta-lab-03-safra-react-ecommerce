@@ -30,8 +30,14 @@ export default function Header() {
   }, [open]);
 
   return (
-    <header className="site-header">
-      <div className="shell header-row">
+    <header className="site-header premium-header">
+      <div className="announcement-bar" aria-label="Store announcement">
+        <span>Fès / Morocco</span>
+        <span>Complimentary delivery over 900 DH</span>
+        <span>Drop 01 / 2026</span>
+      </div>
+
+      <div className="shell header-row premium-header-row">
         <button
           className={`menu-button ${open ? 'open' : ''}`}
           type="button"
@@ -43,7 +49,7 @@ export default function Header() {
           <span></span><span></span>
         </button>
 
-        <Link className="brand-lockup" to="/" onClick={close} aria-label="SAFRA home">
+        <Link className="brand-lockup premium-brand" to="/" onClick={close} aria-label="SAFRA home">
           <img className="brand-mark" src={logoPath} alt="" aria-hidden="true" />
           <span className="brand-copy">
             <strong>SAFRA</strong>
@@ -58,9 +64,9 @@ export default function Header() {
           <NavLink to="/about" onClick={close}>About</NavLink>
         </nav>
 
-        <div className="header-actions">
-          <Link to="/wishlist" aria-label={`Wishlist with ${wishlist.length} items`}>♡ <span>{wishlist.length}</span></Link>
-          <Link to="/cart" aria-label={`Cart with ${cartCount} items`}>Bag <span>{cartCount}</span></Link>
+        <div className="header-actions premium-header-actions">
+          <Link to="/wishlist" aria-label={`Wishlist with ${wishlist.length} items`}>Wishlist <span>{wishlist.length}</span></Link>
+          <Link className="bag-link" to="/cart" aria-label={`Cart with ${cartCount} items`}>Bag <span>{cartCount}</span></Link>
         </div>
       </div>
     </header>
