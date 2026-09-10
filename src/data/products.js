@@ -1,3 +1,16 @@
+export const variantPresets = {
+  Sand: { hex: '#d9c5a7', imageFilter: 'sepia(.22) saturate(.88) brightness(1.06) contrast(.96)' },
+  Black: { hex: '#171717', imageFilter: 'grayscale(.58) brightness(.60) contrast(1.18)' },
+  Coral: { hex: '#e87763', imageFilter: 'sepia(.30) saturate(1.55) hue-rotate(325deg) brightness(1.02)' },
+  Gold: { hex: '#c69a49', imageFilter: 'sepia(.58) saturate(1.34) hue-rotate(350deg) brightness(1.03)' },
+  Silver: { hex: '#bfc0c1', imageFilter: 'grayscale(.88) brightness(1.05) contrast(1.04)' },
+  Tortoise: { hex: '#744b35', imageFilter: 'sepia(.45) saturate(1.28) hue-rotate(338deg) brightness(.92)' },
+  Cobalt: { hex: '#2146d0', imageFilter: 'sepia(.35) saturate(2.15) hue-rotate(178deg) brightness(.93)' },
+  Tan: { hex: '#9a704f', imageFilter: 'sepia(.42) saturate(1.20) hue-rotate(342deg) brightness(.98)' },
+  Ivory: { hex: '#eee6d7', imageFilter: 'saturate(.56) brightness(1.12) contrast(.94)' },
+  Smoke: { hex: '#73777a', imageFilter: 'grayscale(.66) saturate(.55) brightness(.82) contrast(1.06)' },
+};
+
 export const products = [
   {
     id: 'tala-mini-bag',
