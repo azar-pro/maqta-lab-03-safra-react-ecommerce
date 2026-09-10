@@ -5,6 +5,7 @@ import { useStore } from '../context/StoreContext';
 export default function Header() {
   const [open, setOpen] = useState(false);
   const { cartCount, wishlist } = useStore();
+  const logoPath = `${import.meta.env.BASE_URL}safra-mark.svg`;
 
   const close = () => setOpen(false);
 
@@ -43,7 +44,7 @@ export default function Header() {
         </button>
 
         <Link className="brand-lockup" to="/" onClick={close} aria-label="SAFRA home">
-          <img className="brand-mark" src="/safra-mark.svg" alt="" aria-hidden="true" />
+          <img className="brand-mark" src={logoPath} alt="" aria-hidden="true" />
           <span className="brand-copy">
             <strong>SAFRA</strong>
             <small>Objects for movement</small>
