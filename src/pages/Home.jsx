@@ -6,107 +6,102 @@ export default function Home() {
   const featured = products.slice(0, 4);
 
   return (
-    <main className="premium-home">
-      <section className="luxury-hero" aria-labelledby="home-title">
-        <div className="luxury-hero-media" aria-hidden="true"></div>
-        <div className="luxury-hero-shade" aria-hidden="true"></div>
-        <div className="shell luxury-hero-content">
-          <div className="luxury-hero-copy">
-            <p className="luxury-kicker">SAFRA / DROP 01 / FÈS</p>
-            <h1 id="home-title">Quiet form.<br /><em>Bold movement.</em></h1>
-            <p>A considered edit of bags, jewelry and eyewear for daily life — clean silhouettes, tactile materials and precise color.</p>
-            <div className="luxury-hero-actions">
-              <Link className="luxury-primary" to="/shop">Shop Drop 01</Link>
-              <Link className="luxury-secondary" to="/about">Our point of view</Link>
+    <main className="fs-home">
+      <section className="fs-hero" aria-labelledby="home-title">
+        <div className="fs-hero-media" aria-hidden="true"></div>
+        <div className="shell fs-hero-inner">
+          <div className="fs-hero-copy">
+            <p className="fs-hero-kicker">SAFRA / DROP 01 / FÈS</p>
+            <h1 id="home-title">Objects with<br /><em>presence.</em></h1>
+            <p className="fs-hero-lead">A limited edit of bags, jewelry and eyewear shaped around strong proportion, tactile material and everyday movement.</p>
+            <div className="fs-hero-actions">
+              <Link className="fs-hero-cta primary" to="/shop">Shop Drop 01</Link>
+              <Link className="fs-hero-cta" to="/about">Discover the brand</Link>
             </div>
           </div>
 
-          <aside className="luxury-hero-card" aria-label="Collection note">
+          <aside className="fs-hero-note" aria-label="Collection note">
             <span>01</span>
-            <div>
-              <small>Collection note</small>
-              <strong>Useful objects, edited like fashion.</strong>
-            </div>
+            <small>Collection note</small>
+            <strong>Useful objects, treated like fashion.</strong>
           </aside>
         </div>
-        <div className="luxury-hero-bottom shell" aria-hidden="true">
-          <span>CONTEMPORARY ACCESSORIES</span>
+
+        <div className="fs-hero-caption" aria-hidden="true">
+          <span>CONTEMPORARY ACCESSORIES / 2026</span>
           <span>SCROLL TO DISCOVER ↓</span>
         </div>
       </section>
 
-      <section className="luxury-intro section">
-        <div className="shell luxury-intro-grid">
-          <p className="eyebrow">The SAFRA edit</p>
-          <h2>Designed to be noticed.<br /><em>Built to be used.</em></h2>
-          <div className="luxury-intro-note">
-            <p>SAFRA balances expressive styling with an effortless shopping experience. The collection is small on purpose: every piece earns its place.</p>
-            <Link className="text-link" to="/shop">Explore the full collection ↗</Link>
-          </div>
+      <section className="shell fs-intro">
+        <p className="eyebrow">The SAFRA edit</p>
+        <h2>Sharp form.<br /><em>Quiet confidence.</em></h2>
+        <div className="fs-intro-copy">
+          <p>SAFRA is intentionally compact. Every object is selected for clarity of shape, ease of use and the way it changes an everyday silhouette.</p>
+          <Link className="text-link" to="/shop">Explore all pieces ↗</Link>
         </div>
       </section>
 
-      <section className="section premium-featured-section">
+      <section className="section">
         <div className="shell">
-          <div className="premium-section-heading">
+          <div className="fs-section-head">
             <div>
-              <p className="eyebrow">Selected pieces</p>
-              <h2>The first edit.</h2>
+              <p className="eyebrow">New arrivals</p>
+              <h2 className="fs-section-title">The first edit.</h2>
             </div>
-            <span>04 / 08</span>
+            <span className="fs-section-counter">04 selected / 08 total</span>
           </div>
-          <div className="product-grid premium-home-grid">
+          <div className="product-grid">
             {featured.map(product => <ProductCard key={product.id} product={product} />)}
           </div>
         </div>
       </section>
 
-      <section className="luxury-editorial-band">
-        <div className="luxury-editorial-image" aria-hidden="true"></div>
-        <div className="luxury-editorial-copy">
+      <section className="fs-editorial">
+        <div className="fs-editorial-image" aria-hidden="true"></div>
+        <div className="fs-editorial-copy">
           <p className="eyebrow">Material / proportion / color</p>
           <h2>Less noise.<br />More character.</h2>
-          <p>We focus on pieces that feel immediate from a distance and considered up close. Strong shape, clear purpose, no unnecessary decoration.</p>
-          <Link className="luxury-primary luxury-primary-light" to="/about">Discover SAFRA</Link>
+          <p>The visual language is deliberately restrained. Strong photography, high contrast and generous negative space let each object feel considered rather than crowded.</p>
+          <Link className="btn btn-light" to="/about">Our point of view</Link>
         </div>
       </section>
 
-      <section className="section premium-category-section">
+      <section className="section">
         <div className="shell">
-          <div className="premium-section-heading premium-category-heading">
+          <div className="fs-section-head">
             <div>
               <p className="eyebrow">Shop by category</p>
-              <h2>Choose your object.</h2>
+              <h2 className="fs-section-title">Choose your object.</h2>
             </div>
           </div>
-          <div className="premium-category-grid">
-            <Link to="/shop?category=Bags" className="premium-category-card premium-category-bags">
-              <span className="premium-category-index">01</span>
-              <div><small>Carry</small><strong>Bags</strong><span>Structured essentials for every day.</span></div>
+
+          <div className="fs-category-grid">
+            <Link className="fs-category-card fs-cat-bags" to="/shop?category=Bags">
+              <span>01 / CARRY</span>
+              <div><small>Structured essentials</small><strong>Bags</strong><p>Compact shapes, clean hardware and enough room for what matters.</p></div>
             </Link>
-            <Link to="/shop?category=Jewelry" className="premium-category-card premium-category-jewelry">
-              <span className="premium-category-index">02</span>
-              <div><small>Layer</small><strong>Jewelry</strong><span>Clean metal, quiet shine.</span></div>
+            <Link className="fs-category-card fs-cat-jewelry" to="/shop?category=Jewelry">
+              <span>02 / LAYER</span>
+              <div><small>Quiet shine</small><strong>Jewelry</strong><p>Graphic metal pieces that work alone or layered.</p></div>
             </Link>
-            <Link to="/shop?category=Eyewear" className="premium-category-card premium-category-eyewear">
-              <span className="premium-category-index">03</span>
-              <div><small>Frame</small><strong>Eyewear</strong><span>Graphic silhouettes for bright days.</span></div>
+            <Link className="fs-category-card fs-cat-eyewear" to="/shop?category=Eyewear">
+              <span>03 / FRAME</span>
+              <div><small>Bright-day structure</small><strong>Eyewear</strong><p>Defined silhouettes with an architectural edge.</p></div>
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="premium-marquee" aria-label="SAFRA brand values">
-        <div>
-          <span>FORM</span><i>◆</i><span>COLOR</span><i>◆</i><span>USE</span><i>◆</i><span>FÈS</span><i>◆</i><span>SAFRA</span>
-        </div>
+      <section className="fs-marquee" aria-label="SAFRA brand values">
+        <div><span>FORM</span><i>◆</i><span>COLOR</span><i>◆</i><span>USE</span><i>◆</i><span>FÈS</span><i>◆</i><span>SAFRA</span><i>◆</i><span>DROP 01</span></div>
       </section>
 
-      <section className="section premium-final-cta">
-        <div className="shell premium-final-cta-inner">
+      <section className="fs-final-cta">
+        <div className="shell">
           <p className="eyebrow">Drop 01 / 2026</p>
-          <h2>Find the piece<br />that moves with you.</h2>
-          <Link className="luxury-primary" to="/shop">Shop all products</Link>
+          <h2>Find the piece that moves with you.</h2>
+          <Link className="btn btn-dark" to="/shop">Shop all products</Link>
         </div>
       </section>
     </main>
