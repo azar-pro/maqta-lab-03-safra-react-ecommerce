@@ -19,21 +19,28 @@ export function StoreProvider({ children }) {
   useEffect(() => localStorage.setItem('safra-cart', JSON.stringify(cart)), [cart]);
   useEffect(() => localStorage.setItem('safra-wishlist', JSON.stringify(wishlist)), [wishlist]);
 
-  function addToCart(productId, color = '') {
+  function addToCart(productId, color = '', quantity = 1) {
+    const safeQuantity = Math.max(1, Math.min(10, Number(quantity) || 1));
+
     setCart(current => {
       const key = `${productId}-${color}`;
       const existing = current.find(item => item.key === key);
+
       if (existing) {
-        return current.map(item => item.key === key ? { ...item, quantity: item.quantity + 1 } : item);
+        return current.map(item => item.key === key
+          ? { ...item, quantity: Math.min(10, item.quantity + safeQuantity) }
+          : item);
       }
-      return [...current, { key, productId, color, quantity: 1 }];
+
+      return [...current, { key, productId, color, quantity: safeQuantity }];
     });
   }
 
   function updateQuantity(key, quantity) {
-    setCart(current => quantity <= 0
+    const nextQuantity = Number(quantity) || 0;
+    setCart(current => nextQuantity <= 0
       ? current.filter(item => item.key !== key)
-      : current.map(item => item.key === key ? { ...item, quantity } : item));
+      : current.map(item => item.key === key ? { ...item, quantity: Math.min(10, nextQuantity) } : item));
   }
 
   function removeFromCart(key) {
