@@ -6,68 +6,107 @@ export default function Home() {
   const featured = products.slice(0, 4);
 
   return (
-    <main>
-      <section className="home-hero">
-        <div className="shell hero-grid">
-          <div className="hero-copy">
-            <p className="eyebrow">New collection · 2026</p>
-            <h1>Objects for<br /><em>everyday movement.</em></h1>
-            <p className="hero-lead">A sharp edit of bags, jewelry and eyewear designed around clean forms, useful details and a little color.</p>
-            <div className="hero-actions">
-              <Link className="btn btn-dark" to="/shop">Shop the collection</Link>
-              <Link className="text-link" to="/about">Discover SAFRA ↗</Link>
+    <main className="premium-home">
+      <section className="luxury-hero" aria-labelledby="home-title">
+        <div className="luxury-hero-media" aria-hidden="true"></div>
+        <div className="luxury-hero-shade" aria-hidden="true"></div>
+        <div className="shell luxury-hero-content">
+          <div className="luxury-hero-copy">
+            <p className="luxury-kicker">SAFRA / DROP 01 / FÈS</p>
+            <h1 id="home-title">Quiet form.<br /><em>Bold movement.</em></h1>
+            <p>A considered edit of bags, jewelry and eyewear for daily life — clean silhouettes, tactile materials and precise color.</p>
+            <div className="luxury-hero-actions">
+              <Link className="luxury-primary" to="/shop">Shop Drop 01</Link>
+              <Link className="luxury-secondary" to="/about">Our point of view</Link>
             </div>
           </div>
 
-          <div className="hero-editorial" aria-label="SAFRA campaign accessories">
-            <div className="hero-image hero-image-main"></div>
-            <div className="hero-color-card">
-              <span>DROP 01</span>
-              <strong>FORM / COLOR / USE</strong>
+          <aside className="luxury-hero-card" aria-label="Collection note">
+            <span>01</span>
+            <div>
+              <small>Collection note</small>
+              <strong>Useful objects, edited like fashion.</strong>
             </div>
+          </aside>
+        </div>
+        <div className="luxury-hero-bottom shell" aria-hidden="true">
+          <span>CONTEMPORARY ACCESSORIES</span>
+          <span>SCROLL TO DISCOVER ↓</span>
+        </div>
+      </section>
+
+      <section className="luxury-intro section">
+        <div className="shell luxury-intro-grid">
+          <p className="eyebrow">The SAFRA edit</p>
+          <h2>Designed to be noticed.<br /><em>Built to be used.</em></h2>
+          <div className="luxury-intro-note">
+            <p>SAFRA balances expressive styling with an effortless shopping experience. The collection is small on purpose: every piece earns its place.</p>
+            <Link className="text-link" to="/shop">Explore the full collection ↗</Link>
           </div>
         </div>
       </section>
 
-      <section className="ticker" aria-label="Store highlights">
-        <div>FÈS / MOROCCO</div><div>FREE DELIVERY OVER 900 DH</div><div>NEW DROP ONLINE</div><div>30-DAY RETURNS</div>
-      </section>
-
-      <section className="section">
+      <section className="section premium-featured-section">
         <div className="shell">
-          <div className="section-head">
+          <div className="premium-section-heading">
             <div>
-              <p className="eyebrow">Featured now</p>
-              <h2>Small things.<br />Strong point of view.</h2>
+              <p className="eyebrow">Selected pieces</p>
+              <h2>The first edit.</h2>
             </div>
-            <Link className="text-link" to="/shop">Shop all products ↗</Link>
+            <span>04 / 08</span>
           </div>
-          <div className="product-grid">
+          <div className="product-grid premium-home-grid">
             {featured.map(product => <ProductCard key={product.id} product={product} />)}
           </div>
         </div>
       </section>
 
-      <section className="category-editorial">
-        <div className="shell category-grid">
-          <Link to="/shop?category=Bags" className="category-tile category-bags">
-            <span>01</span><strong>Bags</strong><small>Structured, compact, useful.</small>
-          </Link>
-          <Link to="/shop?category=Jewelry" className="category-tile category-jewelry">
-            <span>02</span><strong>Jewelry</strong><small>Clean metal, easy layering.</small>
-          </Link>
-          <Link to="/shop?category=Eyewear" className="category-tile category-eyewear">
-            <span>03</span><strong>Eyewear</strong><small>Graphic frames for bright days.</small>
-          </Link>
+      <section className="luxury-editorial-band">
+        <div className="luxury-editorial-image" aria-hidden="true"></div>
+        <div className="luxury-editorial-copy">
+          <p className="eyebrow">Material / proportion / color</p>
+          <h2>Less noise.<br />More character.</h2>
+          <p>We focus on pieces that feel immediate from a distance and considered up close. Strong shape, clear purpose, no unnecessary decoration.</p>
+          <Link className="luxury-primary luxury-primary-light" to="/about">Discover SAFRA</Link>
         </div>
       </section>
 
-      <section className="section story-strip">
-        <div className="shell story-grid">
-          <p className="eyebrow">The idea</p>
-          <h2>Designed to feel considered, never precious.</h2>
-          <p>SAFRA is a fictional retail concept exploring how a modern fashion boutique can feel editorial and expressive without sacrificing usability. The interface keeps shopping actions obvious while letting the products lead visually.</p>
-          <Link className="btn btn-light" to="/about">Read the story</Link>
+      <section className="section premium-category-section">
+        <div className="shell">
+          <div className="premium-section-heading premium-category-heading">
+            <div>
+              <p className="eyebrow">Shop by category</p>
+              <h2>Choose your object.</h2>
+            </div>
+          </div>
+          <div className="premium-category-grid">
+            <Link to="/shop?category=Bags" className="premium-category-card premium-category-bags">
+              <span className="premium-category-index">01</span>
+              <div><small>Carry</small><strong>Bags</strong><span>Structured essentials for every day.</span></div>
+            </Link>
+            <Link to="/shop?category=Jewelry" className="premium-category-card premium-category-jewelry">
+              <span className="premium-category-index">02</span>
+              <div><small>Layer</small><strong>Jewelry</strong><span>Clean metal, quiet shine.</span></div>
+            </Link>
+            <Link to="/shop?category=Eyewear" className="premium-category-card premium-category-eyewear">
+              <span className="premium-category-index">03</span>
+              <div><small>Frame</small><strong>Eyewear</strong><span>Graphic silhouettes for bright days.</span></div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="premium-marquee" aria-label="SAFRA brand values">
+        <div>
+          <span>FORM</span><i>◆</i><span>COLOR</span><i>◆</i><span>USE</span><i>◆</i><span>FÈS</span><i>◆</i><span>SAFRA</span>
+        </div>
+      </section>
+
+      <section className="section premium-final-cta">
+        <div className="shell premium-final-cta-inner">
+          <p className="eyebrow">Drop 01 / 2026</p>
+          <h2>Find the piece<br />that moves with you.</h2>
+          <Link className="luxury-primary" to="/shop">Shop all products</Link>
         </div>
       </section>
     </main>
