@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -22,12 +22,12 @@ function ScrollToTop() {
 
 function NotFound() {
   return (
-    <main className="section">
-      <div className="shell empty-state">
-        <p className="eyebrow">404</p>
-        <strong>Page not found.</strong>
-        <p>The page may have moved or the link is incomplete.</p>
-        <a className="btn btn-dark" href="#/">Back home</a>
+    <main className="fs-cart-empty">
+      <div className="shell fs-wishlist-empty-copy" style={{ marginInline: 'auto', maxWidth: 780, textAlign: 'center', alignItems: 'center' }}>
+        <p className="eyebrow">404 / Not found</p>
+        <h2>Wrong turn.<br />Good taste.</h2>
+        <p>The page may have moved, but the collection is still exactly where it should be.</p>
+        <Link className="btn btn-dark" to="/">Back home</Link>
       </div>
     </main>
   );
