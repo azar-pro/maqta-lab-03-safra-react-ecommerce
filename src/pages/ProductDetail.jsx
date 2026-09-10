@@ -18,9 +18,12 @@ export default function ProductDetail() {
     setAdded(false);
   }, [product?.id]);
 
-  const related = useMemo(() => product
-    ? products.filter(item => item.category === product.category && item.id !== product.id).slice(0, 3)
-    : [], [product]);
+  const related = useMemo(() => {
+    if (!product) return [];
+    const sameCategory = products.filter(item => item.id !== product.id && item.category === product.category);
+    const complementary = products.filter(item => item.id !== product.id && item.category !== product.category);
+    return [...sameCategory, ...complementary].slice(0, 3);
+  }, [product]);
 
   if (!product) {
     return (
