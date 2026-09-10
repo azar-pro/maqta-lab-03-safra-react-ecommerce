@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
 
@@ -8,15 +8,47 @@ export default function Header() {
 
   const close = () => setOpen(false);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    const onResize = () => {
+      if (window.innerWidth > 820) setOpen(false);
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('resize', onResize);
+    };
+  }, [open]);
+
   return (
     <header className="site-header">
       <div className="shell header-row">
-        <button className="menu-button" type="button" aria-expanded={open} aria-controls="main-nav" onClick={() => setOpen(v => !v)}>
+        <button
+          className={`menu-button ${open ? 'open' : ''}`}
+          type="button"
+          aria-expanded={open}
+          aria-controls="main-nav"
+          aria-label={open ? 'Close navigation' : 'Open navigation'}
+          onClick={() => setOpen(v => !v)}
+        >
           <span></span><span></span>
-          <span className="sr-only">Toggle navigation</span>
         </button>
 
-        <Link className="wordmark" to="/" onClick={close} aria-label="SAFRA home">SAFRA</Link>
+        <Link className="brand-lockup" to="/" onClick={close} aria-label="SAFRA home">
+          <img className="brand-mark" src="/safra-mark.svg" alt="" aria-hidden="true" />
+          <span className="brand-copy">
+            <strong>SAFRA</strong>
+            <small>Objects for movement</small>
+          </span>
+        </Link>
 
         <nav id="main-nav" className={`main-nav ${open ? 'open' : ''}`} aria-label="Main navigation">
           <NavLink to="/" onClick={close}>Home</NavLink>
