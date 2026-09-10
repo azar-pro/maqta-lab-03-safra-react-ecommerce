@@ -5,10 +5,7 @@ import App from './App';
 import ErrorBoundary from './components/ErrorBoundary';
 import { StoreProvider } from './context/StoreContext';
 import './styles.css';
-import './polish.css';
-import './mobile-ux.css';
-import './experience.css';
-import './premium.css';
+import './flagship.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
