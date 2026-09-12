@@ -60,6 +60,55 @@ export default function ProductDetail() {
     </div>
   );
 
+  const purchaseContent = (mobile = false) => (
+    <>
+      <p className="eyebrow">{product.category} / Drop 01</p>
+      <h1>{product.name}</h1>
+      <div className="fs-buy-price-row"><strong className="fs-buy-price">{product.price} DH</strong><span>Tax included</span></div>
+      <p className="fs-product-description">{product.description}</p>
+
+      <div className="fs-option-block">
+        <div className="fs-option-head"><span>Color</span><strong>{selectedColor}</strong></div>
+        <div className="fs-pdp-swatches" role="group" aria-label="Choose color">
+          {product.colors.map(color => {
+            const preset = variantPresets[color] || { hex: '#d9c5a7' };
+            const active = selectedColor === color;
+            return (
+              <button key={color} className={active ? 'active' : ''} type="button" aria-pressed={active} onClick={() => setSelectedColor(color)}>
+                <span className="fs-pdp-swatch" style={{ background: preset.hex }} aria-hidden="true"></span>
+                <span>{color}</span>
+              </button>
+            );
+          })}
+        </div>
+        <div className="fs-variant-banner" aria-live={mobile ? 'off' : 'polite'}><i style={{ background: variant.hex }}></i><span>Previewing {selectedColor}. Product tone updates instantly.</span></div>
+      </div>
+
+      <div className="fs-option-block fs-material-row"><span>Material</span><strong>{product.material}</strong></div>
+
+      <div className="fs-option-block fs-quantity-row">
+        <div className="fs-option-head" style={{ margin: 0 }}><span>Quantity</span></div>
+        <div className="fs-quantity-control" aria-label={`Quantity for ${product.name}`}>
+          <button type="button" onClick={() => setQuantity(value => Math.max(1, value - 1))} aria-label="Decrease quantity">−</button>
+          <span aria-live={mobile ? 'off' : 'polite'}>{quantity}</span>
+          <button type="button" onClick={() => setQuantity(value => Math.min(10, value + 1))} aria-label="Increase quantity">+</button>
+        </div>
+      </div>
+
+      <div className="fs-pdp-actions">
+        <button className="btn btn-dark" type="button" onClick={handleAdd}>{added ? 'Added to bag ✓' : `Add to bag · ${product.price * quantity} DH`}</button>
+        <button className={`fs-save-button ${saved ? 'saved' : ''}`} type="button" aria-pressed={saved} aria-label={saved ? 'Remove from wishlist' : 'Save to wishlist'} onClick={() => toggleWishlist(product.id)}>{saved ? '♥' : '♡'}</button>
+      </div>
+      <p className="fs-pdp-status" aria-live={mobile ? 'off' : 'polite'}>{added ? `${quantity} ${quantity > 1 ? 'pieces' : 'piece'} added in ${selectedColor}.` : ''}</p>
+
+      <div className="fs-pdp-meta">
+        <div><span>Delivery</span><strong>Complimentary over 900 DH</strong></div>
+        <div><span>Returns</span><strong>30 days</strong></div>
+        <div><span>Availability</span><strong>Ready to ship</strong></div>
+      </div>
+    </>
+  );
+
   return (
     <main className="fs-product-page fs-product-page-v2">
       <div className="fs-product-breadcrumb">
@@ -74,6 +123,11 @@ export default function ProductDetail() {
           </div>
 
           <div className="fs-product-primary-shot">{variantStage(false)}</div>
+
+          <section className="fs-mobile-pdp-core" aria-label={`${product.name} purchase options`}>
+            {purchaseContent(true)}
+          </section>
+
           <div className="fs-product-detail-shot">{variantStage(true)}</div>
 
           <div className="fs-product-material-card" style={{ '--material-accent': variant.hex }}>
@@ -89,50 +143,7 @@ export default function ProductDetail() {
         </div>
 
         <aside className="fs-buy-panel fs-buy-panel-v2">
-          <p className="eyebrow">{product.category} / Drop 01</p>
-          <h1>{product.name}</h1>
-          <div className="fs-buy-price-row"><strong className="fs-buy-price">{product.price} DH</strong><span>Tax included</span></div>
-          <p className="fs-product-description">{product.description}</p>
-
-          <div className="fs-option-block">
-            <div className="fs-option-head"><span>Color</span><strong>{selectedColor}</strong></div>
-            <div className="fs-pdp-swatches" role="group" aria-label="Choose color">
-              {product.colors.map(color => {
-                const preset = variantPresets[color] || { hex: '#d9c5a7' };
-                const active = selectedColor === color;
-                return (
-                  <button key={color} className={active ? 'active' : ''} type="button" aria-pressed={active} onClick={() => setSelectedColor(color)}>
-                    <span className="fs-pdp-swatch" style={{ background: preset.hex }} aria-hidden="true"></span>
-                    <span>{color}</span>
-                  </button>
-                );
-              })}
-            </div>
-            <div className="fs-variant-banner" aria-live="polite"><i style={{ background: variant.hex }}></i><span>Previewing {selectedColor}. Product tone updates instantly.</span></div>
-          </div>
-
-          <div className="fs-option-block fs-material-row"><span>Material</span><strong>{product.material}</strong></div>
-
-          <div className="fs-option-block fs-quantity-row">
-            <div className="fs-option-head" style={{ margin: 0 }}><span>Quantity</span></div>
-            <div className="fs-quantity-control" aria-label={`Quantity for ${product.name}`}>
-              <button type="button" onClick={() => setQuantity(value => Math.max(1, value - 1))} aria-label="Decrease quantity">−</button>
-              <span aria-live="polite">{quantity}</span>
-              <button type="button" onClick={() => setQuantity(value => Math.min(10, value + 1))} aria-label="Increase quantity">+</button>
-            </div>
-          </div>
-
-          <div className="fs-pdp-actions">
-            <button className="btn btn-dark" type="button" onClick={handleAdd}>{added ? 'Added to bag ✓' : `Add to bag · ${product.price * quantity} DH`}</button>
-            <button className={`fs-save-button ${saved ? 'saved' : ''}`} type="button" aria-pressed={saved} aria-label={saved ? 'Remove from wishlist' : 'Save to wishlist'} onClick={() => toggleWishlist(product.id)}>{saved ? '♥' : '♡'}</button>
-          </div>
-          <p className="fs-pdp-status" aria-live="polite">{added ? `${quantity} ${quantity > 1 ? 'pieces' : 'piece'} added in ${selectedColor}.` : ''}</p>
-
-          <div className="fs-pdp-meta">
-            <div><span>Delivery</span><strong>Complimentary over 900 DH</strong></div>
-            <div><span>Returns</span><strong>30 days</strong></div>
-            <div><span>Availability</span><strong>Ready to ship</strong></div>
-          </div>
+          {purchaseContent(false)}
         </aside>
       </section>
 
