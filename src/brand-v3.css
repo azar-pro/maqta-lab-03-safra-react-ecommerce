@@ -1,0 +1,349 @@
+/* SAFRA brand v3 — unified art direction beyond the homepage.
+   This layer removes remaining generic campaign backgrounds from the
+   experience and gives About, Wishlist, Bag and Checkout the same visual
+   confidence as the flagship storefront. */
+
+/* ---------- GLOBAL BRAND RHYTHM ---------- */
+.fs-page-title,
+.fs-cart-title,
+.fs-checkout-title,
+.fs-about-display {
+  text-wrap: balance;
+}
+
+.flagship-product-card,
+.fs-cart-item,
+.fs-checkout-line,
+.fs-service-item,
+.fs-about-value {
+  transition: border-color .22s ease, background .22s ease, transform .22s ease;
+}
+
+/* ---------- HOME: REMOVE GENERIC STOCK MOMENTS ---------- */
+.fs-editorial-image {
+  background-image:
+    radial-gradient(circle at 50% 46%, rgba(255,255,255,.84), rgba(255,255,255,.08) 47%, transparent 70%),
+    url('/assets/safra/safra-mini-sand.webp') !important;
+  background-size: auto, min(68%, 760px) !important;
+  background-repeat: no-repeat !important;
+  background-position: center, center 48% !important;
+  background-color: #d9cfbf !important;
+  filter: none !important;
+}
+
+.fs-category-card {
+  min-height: clamp(520px, 43vw, 680px);
+}
+
+.fs-cat-bags::before {
+  background-image:
+    radial-gradient(circle at 50% 42%, rgba(255,255,255,.92), rgba(255,255,255,.06) 48%, transparent 68%),
+    url('/assets/safra/safra-mini-sand.webp') !important;
+  background-size: auto, 72% !important;
+  background-repeat: no-repeat !important;
+  background-position: center, center 43% !important;
+  background-color: #d9cfbf !important;
+}
+
+.fs-cat-bags::after {
+  background: linear-gradient(0deg, rgba(19,16,13,.72), rgba(19,16,13,.02) 66%) !important;
+}
+
+.fs-cat-jewelry::before {
+  background-image:
+    radial-gradient(circle at 58% 40%, transparent 0 16%, rgba(245,214,152,.92) 16.5% 20%, transparent 20.5%),
+    radial-gradient(circle at 42% 57%, transparent 0 21%, rgba(181,133,69,.70) 21.5% 25%, transparent 25.5%),
+    radial-gradient(circle at 60% 42%, rgba(255,239,200,.42), transparent 24%),
+    linear-gradient(145deg, #2d241b, #9c7342 52%, #1b1713) !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.fs-cat-eyewear::before {
+  background-image:
+    radial-gradient(ellipse at 34% 48%, transparent 0 15%, rgba(255,255,255,.88) 15.5% 18%, transparent 18.5%),
+    radial-gradient(ellipse at 66% 48%, transparent 0 15%, rgba(255,255,255,.88) 15.5% 18%, transparent 18.5%),
+    linear-gradient(10deg, transparent 49%, rgba(255,255,255,.8) 49.4% 50.4%, transparent 50.8%),
+    radial-gradient(circle at 50% 50%, #4057ff 0, #2437bb 28%, #101113 68%) !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+/* ---------- ABOUT: REAL BRAND STORY, NOT PORTFOLIO COPY ---------- */
+.fs-about-hero::before {
+  background-image: url('/assets/safra/campaign-hero.webp') !important;
+  background-position: 61% 28% !important;
+  filter: saturate(.76) contrast(1.04) brightness(.92);
+  transform: scale(1.015);
+}
+
+.fs-about-hero::after {
+  background:
+    linear-gradient(90deg, rgba(8,7,6,.84), rgba(8,7,6,.47) 43%, rgba(8,7,6,.08) 76%),
+    linear-gradient(0deg, rgba(8,7,6,.70), transparent 50%) !important;
+}
+
+.fs-about-story {
+  position: relative;
+  overflow: hidden;
+}
+
+.fs-about-story::after {
+  content: 'FÈS';
+  position: absolute;
+  right: -1vw;
+  bottom: -3vw;
+  z-index: -1;
+  font-family: var(--fs-display);
+  font-size: clamp(150px, 25vw, 390px);
+  line-height: .7;
+  letter-spacing: -.08em;
+  color: rgba(13,13,13,.035);
+  pointer-events: none;
+}
+
+.fs-about-manifesto {
+  position: relative;
+  overflow: hidden;
+}
+
+.fs-about-manifesto::after {
+  content: '01';
+  position: absolute;
+  right: 2vw;
+  top: -4vw;
+  font-family: var(--fs-display);
+  font-size: clamp(180px, 24vw, 360px);
+  line-height: 1;
+  color: rgba(255,255,255,.025);
+  pointer-events: none;
+}
+
+.fs-about-origin {
+  padding: clamp(110px, 10vw, 170px) 0 0;
+}
+
+.fs-about-origin-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr);
+  min-height: 720px;
+  background: #ded3c2;
+}
+
+.fs-about-origin-image {
+  min-height: 720px;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255,255,255,.95), rgba(255,255,255,.10) 47%, transparent 69%),
+    url('/assets/safra/safra-mini-sand.webp') center 46% / min(74%, 760px) no-repeat,
+    #d8cebd;
+}
+
+.fs-about-origin-copy {
+  padding: clamp(54px, 7vw, 104px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background: #f7f3eb;
+}
+
+.fs-about-origin-copy h2 {
+  margin: 0;
+  font-family: var(--fs-display);
+  font-size: clamp(60px, 6.4vw, 100px);
+  font-weight: 500;
+  line-height: .79;
+  letter-spacing: -.055em;
+}
+
+.fs-about-origin-copy h2 em {
+  color: var(--fs-cobalt);
+  font-weight: 500;
+}
+
+.fs-about-origin-copy > p:not(.eyebrow) {
+  max-width: 500px;
+  margin: 30px 0;
+  color: var(--fs-muted);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+/* ---------- WISHLIST / EMPTY BAG ---------- */
+.fs-wishlist-empty {
+  overflow: hidden;
+  border: 1px solid rgba(13,13,13,.10);
+}
+
+.fs-wishlist-empty-media {
+  position: relative;
+  background:
+    radial-gradient(circle at 50% 43%, rgba(255,255,255,.94), rgba(255,255,255,.10) 48%, transparent 70%),
+    url('/assets/safra/safra-mini-sand.webp') center 44% / min(76%, 720px) no-repeat,
+    #d9cfbf !important;
+}
+
+.fs-wishlist-empty-media::after {
+  content: 'SAVE / RETURN / RECONSIDER';
+  position: absolute;
+  left: 22px;
+  bottom: 20px;
+  color: rgba(13,13,13,.44);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .16em;
+}
+
+.fs-wishlist-empty-copy {
+  background: #f8f5ef;
+}
+
+/* ---------- BAG: OBJECTS, NOT THUMBNAILS ---------- */
+.fs-cart-image.is-studio-shot {
+  background: #ddd2c0 !important;
+}
+
+.fs-cart-image.is-studio-shot img {
+  object-fit: contain !important;
+  padding: clamp(14px, 2vw, 28px);
+}
+
+.fs-cart-item:hover {
+  border-color: rgba(13,13,13,.34);
+}
+
+.fs-cart-summary {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(36,66,255,.30), transparent 34%),
+    var(--fs-ink) !important;
+}
+
+.fs-cart-summary h2 {
+  max-width: 380px;
+}
+
+/* ---------- CHECKOUT: DARK EDITORIAL ORDER PANEL ---------- */
+.fs-checkout-summary {
+  background:
+    radial-gradient(circle at 88% 4%, rgba(36,66,255,.22), transparent 31%),
+    #11100f !important;
+}
+
+.fs-checkout-line.is-studio-shot img {
+  object-fit: contain !important;
+  padding: 8px;
+  background: #d8cebd;
+}
+
+.fs-payment-demo {
+  position: relative;
+  overflow: hidden;
+}
+
+.fs-payment-demo::after {
+  content: 'SAFRA';
+  position: absolute;
+  right: -12px;
+  bottom: -22px;
+  font-family: var(--fs-display);
+  font-size: 74px;
+  letter-spacing: -.08em;
+  color: rgba(13,13,13,.035);
+  pointer-events: none;
+}
+
+.fs-place-order {
+  min-height: 58px;
+}
+
+/* ---------- FOOTER ---------- */
+.fs-service-strip {
+  background: #efe8dc !important;
+}
+
+.fs-service-item strong {
+  max-width: 260px;
+  line-height: .95;
+}
+
+.fs-footer-wordmark {
+  color: #f7f2e8;
+}
+
+.fs-footer-brandline p {
+  max-width: 410px;
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 980px) {
+  .fs-about-origin-grid {
+    grid-template-columns: 1fr;
+  }
+  .fs-about-origin-image {
+    min-height: 560px;
+  }
+  .fs-about-origin-copy {
+    min-height: 520px;
+  }
+}
+
+@media (max-width: 760px) {
+  .fs-editorial-image {
+    min-height: 470px !important;
+    background-size: auto, 78% !important;
+  }
+
+  .fs-category-card {
+    min-height: 500px;
+  }
+
+  .fs-cat-bags::before {
+    background-size: auto, 86% !important;
+  }
+
+  .fs-about-hero::before {
+    background-position: 61% 23% !important;
+  }
+
+  .fs-about-origin {
+    padding-top: 82px;
+  }
+
+  .fs-about-origin-grid {
+    width: 100%;
+  }
+
+  .fs-about-origin-image {
+    min-height: 460px;
+    background-size: auto, 84%, auto;
+  }
+
+  .fs-about-origin-copy {
+    min-height: auto;
+    padding: 56px 22px 64px;
+  }
+
+  .fs-about-origin-copy h2 {
+    font-size: clamp(56px, 16vw, 82px);
+  }
+
+  .fs-wishlist-empty-media {
+    min-height: 470px;
+    background-size: auto, 84%, auto;
+  }
+
+  .fs-cart-image.is-studio-shot img {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 520px) {
+  .fs-category-card {
+    min-height: 450px;
+  }
+
+  .fs-about-origin-image,
+  .fs-wishlist-empty-media {
+    min-height: 410px;
+  }
+}
