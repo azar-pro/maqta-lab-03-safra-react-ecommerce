@@ -44,7 +44,7 @@ export default function ProductDetail() {
 
   const variantStage = (detail = false) => (
     <div
-      className={`fs-product-shot ${detail ? 'detail' : ''}`}
+      className={`fs-product-shot ${detail ? 'detail' : ''} ${product.studioShot ? 'is-studio-shot' : ''}`}
       style={{ '--variant-hex': variant.hex, '--variant-opacity': variant.overlayOpacity ?? 0 }}
     >
       <img src={product.image} alt={detail ? '' : `${product.alt} in ${selectedColor}`} aria-hidden={detail || undefined} style={{ filter: variant.imageFilter }} />
