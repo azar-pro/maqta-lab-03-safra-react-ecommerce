@@ -35,7 +35,7 @@ export default function ProductCard({ product }) {
           </div>
         </Link>
 
-        <span className="flagship-product-index">{product.category}</span>
+        <span className="flagship-product-index">SAFRA / {product.category}</span>
         {product.badge && <span className="flagship-product-badge">{product.badge}</span>}
 
         <button
