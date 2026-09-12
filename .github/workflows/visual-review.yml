@@ -1,0 +1,108 @@
+name: Visual review
+
+on:
+  push:
+    paths:
+      - '.github/workflows/visual-review.yml'
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install app dependencies
+        run: npm install
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Start preview server
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/safra-preview.log 2>&1 &
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173/maqta-lab-03-safra-react-ecommerce/ >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/safra-preview.log
+          exit 1
+
+      - name: Capture desktop and mobile review screens
+        run: |
+          mkdir -p screenshots
+          cat > /tmp/capture.mjs <<'EOF'
+          import { chromium } from 'playwright';
+
+          const browser = await chromium.launch({ headless: true });
+          const base = 'http://127.0.0.1:4173/maqta-lab-03-safra-react-ecommerce/';
+          const cart = [
+            { key: 'tala-mini-bag-Sand', productId: 'tala-mini-bag', color: 'Sand', quantity: 1 },
+            { key: 'noor-hoops-Gold', productId: 'noor-hoops', color: 'Gold', quantity: 1 },
+            { key: 'azur-sunglasses-Cobalt', productId: 'azur-sunglasses', color: 'Cobalt', quantity: 1 },
+          ];
+
+          async function shot(name, hash, viewport, options = {}) {
+            const context = await browser.newContext({ viewport, deviceScaleFactor: 1 });
+            const page = await context.newPage();
+            if (options.cart) {
+              await page.addInitScript(value => localStorage.setItem('safra-cart', JSON.stringify(value)), cart);
+            }
+            if (options.wishlist) {
+              await page.addInitScript(() => localStorage.setItem('safra-wishlist', JSON.stringify(['tala-mini-bag','noor-hoops','azur-sunglasses'])));
+            }
+            await page.goto(`${base}${hash}`, { waitUntil: 'networkidle' });
+            await page.evaluate(() => document.fonts?.ready);
+            if (options.clickText) {
+              await page.getByText(options.clickText, { exact: true }).first().click();
+              await page.waitForTimeout(350);
+            }
+            if (options.menu) {
+              await page.getByRole('button', { name: 'Open navigation' }).click();
+              await page.waitForTimeout(250);
+            }
+            await page.screenshot({ path: `screenshots/${name}.png`, fullPage: true });
+            await context.close();
+          }
+
+          const desktop = { width: 1440, height: 1000 };
+          const mobile = { width: 390, height: 844 };
+
+          await shot('01-home-desktop', '#/', desktop);
+          await shot('02-shop-desktop', '#/shop', desktop);
+          await shot('03-product-desktop', '#/product/tala-mini-bag', desktop);
+          await shot('04-product-black-desktop', '#/product/tala-mini-bag', desktop, { clickText: 'Black' });
+          await shot('05-about-desktop', '#/about', desktop);
+          await shot('06-wishlist-desktop', '#/wishlist', desktop, { wishlist: true });
+          await shot('07-bag-desktop', '#/cart', desktop, { cart: true });
+          await shot('08-checkout-desktop', '#/checkout', desktop, { cart: true });
+          await shot('09-home-mobile', '#/', mobile);
+          await shot('10-menu-mobile', '#/', mobile, { menu: true });
+          await shot('11-shop-mobile', '#/shop', mobile);
+          await shot('12-product-mobile', '#/product/tala-mini-bag', mobile);
+          await shot('13-bag-mobile', '#/cart', mobile, { cart: true });
+          await shot('14-checkout-mobile', '#/checkout', mobile, { cart: true });
+
+          await browser.close();
+          EOF
+          node /tmp/capture.mjs
+
+      - name: Upload visual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: safra-visual-review
+          path: screenshots
+          if-no-files-found: error
+          retention-days: 3
