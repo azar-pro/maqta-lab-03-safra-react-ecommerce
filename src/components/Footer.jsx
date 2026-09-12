@@ -1,6 +1,20 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Footer() {
+  const { pathname } = useLocation();
+
+  if (pathname === '/checkout') {
+    return (
+      <footer className="fs-checkout-footer-minimal">
+        <div className="shell">
+          <span>SAFRA · Fès, Morocco</span>
+          <span>Demo storefront · No real payment is collected</span>
+          <span>Created by <a href="https://maqtastudio.com" target="_blank" rel="noreferrer">MAQTA STUDIO</a></span>
+        </div>
+      </footer>
+    );
+  }
+
   return (
     <footer className="flagship-footer">
       <section className="fs-service-strip" aria-label="SAFRA service promises">
