@@ -10,6 +10,7 @@ import './visual-qa.css';
 import './campaign.css';
 import './commerce-v2.css';
 import './brand-v3.css';
+import './brand-v4.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
