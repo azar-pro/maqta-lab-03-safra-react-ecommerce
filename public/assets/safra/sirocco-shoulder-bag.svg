@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" role="img" aria-label="SAFRA Sirocco Shoulder Bag studio artwork">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eee8df"/><stop offset="1" stop-color="#d2c5b8"/></linearGradient>
+  <linearGradient id="bag" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#050505"/><stop offset=".5" stop-color="#27221f"/><stop offset="1" stop-color="#0a0a0a"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6c5a47"/><stop offset=".45" stop-color="#d2b17c"/><stop offset="1" stop-color="#705536"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="38" stdDeviation="32" flood-color="#000" flood-opacity=".28"/></filter>
+</defs>
+<rect width="1200" height="1500" fill="url(#bg)"/>
+<circle cx="195" cy="300" r="180" fill="#f8f4ed" opacity=".55"/>
+<g filter="url(#shadow)">
+  <path d="M260 735 C300 570 424 495 610 500 C785 505 907 583 944 735 L902 1008 C887 1110 799 1172 655 1180 L470 1180 C328 1170 245 1100 232 1008 Z" fill="url(#bag)"/>
+  <path d="M332 665 C346 435 480 328 605 328 C741 328 866 441 876 665" fill="none" stroke="#191715" stroke-width="54" stroke-linecap="round"/>
+  <path d="M343 665 C360 464 485 370 605 370 C728 370 850 468 864 665" fill="none" stroke="#50483f" stroke-opacity=".55" stroke-width="8"/>
+  <rect x="553" y="660" width="104" height="56" rx="18" fill="url(#metal)"/>
+  <path d="M272 765 C448 815 736 817 919 764" fill="none" stroke="#4e4640" stroke-opacity=".5" stroke-width="5"/>
+  <path d="M300 1088 C450 1122 748 1127 872 1087" fill="none" stroke="#fff" stroke-opacity=".06" stroke-width="9"/>
+</g>
+</svg>
