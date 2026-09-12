@@ -53,22 +53,34 @@ export default function ProductDetail() {
   );
 
   return (
-    <main className="fs-product-page">
+    <main className="fs-product-page fs-product-page-v2">
       <div className="fs-product-breadcrumb">
         <div className="shell"><Link to="/">Home</Link><span>/</span><Link to="/shop">Shop</Link><span>/</span><span>{product.name}</span></div>
       </div>
 
-      <section className="fs-product-layout">
-        <div className="fs-product-gallery" aria-label={`${product.name} gallery in ${selectedColor}`}>
-          {variantStage(false)}
-          {variantStage(true)}
+      <section className="fs-product-layout fs-product-layout-v2">
+        <div className="fs-product-gallery fs-product-gallery-v2" aria-label={`${product.name} gallery in ${selectedColor}`}>
+          <div className="fs-product-gallery-heading">
+            <span>OBJECT {String(products.findIndex(item => item.id === product.id) + 1).padStart(2, '0')} / DROP 01</span>
+            <strong>{selectedColor} study</strong>
+          </div>
+
+          <div className="fs-product-primary-shot">{variantStage(false)}</div>
+          <div className="fs-product-detail-shot">{variantStage(true)}</div>
+
+          <div className="fs-product-material-card" style={{ '--material-accent': variant.hex }}>
+            <span>MATERIAL / FORM</span>
+            <strong>{product.material}</strong>
+            <p>Chosen for tactility, daily use and a clean finish that keeps the silhouette precise.</p>
+          </div>
+
           <div className="fs-product-gallery-note">
             <span>OBJECT STUDY / {selectedColor.toUpperCase()}</span>
-            <strong>{product.material}. Clean construction. Designed for daily movement.</strong>
+            <strong>Designed to be noticed quietly, then used every day.</strong>
           </div>
         </div>
 
-        <aside className="fs-buy-panel">
+        <aside className="fs-buy-panel fs-buy-panel-v2">
           <p className="eyebrow">{product.category} / Drop 01</p>
           <h1>{product.name}</h1>
           <div className="fs-buy-price-row"><strong className="fs-buy-price">{product.price} DH</strong><span>Tax included</span></div>
@@ -88,7 +100,7 @@ export default function ProductDetail() {
                 );
               })}
             </div>
-            <div className="fs-variant-banner" aria-live="polite"><i style={{ background: variant.hex }}></i><span>Previewing {selectedColor}. The image treatment changes instantly with your selection.</span></div>
+            <div className="fs-variant-banner" aria-live="polite"><i style={{ background: variant.hex }}></i><span>Previewing {selectedColor}. Product tone updates instantly.</span></div>
           </div>
 
           <div className="fs-option-block fs-material-row"><span>Material</span><strong>{product.material}</strong></div>
@@ -114,6 +126,14 @@ export default function ProductDetail() {
             <div><span>Availability</span><strong>Ready to ship</strong></div>
           </div>
         </aside>
+      </section>
+
+      <section className="fs-product-campaign-band">
+        <div className="shell">
+          <span>SAFRA / FÈS / 2026</span>
+          <p>Modern accessories for a lighter tomorrow.</p>
+          <Link to="/shop">Continue shopping ↗</Link>
+        </div>
       </section>
 
       {related.length > 0 && (
