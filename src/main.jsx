@@ -7,6 +7,7 @@ import { StoreProvider } from './context/StoreContext';
 import './styles.css';
 import './flagship.css';
 import './visual-qa.css';
+import './campaign.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
