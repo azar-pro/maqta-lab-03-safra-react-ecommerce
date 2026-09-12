@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" role="img" aria-label="SAFRA Dune Sunglasses studio artwork">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e8dfd3"/><stop offset="1" stop-color="#cfc1b2"/></linearGradient>
+  <linearGradient id="frame" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0c0c0c"/><stop offset=".48" stop-color="#35302c"/><stop offset="1" stop-color="#090909"/></linearGradient>
+  <linearGradient id="lens" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3d3b37" stop-opacity=".94"/><stop offset=".55" stop-color="#101010" stop-opacity=".88"/><stop offset="1" stop-color="#5f554d" stop-opacity=".75"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="34" stdDeviation="28" flood-color="#000" flood-opacity=".24"/></filter>
+</defs>
+<rect width="1200" height="1500" fill="url(#bg)"/>
+<rect x="116" y="180" width="968" height="1080" rx="26" fill="#f4efe8" opacity=".38"/>
+<g filter="url(#shadow)" transform="translate(0 40)">
+  <path d="M210 650 C236 548 337 505 487 520 C550 527 584 567 600 615 C616 567 650 527 713 520 C863 505 964 548 990 650 C1005 713 981 813 928 848 C866 889 746 884 684 837 C646 808 625 754 616 694 L584 694 C575 754 554 808 516 837 C454 884 334 889 272 848 C219 813 195 713 210 650 Z" fill="url(#frame)"/>
+  <path d="M266 640 C297 575 381 553 479 566 C535 573 558 607 561 659 C560 723 542 774 501 800 C456 829 365 833 318 807 C270 780 245 704 266 640 Z" fill="url(#lens)"/>
+  <path d="M639 659 C642 607 665 573 721 566 C819 553 903 575 934 640 C955 704 930 780 882 807 C835 833 744 829 699 800 C658 774 640 723 639 659 Z" fill="url(#lens)"/>
+  <rect x="558" y="628" width="84" height="26" rx="13" fill="#171717"/>
+  <path d="M209 650 L118 603" stroke="#171717" stroke-width="28" stroke-linecap="round"/><path d="M991 650 L1082 603" stroke="#171717" stroke-width="28" stroke-linecap="round"/>
+  <path d="M300 600 C360 562 441 564 486 577" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="11" stroke-linecap="round"/>
+</g>
+</svg>
