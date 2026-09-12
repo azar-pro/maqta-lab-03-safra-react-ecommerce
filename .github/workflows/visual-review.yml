@@ -25,19 +25,19 @@ jobs:
           npm install --no-save playwright
           npx playwright install --with-deps chromium
 
-      - name: Build production bundle
+      - name: Verify production build
         run: npm run build
 
-      - name: Start preview server
+      - name: Start Vite review server
         run: |
-          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/safra-preview.log 2>&1 &
+          npm run dev -- --host 127.0.0.1 --port 4173 > /tmp/safra-review.log 2>&1 &
           for i in {1..30}; do
-            if curl -fsS http://127.0.0.1:4173/maqta-lab-03-safra-react-ecommerce/ >/dev/null; then
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then
               exit 0
             fi
             sleep 1
           done
-          cat /tmp/safra-preview.log
+          cat /tmp/safra-review.log
           exit 1
 
       - name: Capture desktop and mobile review screens
@@ -47,7 +47,7 @@ jobs:
           import { chromium } from 'playwright';
 
           const browser = await chromium.launch({ headless: true });
-          const base = 'http://127.0.0.1:4173/maqta-lab-03-safra-react-ecommerce/';
+          const base = 'http://127.0.0.1:4173/';
           const cart = [
             { key: 'tala-mini-bag-Sand', productId: 'tala-mini-bag', color: 'Sand', quantity: 1 },
             { key: 'noor-hoops-Gold', productId: 'noor-hoops', color: 'Gold', quantity: 1 },
@@ -57,6 +57,7 @@ jobs:
           async function shot(name, hash, viewport, options = {}) {
             const context = await browser.newContext({ viewport, deviceScaleFactor: 1 });
             const page = await context.newPage();
+            page.on('pageerror', error => console.log('PAGEERROR', name, error.message));
             if (options.cart) {
               await page.addInitScript(value => localStorage.setItem('safra-cart', JSON.stringify(value)), cart);
             }
