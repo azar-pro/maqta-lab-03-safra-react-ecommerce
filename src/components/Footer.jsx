@@ -3,14 +3,39 @@ import { Link } from 'react-router-dom';
 export default function Footer() {
   return (
     <footer className="flagship-footer">
+      <section className="fs-service-strip" aria-label="SAFRA service promises">
+        <div className="shell fs-service-grid">
+          <div className="fs-service-item">
+            <span>01 / Delivery</span>
+            <strong>Free shipping</strong>
+            <small>On orders over 900 DH</small>
+          </div>
+          <div className="fs-service-item">
+            <span>02 / Returns</span>
+            <strong>Easy returns</strong>
+            <small>Within 14 days</small>
+          </div>
+          <div className="fs-service-item">
+            <span>03 / Payment</span>
+            <strong>Secure checkout</strong>
+            <small>Protected demo flow</small>
+          </div>
+          <div className="fs-service-item">
+            <span>04 / Packaging</span>
+            <strong>Considered packing</strong>
+            <small>A lighter footprint</small>
+          </div>
+        </div>
+      </section>
+
       <div className="shell fs-footer-newsletter">
         <div>
-          <p className="eyebrow">Private notes / new drops</p>
-          <h2>Join the SAFRA list.</h2>
+          <p className="eyebrow">The SAFRA Journal</p>
+          <h2>Early access, new drops and quiet inspiration.</h2>
         </div>
         <form className="fs-footer-form" onSubmit={(event) => event.preventDefault()}>
           <label className="sr-only" htmlFor="newsletter-email">Email address</label>
-          <input id="newsletter-email" type="email" placeholder="Email address" autoComplete="email" />
+          <input id="newsletter-email" type="email" placeholder="Your email address" autoComplete="email" />
           <button type="submit">Join →</button>
         </form>
       </div>
