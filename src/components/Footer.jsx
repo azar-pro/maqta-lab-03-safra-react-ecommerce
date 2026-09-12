@@ -7,23 +7,23 @@ export default function Footer() {
         <div className="shell fs-service-grid">
           <div className="fs-service-item">
             <span>01 / Delivery</span>
-            <strong>Free shipping</strong>
+            <strong>Complimentary shipping</strong>
             <small>On orders over 900 DH</small>
           </div>
           <div className="fs-service-item">
             <span>02 / Returns</span>
-            <strong>Easy returns</strong>
-            <small>Within 14 days</small>
+            <strong>30-day returns</strong>
+            <small>Time to decide at home</small>
           </div>
           <div className="fs-service-item">
-            <span>03 / Payment</span>
-            <strong>Secure checkout</strong>
-            <small>Protected demo flow</small>
+            <span>03 / Checkout</span>
+            <strong>Protected demo flow</strong>
+            <small>No real charge is collected</small>
           </div>
           <div className="fs-service-item">
-            <span>04 / Packaging</span>
-            <strong>Considered packing</strong>
-            <small>A lighter footprint</small>
+            <span>04 / Presentation</span>
+            <strong>Considered packaging</strong>
+            <small>Paper-first, quietly detailed</small>
           </div>
         </div>
       </section>
@@ -31,7 +31,7 @@ export default function Footer() {
       <div className="shell fs-footer-newsletter">
         <div>
           <p className="eyebrow">The SAFRA Journal</p>
-          <h2>Early access, new drops and quiet inspiration.</h2>
+          <h2>New objects, private notes and the next drop.</h2>
         </div>
         <form className="fs-footer-form" onSubmit={(event) => event.preventDefault()}>
           <label className="sr-only" htmlFor="newsletter-email">Email address</label>
@@ -45,8 +45,8 @@ export default function Footer() {
 
         <div className="fs-footer-grid">
           <div className="fs-footer-brandline">
-            <strong>About</strong>
-            <p>Contemporary accessories shaped around movement, utility and a precise graphic point of view. A fictional retail concept from Fès, Morocco.</p>
+            <strong>SAFRA</strong>
+            <p>Contemporary accessories shaped around movement, tactile material and a precise use of color. A retail concept with roots in Fès.</p>
           </div>
           <div>
             <strong>Shop</strong>
@@ -58,19 +58,19 @@ export default function Footer() {
           <div>
             <strong>Explore</strong>
             <Link to="/wishlist">Wishlist</Link>
-            <Link to="/about">About SAFRA</Link>
+            <Link to="/about">Our point of view</Link>
             <Link to="/cart">Your bag</Link>
           </div>
           <div>
-            <strong>Studio</strong>
+            <strong>Edition</strong>
             <span>Fès · Morocco</span>
-            <a href="mailto:hello@safra.example">hello@safra.example</a>
-            <span>Mon–Sat / 10–18</span>
+            <span>Drop 01 / 2026</span>
+            <span>Online concept store</span>
           </div>
         </div>
 
         <div className="fs-footer-bottom">
-          <span>© {new Date().getFullYear()} SAFRA · Fictional portfolio concept</span>
+          <span>© {new Date().getFullYear()} SAFRA · Portfolio commerce concept</span>
           <span>Created by <a href="https://maqtastudio.com" target="_blank" rel="noreferrer">MAQTA STUDIO</a></span>
         </div>
       </div>
