@@ -47,7 +47,15 @@ export default function ProductDetail() {
       className={`fs-product-shot ${detail ? 'detail' : ''} ${product.studioShot ? 'is-studio-shot' : ''}`}
       style={{ '--variant-hex': variant.hex, '--variant-opacity': variant.overlayOpacity ?? 0 }}
     >
-      <img src={product.image} alt={detail ? '' : `${product.alt} in ${selectedColor}`} aria-hidden={detail || undefined} style={{ filter: variant.imageFilter }} />
+      <img
+        src={product.image}
+        alt={detail ? '' : `${product.alt} in ${selectedColor}`}
+        aria-hidden={detail || undefined}
+        loading={detail ? 'lazy' : 'eager'}
+        decoding="async"
+        fetchPriority={detail ? 'auto' : 'high'}
+        style={{ filter: variant.imageFilter }}
+      />
       <span className="variant-wash" aria-hidden="true" style={{ background: variant.hex, opacity: variant.overlayOpacity ?? 0 }}></span>
     </div>
   );
@@ -147,6 +155,14 @@ export default function ProductDetail() {
           </div>
         </section>
       )}
+
+      <div className="fs-mobile-buybar" aria-label="Mobile purchase controls">
+        <div>
+          <span>{product.name} · {selectedColor}</span>
+          <strong>{product.price * quantity} DH</strong>
+        </div>
+        <button type="button" onClick={handleAdd}>{added ? 'Added ✓' : 'Add to bag'}</button>
+      </div>
     </main>
   );
 }
