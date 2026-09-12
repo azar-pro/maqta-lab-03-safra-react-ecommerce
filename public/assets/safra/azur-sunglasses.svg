@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" role="img" aria-label="SAFRA Azur Sunglasses studio artwork">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ece4d9"/><stop offset="1" stop-color="#cfbead"/></linearGradient>
+  <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d24d5"/><stop offset=".5" stop-color="#2442ff"/><stop offset="1" stop-color="#08147f"/></linearGradient>
+  <linearGradient id="lens" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3853ff" stop-opacity=".74"/><stop offset=".55" stop-color="#182676" stop-opacity=".83"/><stop offset="1" stop-color="#727cc0" stop-opacity=".58"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="34" stdDeviation="28" flood-color="#172474" flood-opacity=".26"/></filter>
+</defs>
+<rect width="1200" height="1500" fill="url(#bg)"/>
+<path d="M0 1120 L1200 840 V1500 H0 Z" fill="#c4b3a1" opacity=".48"/>
+<g filter="url(#shadow)" transform="translate(0 55)">
+  <path d="M185 650 L488 560 C548 542 578 573 598 626 C618 573 648 542 708 560 L1015 650 L941 842 C919 900 857 928 768 906 L688 886 C643 875 618 838 603 773 L593 773 C578 838 553 875 508 886 L428 906 C339 928 277 900 255 842 Z" fill="url(#blue)"/>
+  <path d="M247 676 L474 610 C522 596 548 622 560 671 C565 720 553 786 518 820 C483 855 397 870 342 843 C295 820 259 746 247 676 Z" fill="url(#lens)"/>
+  <path d="M649 671 C661 622 687 596 735 610 L962 676 C950 746 914 820 867 843 C812 870 726 855 691 820 C656 786 644 720 649 671 Z" fill="url(#lens)"/>
+  <rect x="560" y="650" width="80" height="22" rx="11" fill="#162ce8"/>
+  <path d="M192 650 L105 612" stroke="#1e37f4" stroke-width="22" stroke-linecap="round"/><path d="M1008 650 L1095 612" stroke="#1e37f4" stroke-width="22" stroke-linecap="round"/>
+  <path d="M280 658 C340 625 422 608 468 616" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="9" stroke-linecap="round"/>
+</g>
+</svg>
