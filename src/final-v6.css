@@ -51,7 +51,8 @@
 .fs-mobile-pdp-core { display: none; }
 
 .fs-product-primary-shot .fs-product-shot.is-photo {
-  min-height: clamp(560px, 58vw, 820px);
+  min-height: 0;
+  aspect-ratio: 4 / 5;
 }
 .fs-product-primary-shot .fs-product-shot.is-photo img {
   width: 100%;
@@ -93,7 +94,7 @@
 /* ---------- MOBILE / TABLET ---------- */
 @media (max-width: 900px) {
   /* The menu must read as an intentional full-screen fashion navigation,
-     not a half-width drawer over the campaign image. */
+     not a translucent drawer over the campaign image. */
   .flagship-navlinks {
     inset: 0 !important;
     width: 100vw !important;
@@ -101,9 +102,9 @@
     min-height: 100dvh !important;
     height: 100dvh !important;
     padding: 112px 24px 34px !important;
-    background: rgba(247,244,238,.985) !important;
-    backdrop-filter: blur(22px) !important;
-    -webkit-backdrop-filter: blur(22px) !important;
+    background: #f7f4ee !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
   .flagship-menu-button,
   .flagship-brand,
@@ -156,6 +157,12 @@
 
   .fs-product-primary-shot .fs-product-shot,
   .fs-product-primary-shot .fs-product-shot.is-photo {
+    min-height: 0 !important;
+  }
+  .fs-product-primary-shot .fs-product-shot.is-photo {
+    aspect-ratio: 4 / 5;
+  }
+  .fs-product-primary-shot .fs-product-shot.is-artwork {
     min-height: min(106vw, 520px) !important;
   }
   .fs-product-detail-shot .fs-product-shot {
