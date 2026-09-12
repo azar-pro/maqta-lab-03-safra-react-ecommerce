@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://azar-pro.github.io/maqta-lab-03-safra-react-ecommerce/sitemap.xml
