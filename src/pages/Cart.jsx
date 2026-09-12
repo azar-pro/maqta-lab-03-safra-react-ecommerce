@@ -18,8 +18,8 @@ export default function Cart() {
           <div className="fs-wishlist-empty-copy">
             <p className="eyebrow">Your bag is empty</p>
             <h2>Start with one good object.</h2>
-            <p>Build your edit from the latest SAFRA collection. Your bag will stay saved on this device while you browse.</p>
-            <Link className="btn btn-dark" to="/shop">Shop the collection</Link>
+            <p>Build a compact edit from Drop 01. Your bag stays saved on this device while you continue browsing.</p>
+            <Link className="btn btn-dark" to="/shop">Explore Drop 01</Link>
           </div>
         </div>
       </main>
@@ -34,7 +34,7 @@ export default function Cart() {
             <p className="eyebrow">Your selection</p>
             <h1 className="fs-cart-title">Bag</h1>
           </div>
-          <p>{detailedCart.length} {detailedCart.length === 1 ? 'style' : 'styles'} selected. Review color, quantity and delivery before continuing.</p>
+          <p>{detailedCart.length} {detailedCart.length === 1 ? 'style' : 'styles'} selected. A final edit of color, quantity and delivery before checkout.</p>
         </div>
       </section>
 
@@ -53,7 +53,11 @@ export default function Cart() {
               const variant = variantPresets[item.color] || { hex: '#d9c5a7', imageFilter: 'none', overlayOpacity: 0 };
               return (
                 <article className="fs-cart-item" key={item.key}>
-                  <Link to={`/product/${item.product.id}`} className="fs-cart-image" style={{ background: variant.hex }}>
+                  <Link
+                    to={`/product/${item.product.id}`}
+                    className={`fs-cart-image ${item.product.studioShot ? 'is-studio-shot' : ''}`}
+                    style={{ background: variant.hex }}
+                  >
                     <img src={item.product.image} alt={item.product.alt} style={{ filter: variant.imageFilter }} />
                     <span className="variant-wash" aria-hidden="true" style={{ background: variant.hex, opacity: variant.overlayOpacity ?? 0 }}></span>
                   </Link>
@@ -92,7 +96,7 @@ export default function Cart() {
           <div className="fs-summary-line"><span>Delivery</span><strong>{shipping === 0 ? 'Complimentary' : `${shipping} DH`}</strong></div>
           <div className="fs-summary-total"><span>Total</span><strong>{total} DH</strong></div>
           <Link className="btn" to="/checkout">Continue to checkout</Link>
-          <p className="fs-summary-note">Portfolio checkout demonstration. No real payment is collected.</p>
+          <p className="fs-summary-note">Demo checkout only. No payment or personal information is transmitted.</p>
         </aside>
       </section>
     </main>
