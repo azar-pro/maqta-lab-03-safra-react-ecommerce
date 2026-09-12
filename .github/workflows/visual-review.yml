@@ -3,6 +3,10 @@ name: Visual review
 on:
   push:
     paths:
+      - 'src/**'
+      - 'public/**'
+      - 'index.html'
+      - 'vite.config.js'
       - '.github/workflows/visual-review.yml'
 
 jobs:
