@@ -9,6 +9,57 @@ import Cart from './pages/Cart';
 import Wishlist from './pages/Wishlist';
 import Checkout from './pages/Checkout';
 import About from './pages/About';
+import { products } from './data/products';
+
+const defaultMeta = {
+  title: 'SAFRA — Contemporary Accessories from Fès',
+  description: 'SAFRA is a contemporary accessories concept from Fès, Morocco: bags, jewelry, eyewear and small leather goods shaped around movement, material and color.',
+};
+
+function resolveMeta(pathname) {
+  if (pathname === '/shop') return {
+    title: 'The Edit — SAFRA',
+    description: 'Explore SAFRA Drop 01: a tightly edited collection of contemporary bags, jewelry, eyewear and small leather goods.',
+  };
+  if (pathname === '/about') return {
+    title: 'About SAFRA — Form, Material, Movement',
+    description: 'Discover SAFRA’s point of view: contemporary accessories informed by Fès, tactile materials, controlled color and everyday movement.',
+  };
+  if (pathname === '/wishlist') return { title: 'Saved Pieces — SAFRA', description: 'Revisit the SAFRA pieces saved to your private local edit.' };
+  if (pathname === '/cart') return { title: 'Your Bag — SAFRA', description: 'Review selected SAFRA pieces, colors, quantities and delivery before checkout.' };
+  if (pathname === '/checkout') return { title: 'Checkout — SAFRA', description: 'SAFRA portfolio checkout experience with accessible form validation and local commerce state.' };
+  if (pathname.startsWith('/product/')) {
+    const id = decodeURIComponent(pathname.split('/product/')[1] || '');
+    const product = products.find(item => item.id === id);
+    if (product) return {
+      title: `${product.name} — SAFRA`,
+      description: `${product.description} ${product.material}. Available in ${product.colors.join(', ')}.`,
+    };
+  }
+  return defaultMeta;
+}
+
+function SiteMeta() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const meta = resolveMeta(pathname);
+    document.title = meta.title;
+
+    const setMeta = (selector, attribute, value) => {
+      const element = document.querySelector(selector);
+      if (element) element.setAttribute(attribute, value);
+    };
+
+    setMeta('meta[name="description"]', 'content', meta.description);
+    setMeta('meta[property="og:title"]', 'content', meta.title);
+    setMeta('meta[property="og:description"]', 'content', meta.description);
+    setMeta('meta[name="twitter:title"]', 'content', meta.title);
+    setMeta('meta[name="twitter:description"]', 'content', meta.description);
+  }, [pathname]);
+
+  return null;
+}
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -34,20 +85,28 @@ function NotFound() {
 }
 
 export default function App() {
+  const location = useLocation();
+  const meta = resolveMeta(location.pathname);
+
   return (
     <>
+      <a className="fs-skip-link" href="#main-content">Skip to content</a>
+      <SiteMeta />
       <ScrollToTop />
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/about" element={<About />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <div id="main-content" className="fs-route-stage" key={location.pathname} tabIndex="-1">
+        <Routes location={location}>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/about" element={<About />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+      <p className="sr-only" aria-live="polite" aria-atomic="true">{meta.title}</p>
       <Footer />
     </>
   );
