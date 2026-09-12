@@ -1,0 +1,49 @@
+name: Decode SAFRA image assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/assets/safra/*.webp.b64'
+      - '.github/workflows/decode-safra-assets.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Decode image payloads
+        shell: bash
+        run: |
+          shopt -s nullglob
+          files=(public/assets/safra/*.webp.b64)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No SAFRA payloads to decode."
+            exit 0
+          fi
+          for payload in "${files[@]}"; do
+            output="${payload%.b64}"
+            base64 --decode "$payload" > "$output"
+            rm "$payload"
+            echo "Decoded $output"
+          done
+
+      - name: Commit decoded assets
+        shell: bash
+        run: |
+          if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
+            echo "No decoded assets to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/assets/safra
+          git commit -m "Decode SAFRA campaign assets [skip ci]"
+          git push origin HEAD:main
