@@ -44,7 +44,7 @@ export default function ProductDetail() {
 
   const variantStage = (detail = false) => (
     <div
-      className={`fs-product-shot ${detail ? 'detail' : ''} ${product.studioShot ? 'is-studio-shot' : ''}`}
+      className={`fs-product-shot ${detail ? 'detail' : ''} ${product.studioShot ? 'is-studio-shot' : ''} ${product.artwork ? 'is-artwork' : 'is-photo'}`}
       style={{ '--variant-hex': variant.hex, '--variant-opacity': variant.overlayOpacity ?? 0 }}
     >
       <img
