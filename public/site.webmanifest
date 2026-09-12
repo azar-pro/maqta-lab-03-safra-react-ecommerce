@@ -1,0 +1,16 @@
+{
+  "name": "SAFRA — Contemporary Accessories",
+  "short_name": "SAFRA",
+  "description": "Contemporary accessories shaped around movement, material and color.",
+  "start_url": "/maqta-lab-03-safra-react-ecommerce/",
+  "display": "standalone",
+  "background_color": "#f3f0e9",
+  "theme_color": "#0d0d0d",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
