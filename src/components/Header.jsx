@@ -1,13 +1,26 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { cartCount, wishlist } = useStore();
+  const location = useLocation();
   const logoPath = `${import.meta.env.BASE_URL}safra-mark.svg`;
 
   const close = () => setOpen(false);
+
+  useEffect(() => {
+    close();
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 42);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -30,7 +43,7 @@ export default function Header() {
   }, [open]);
 
   return (
-    <header className="flagship-header">
+    <header className={`flagship-header ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="flagship-announcement" aria-label="Store announcement">
         <span>Fès / Morocco</span>
         <span>Complimentary delivery over 900 DH</span>
@@ -54,6 +67,10 @@ export default function Header() {
           <NavLink to="/shop" onClick={close}>Shop</NavLink>
           <NavLink to="/about" onClick={close}>About</NavLink>
           <NavLink to="/wishlist" onClick={close}>Wishlist <span className="flagship-count">{wishlist.length}</span></NavLink>
+          <div className="flagship-mobile-nav-note" aria-hidden="true">
+            <span>SAFRA / FÈS</span>
+            <span>DROP 01 · 2026</span>
+          </div>
         </nav>
 
         <Link className="flagship-brand" to="/" onClick={close} aria-label="SAFRA home">
