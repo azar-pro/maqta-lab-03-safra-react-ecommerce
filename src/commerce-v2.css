@@ -1,0 +1,469 @@
+/* SAFRA commerce v2 — editorial shop + product storytelling. */
+
+/* ---------- SHOP / COLLECTION ---------- */
+.fs-shop-masthead-v2 {
+  min-height: clamp(560px, 71vh, 820px);
+  background: #151310;
+}
+
+.fs-shop-masthead-v2::before {
+  background-image: url('/assets/safra/campaign-hero.webp') !important;
+  background-position: center 33% !important;
+  filter: saturate(.78) contrast(1.05) brightness(.9);
+  transform: scale(1.015);
+}
+
+.fs-shop-masthead-v2::after {
+  background:
+    linear-gradient(90deg, rgba(7,7,7,.80), rgba(7,7,7,.45) 42%, rgba(7,7,7,.08) 76%),
+    linear-gradient(0deg, rgba(7,7,7,.72), transparent 52%) !important;
+}
+
+.fs-shop-masthead-v2 .fs-shop-masthead-inner {
+  min-height: clamp(560px, 71vh, 820px);
+  padding-top: clamp(76px, 8vw, 118px);
+  padding-bottom: clamp(46px, 5vw, 72px);
+}
+
+.fs-shop-kicker-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.fs-shop-kicker-row .eyebrow {
+  margin: 0;
+  color: rgba(255,255,255,.68);
+}
+
+.fs-shop-kicker-row > span {
+  color: rgba(255,255,255,.52);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+}
+
+.fs-shop-masthead-v2 h1 {
+  max-width: 980px;
+  font-size: clamp(94px, 13.5vw, 205px);
+  line-height: .68;
+}
+
+.fs-shop-masthead-v2 .fs-shop-masthead-bottom {
+  max-width: 860px;
+  align-items: flex-end;
+}
+
+.fs-shop-masthead-v2 .fs-shop-masthead-bottom p {
+  max-width: 540px;
+  font-size: 12px;
+  line-height: 1.78;
+}
+
+.fs-shop-story-link {
+  flex: 0 0 auto;
+  color: white;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,.7);
+  padding-bottom: 4px;
+}
+
+.fs-results-line-v2 {
+  margin-bottom: 42px;
+}
+
+.fs-shop-grid-v2 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(48px, 5vw, 76px) 18px;
+  align-items: start;
+}
+
+.fs-shop-grid-v2 .flagship-product-card:nth-of-type(1) {
+  grid-column: span 2;
+}
+
+.fs-shop-grid-v2 .flagship-product-card:nth-of-type(1) .flagship-product-media {
+  aspect-ratio: 1.45;
+}
+
+.fs-shop-grid-v2 .flagship-product-card:nth-of-type(1) .flagship-product-info h3 {
+  font-size: clamp(30px, 3vw, 48px);
+}
+
+.fs-shop-grid-v2 .flagship-product-card.is-studio-shot .flagship-product-media {
+  background: #e8dfd1;
+}
+
+.fs-shop-grid-v2 .flagship-product-card.is-studio-shot .flagship-image-stage {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,255,255,.92), rgba(255,255,255,.15) 44%, transparent 68%),
+    #ded2c0;
+}
+
+.fs-shop-grid-v2 .flagship-product-card.is-studio-shot .flagship-image-stage img {
+  padding: clamp(18px, 2.6vw, 38px);
+}
+
+.fs-shop-editorial-card {
+  grid-column: 1 / -1;
+  min-height: clamp(520px, 62vw, 820px);
+  margin: clamp(12px, 2vw, 28px) 0 clamp(8px, 2vw, 24px);
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  background: #11100f;
+  color: white;
+  overflow: hidden;
+}
+
+.fs-shop-editorial-media {
+  min-height: 520px;
+  background:
+    linear-gradient(0deg, rgba(0,0,0,.12), rgba(0,0,0,.12)),
+    url('/assets/safra/campaign-hero.webp') center 28% / cover no-repeat;
+  filter: saturate(.72) contrast(1.04);
+}
+
+.fs-shop-editorial-copy {
+  padding: clamp(46px, 6.4vw, 100px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.fs-shop-editorial-copy > span {
+  color: var(--fs-blush);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.fs-shop-editorial-copy h2 {
+  max-width: 620px;
+  margin: 18px 0 0;
+  font-family: var(--fs-display);
+  font-size: clamp(58px, 6vw, 96px);
+  font-weight: 500;
+  line-height: .82;
+  letter-spacing: -.055em;
+}
+
+.fs-shop-editorial-copy p {
+  max-width: 480px;
+  margin: 28px 0 30px;
+  color: rgba(255,255,255,.64);
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+.fs-shop-editorial-copy a {
+  color: white;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,.7);
+  padding-bottom: 4px;
+}
+
+/* ---------- PRODUCT DETAIL / OBJECT STUDY ---------- */
+.fs-product-layout-v2 {
+  grid-template-columns: minmax(0, 1.34fr) minmax(390px, .66fr);
+}
+
+.fs-product-gallery-v2 {
+  padding: clamp(20px, 2.4vw, 40px);
+  grid-template-columns: minmax(0, 1.15fr) minmax(260px, .85fr);
+  gap: 12px;
+}
+
+.fs-product-gallery-heading {
+  grid-column: 1 / -1;
+  min-height: 86px;
+  padding: 4px 2px 16px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 28px;
+  border-bottom: 1px solid rgba(13,13,13,.16);
+}
+
+.fs-product-gallery-heading span {
+  color: var(--fs-muted);
+  font-size: 7px;
+  font-weight: 750;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.fs-product-gallery-heading strong {
+  font-family: var(--fs-display);
+  font-size: clamp(34px, 3.1vw, 50px);
+  font-weight: 500;
+  line-height: .9;
+  letter-spacing: -.045em;
+}
+
+.fs-product-primary-shot {
+  grid-row: span 2;
+}
+
+.fs-product-primary-shot .fs-product-shot {
+  min-height: clamp(650px, 72vw, 980px);
+}
+
+.fs-product-detail-shot .fs-product-shot {
+  min-height: clamp(340px, 35vw, 510px);
+}
+
+.fs-product-detail-shot .fs-product-shot.detail img {
+  transform: scale(1.28);
+  object-position: 58% 48%;
+}
+
+.fs-product-detail-shot .fs-product-shot.detail:hover img {
+  transform: scale(1.34);
+}
+
+.fs-product-primary-shot .is-studio-shot,
+.fs-product-detail-shot .is-studio-shot {
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255,255,255,.98), rgba(255,255,255,.22) 46%, transparent 70%),
+    #ded2c0;
+}
+
+.fs-product-primary-shot .is-studio-shot img {
+  padding: clamp(28px, 4vw, 72px) !important;
+}
+
+.fs-product-detail-shot .is-studio-shot img {
+  padding: clamp(10px, 1.8vw, 28px) !important;
+}
+
+.fs-product-material-card {
+  min-height: clamp(300px, 34vw, 458px);
+  padding: clamp(28px, 4vw, 58px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--material-accent) 26%, #f1ede6), #f5f2eb 62%);
+  border: 1px solid rgba(13,13,13,.09);
+}
+
+.fs-product-material-card > span {
+  margin-bottom: auto;
+  color: var(--fs-muted);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.fs-product-material-card strong {
+  max-width: 440px;
+  font-family: var(--fs-display);
+  font-size: clamp(42px, 4.3vw, 70px);
+  font-weight: 500;
+  line-height: .84;
+  letter-spacing: -.05em;
+}
+
+.fs-product-material-card p {
+  max-width: 430px;
+  margin: 22px 0 0;
+  color: var(--fs-muted);
+  font-size: 10px;
+  line-height: 1.75;
+}
+
+.fs-product-gallery-v2 .fs-product-gallery-note {
+  grid-column: 1 / -1;
+  min-height: 280px;
+}
+
+.fs-buy-panel-v2 {
+  justify-content: flex-start;
+  padding-top: clamp(62px, 7vw, 108px);
+}
+
+.fs-buy-panel-v2 h1 {
+  font-size: clamp(58px, 5.6vw, 92px);
+}
+
+.fs-product-campaign-band {
+  background: var(--fs-cobalt);
+  color: white;
+}
+
+.fs-product-campaign-band .shell {
+  min-height: 260px;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr) auto;
+  gap: clamp(28px, 5vw, 76px);
+  align-items: center;
+}
+
+.fs-product-campaign-band span,
+.fs-product-campaign-band a {
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.fs-product-campaign-band p {
+  margin: 0;
+  max-width: 880px;
+  font-family: var(--fs-display);
+  font-size: clamp(46px, 5.2vw, 82px);
+  line-height: .83;
+  letter-spacing: -.05em;
+}
+
+.fs-product-campaign-band a {
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,.72);
+  padding-bottom: 4px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 1080px) {
+  .fs-shop-grid-v2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .fs-shop-grid-v2 .flagship-product-card:nth-of-type(1) {
+    grid-column: span 2;
+  }
+  .fs-shop-editorial-card {
+    grid-template-columns: 1fr 1fr;
+  }
+  .fs-product-layout-v2 {
+    grid-template-columns: 1fr;
+  }
+  .fs-buy-panel-v2 {
+    position: relative;
+    top: auto;
+    min-height: auto;
+    border-left: 0;
+    border-top: 1px solid var(--fs-line);
+  }
+  .fs-product-campaign-band .shell {
+    grid-template-columns: 120px 1fr;
+  }
+  .fs-product-campaign-band a {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 760px) {
+  .fs-shop-masthead-v2,
+  .fs-shop-masthead-v2 .fs-shop-masthead-inner {
+    min-height: 590px;
+  }
+  .fs-shop-masthead-v2::before {
+    background-position: 58% 25% !important;
+  }
+  .fs-shop-masthead-v2::after {
+    background: linear-gradient(0deg, rgba(7,7,7,.84), rgba(7,7,7,.18) 74%) !important;
+  }
+  .fs-shop-kicker-row > span { display: none; }
+  .fs-shop-masthead-v2 h1 {
+    font-size: clamp(72px, 24vw, 118px);
+    line-height: .72;
+  }
+  .fs-shop-masthead-v2 .fs-shop-masthead-bottom {
+    margin-top: 26px;
+    display: grid;
+    gap: 22px;
+  }
+  .fs-shop-story-link { justify-self: start; }
+
+  .fs-shop-grid-v2 {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .fs-shop-grid-v2 .flagship-product-card:nth-of-type(1) {
+    grid-column: auto;
+  }
+  .fs-shop-grid-v2 .flagship-product-card:nth-of-type(1) .flagship-product-media {
+    aspect-ratio: .82;
+  }
+  .fs-shop-editorial-card {
+    grid-column: auto;
+    min-height: auto;
+    grid-template-columns: 1fr;
+  }
+  .fs-shop-editorial-media {
+    min-height: 430px;
+    background-position: 58% 24%;
+  }
+  .fs-shop-editorial-copy {
+    padding: 42px 24px 48px;
+  }
+
+  .fs-product-gallery-v2 {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+  .fs-product-gallery-heading,
+  .fs-product-gallery-v2 .fs-product-gallery-note {
+    grid-column: auto;
+  }
+  .fs-product-gallery-heading {
+    min-height: 70px;
+  }
+  .fs-product-primary-shot {
+    grid-row: auto;
+  }
+  .fs-product-primary-shot .fs-product-shot,
+  .fs-product-detail-shot .fs-product-shot {
+    min-height: min(118vw, 700px);
+  }
+  .fs-product-material-card {
+    min-height: 330px;
+  }
+  .fs-buy-panel-v2 {
+    padding: 46px 20px 54px;
+  }
+  .fs-product-campaign-band .shell {
+    min-height: 300px;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    align-content: center;
+  }
+  .fs-product-campaign-band a {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .fs-shop-editorial-media { min-height: 360px; }
+  .fs-shop-editorial-copy h2 { font-size: 56px; }
+  .fs-product-gallery-v2 { padding: 12px; }
+  .fs-product-gallery-heading strong { font-size: 34px; }
+  .fs-product-primary-shot .fs-product-shot,
+  .fs-product-detail-shot .fs-product-shot { min-height: 122vw; }
+  .fs-product-gallery-v2 .fs-product-gallery-note {
+    min-height: 240px;
+    grid-template-columns: 1fr;
+  }
+  .fs-product-gallery-v2 .fs-product-gallery-note strong {
+    justify-self: start;
+    text-align: left;
+    font-size: 30px;
+  }
+}
