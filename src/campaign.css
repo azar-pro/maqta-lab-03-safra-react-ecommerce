@@ -1,0 +1,162 @@
+/* SAFRA campaign layer — original imagery + ecommerce polish. */
+
+.fs-hero-media {
+  background-image: url('/assets/safra/campaign-hero.webp') !important;
+  background-position: center 27% !important;
+  filter: saturate(.82) contrast(1.03);
+}
+
+.fs-hero::after {
+  background:
+    linear-gradient(90deg, rgba(10,9,8,.84), rgba(10,9,8,.53) 43%, rgba(10,9,8,.12) 74%),
+    linear-gradient(0deg, rgba(7,7,7,.62), transparent 48%) !important;
+}
+
+.fs-hero-copy { max-width: 880px; }
+.fs-hero h1 { max-width: 840px; }
+.fs-hero-lead { max-width: 520px; }
+.fs-hero-note {
+  background: rgba(17,15,13,.28) !important;
+  border-color: rgba(255,255,255,.34) !important;
+}
+
+/* Product photography made specifically for SAFRA should read like studio imagery. */
+.flagship-product-card.is-studio-shot .flagship-product-media,
+.fs-product-shot.is-studio-shot {
+  background: #ebe4d8;
+}
+.flagship-product-card.is-studio-shot .flagship-image-stage img,
+.fs-product-shot.is-studio-shot img {
+  object-fit: contain !important;
+  object-position: center !important;
+  padding: clamp(18px, 3.2vw, 42px);
+}
+.flagship-product-card.is-studio-shot .variant-wash,
+.fs-product-shot.is-studio-shot .variant-wash {
+  mix-blend-mode: color;
+}
+
+/* Brand manifesto — intentionally sparse, more campaign than card UI. */
+.fs-manifesto {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(100px, 11vw, 180px) 0;
+  background: #d9d0c2;
+  color: var(--fs-ink);
+}
+.fs-manifesto::before {
+  content: 'SAFRA';
+  position: absolute;
+  right: -1vw;
+  bottom: -5vw;
+  font-family: var(--fs-display);
+  font-size: clamp(150px, 24vw, 390px);
+  line-height: .68;
+  letter-spacing: -.08em;
+  color: rgba(13,13,13,.045);
+  pointer-events: none;
+}
+.fs-manifesto-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) 360px;
+  gap: clamp(28px, 5vw, 78px);
+  align-items: start;
+}
+.fs-manifesto h2 {
+  margin: 0;
+  max-width: 900px;
+  font-family: var(--fs-display);
+  font-size: clamp(62px, 7.6vw, 120px);
+  font-weight: 500;
+  line-height: .82;
+  letter-spacing: -.06em;
+}
+.fs-manifesto h2 em { color: var(--fs-cobalt); font-weight: 500; }
+.fs-manifesto-copy {
+  padding-top: 10px;
+  color: #605b54;
+  font-size: 12px;
+  line-height: 1.9;
+}
+.fs-manifesto-copy p { margin: 0 0 26px; }
+
+/* Service reassurance belongs to the brand system, not generic icon cards. */
+.fs-service-strip {
+  border-top: 1px solid var(--fs-line);
+  border-bottom: 1px solid var(--fs-line);
+  background: #f7f4ee;
+}
+.fs-service-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.fs-service-item {
+  min-height: 150px;
+  padding: 30px 28px;
+  border-right: 1px solid var(--fs-line);
+  display: grid;
+  align-content: center;
+  gap: 8px;
+}
+.fs-service-item:last-child { border-right: 0; }
+.fs-service-item span {
+  color: var(--fs-muted);
+  font-size: 8px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.fs-service-item strong {
+  font-family: var(--fs-display);
+  font-size: 27px;
+  font-weight: 500;
+  letter-spacing: -.035em;
+}
+.fs-service-item small {
+  color: var(--fs-muted);
+  font-size: 9px;
+  line-height: 1.55;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+/* Newsletter becomes a real editorial panel rather than a utility row. */
+.fs-footer-newsletter {
+  margin-top: 0;
+  padding-top: clamp(74px, 7vw, 110px) !important;
+  padding-bottom: clamp(74px, 7vw, 110px) !important;
+}
+.fs-footer-newsletter h2 { max-width: 720px; }
+
+@media (max-width: 980px) {
+  .fs-manifesto-grid { grid-template-columns: 110px 1fr; }
+  .fs-manifesto-copy { grid-column: 2; max-width: 640px; }
+  .fs-service-grid { grid-template-columns: repeat(2, 1fr); }
+  .fs-service-item:nth-child(2) { border-right: 0; }
+  .fs-service-item:nth-child(-n+2) { border-bottom: 1px solid var(--fs-line); }
+}
+
+@media (max-width: 760px) {
+  .fs-hero-media {
+    background-position: 57% 22% !important;
+    transform: scale(1.02);
+  }
+  .fs-hero::after {
+    background: linear-gradient(0deg, rgba(7,7,7,.78), rgba(7,7,7,.18) 72%) !important;
+  }
+  .fs-hero-copy { align-self: end; padding-bottom: 72px; }
+  .fs-hero-note { display: none; }
+  .fs-manifesto { padding: 92px 0 104px; }
+  .fs-manifesto-grid { grid-template-columns: 1fr; gap: 22px; }
+  .fs-manifesto-copy { grid-column: auto; max-width: 520px; }
+  .fs-manifesto h2 { font-size: clamp(56px, 16vw, 82px); }
+  .fs-service-grid { grid-template-columns: 1fr; }
+  .fs-service-item,
+  .fs-service-item:nth-child(2) {
+    min-height: 118px;
+    border-right: 0;
+    border-bottom: 1px solid var(--fs-line);
+  }
+  .fs-service-item:last-child { border-bottom: 0; }
+}
