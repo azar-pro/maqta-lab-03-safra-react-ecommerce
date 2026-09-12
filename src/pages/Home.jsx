@@ -12,32 +12,32 @@ export default function Home() {
         <div className="shell fs-hero-inner">
           <div className="fs-hero-copy">
             <p className="fs-hero-kicker">SAFRA / DROP 01 / FÈS</p>
-            <h1 id="home-title">Objects with<br /><em>presence.</em></h1>
-            <p className="fs-hero-lead">A limited edit of bags, jewelry and eyewear shaped around strong proportion, tactile material and everyday movement.</p>
+            <h1 id="home-title">Modern accessories<br /><em>for a lighter tomorrow.</em></h1>
+            <p className="fs-hero-lead">Timeless pieces, meaningful choices. A tightly edited collection of bags, jewelry and eyewear built around proportion, material and real everyday movement.</p>
             <div className="fs-hero-actions">
-              <Link className="fs-hero-cta primary" to="/shop">Shop Drop 01</Link>
-              <Link className="fs-hero-cta" to="/about">Discover the brand</Link>
+              <Link className="fs-hero-cta primary" to="/shop">Shop new arrivals</Link>
+              <Link className="fs-hero-cta" to="/about">Discover SAFRA</Link>
             </div>
           </div>
 
           <aside className="fs-hero-note" aria-label="Collection note">
             <span>01</span>
             <small>Collection note</small>
-            <strong>Useful objects, treated like fashion.</strong>
+            <strong>Designed for real life. Refined enough to keep.</strong>
           </aside>
         </div>
 
         <div className="fs-hero-caption" aria-hidden="true">
           <span>CONTEMPORARY ACCESSORIES / 2026</span>
-          <span>SCROLL TO DISCOVER ↓</span>
+          <span>FÈS · MOROCCO</span>
         </div>
       </section>
 
       <section className="shell fs-intro">
         <p className="eyebrow">The SAFRA edit</p>
-        <h2>Sharp form.<br /><em>Quiet confidence.</em></h2>
+        <h2>Timeless form.<br /><em>Considered choices.</em></h2>
         <div className="fs-intro-copy">
-          <p>SAFRA is intentionally compact. Every object is selected for clarity of shape, ease of use and the way it changes an everyday silhouette.</p>
+          <p>SAFRA is intentionally compact. Every object is selected for clarity of shape, ease of use and the way it changes an everyday silhouette without asking for attention.</p>
           <Link className="text-link" to="/shop">Explore all pieces ↗</Link>
         </div>
       </section>
@@ -62,7 +62,7 @@ export default function Home() {
         <div className="fs-editorial-copy">
           <p className="eyebrow">Material / proportion / color</p>
           <h2>Less noise.<br />More character.</h2>
-          <p>The visual language is deliberately restrained. Strong photography, high contrast and generous negative space let each object feel considered rather than crowded.</p>
+          <p>Strong materials, clean construction and generous negative space. The collection is designed to feel deliberate rather than crowded by trend.</p>
           <Link className="btn btn-light" to="/about">Our point of view</Link>
         </div>
       </section>
@@ -93,8 +93,19 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="fs-manifesto">
+        <div className="shell fs-manifesto-grid">
+          <p className="eyebrow">A more conscious way forward</p>
+          <h2>Carry good things<br /><em>forward.</em></h2>
+          <div className="fs-manifesto-copy">
+            <p>Fewer pieces, clearer purpose. SAFRA favors considered materials, useful proportions and packaging designed to feel special without becoming wasteful.</p>
+            <Link className="text-link" to="/about">Read our values ↗</Link>
+          </div>
+        </div>
+      </section>
+
       <section className="fs-marquee" aria-label="SAFRA brand values">
-        <div><span>FORM</span><i>◆</i><span>COLOR</span><i>◆</i><span>USE</span><i>◆</i><span>FÈS</span><i>◆</i><span>SAFRA</span><i>◆</i><span>DROP 01</span></div>
+        <div><span>FORM</span><i>◆</i><span>MATERIAL</span><i>◆</i><span>USE</span><i>◆</i><span>FÈS</span><i>◆</i><span>SAFRA</span><i>◆</i><span>DROP 01</span></div>
       </section>
 
       <section className="fs-final-cta">
