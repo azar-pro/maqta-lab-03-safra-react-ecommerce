@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { categories, products } from '../data/products';
 
@@ -41,14 +41,17 @@ export default function Shop() {
   }
 
   return (
-    <main className="fs-shop">
-      <section className="fs-shop-masthead" aria-labelledby="shop-title">
+    <main className="fs-shop fs-shop-v2">
+      <section className="fs-shop-masthead fs-shop-masthead-v2" aria-labelledby="shop-title">
         <div className="shell fs-shop-masthead-inner">
-          <p className="eyebrow" style={{ color: 'rgba(255,255,255,.62)' }}>Drop 01 / 2026</p>
-          <h1 id="shop-title">SHOP</h1>
+          <div className="fs-shop-kicker-row">
+            <p className="eyebrow">SAFRA / DROP 01 / FÈS</p>
+            <span>08 OBJECTS · 04 CATEGORIES</span>
+          </div>
+          <h1 id="shop-title">THE EDIT</h1>
           <div className="fs-shop-masthead-bottom">
-            <p>Eight objects. Four categories. A tightly edited collection built around proportion, utility and unmistakable color.</p>
-            <span>FÈS / MOROCCO · 08 PIECES</span>
+            <p>Modern accessories for a lighter tomorrow. A precise collection of bags, jewelry and eyewear shaped around movement, proportion and color.</p>
+            <Link className="fs-shop-story-link" to="/about">Read our point of view ↗</Link>
           </div>
         </div>
       </section>
@@ -90,14 +93,29 @@ export default function Shop() {
 
       <section className="fs-shop-body">
         <div className="shell">
-          <div className="fs-results-line" aria-live="polite">
-            <span>{filtered.length} {filtered.length === 1 ? 'piece' : 'pieces'}</span>
+          <div className="fs-results-line fs-results-line-v2" aria-live="polite">
+            <span>Showing {filtered.length} of {products.length} pieces</span>
             <span>{category}{query ? ` / “${query}”` : ''}</span>
           </div>
 
           {filtered.length ? (
-            <div className="product-grid fs-shop-grid">
-              {filtered.map(product => <ProductCard key={product.id} product={product} />)}
+            <div className="product-grid fs-shop-grid fs-shop-grid-v2">
+              {filtered.map((product, index) => (
+                <Fragment key={product.id}>
+                  <ProductCard product={product} />
+                  {index === 3 && filtered.length > 4 && (
+                    <article className="fs-shop-editorial-card">
+                      <div className="fs-shop-editorial-media" aria-hidden="true"></div>
+                      <div className="fs-shop-editorial-copy">
+                        <span>STUDIO NOTE / 01</span>
+                        <h2>Carry good things forward.</h2>
+                        <p>Useful objects with a graphic point of view — made to move easily between work, travel and everyday life.</p>
+                        <Link to="/about">Discover SAFRA ↗</Link>
+                      </div>
+                    </article>
+                  )}
+                </Fragment>
+              ))}
             </div>
           ) : (
             <div className="fs-shop-empty">
