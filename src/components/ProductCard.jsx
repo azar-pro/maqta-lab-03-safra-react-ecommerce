@@ -25,6 +25,7 @@ export default function ProductCard({ product }) {
               src={product.image}
               alt={`${product.alt} in ${previewColor}`}
               loading="lazy"
+              decoding="async"
               style={{ filter: variant.imageFilter }}
             />
             <span
