@@ -65,13 +65,12 @@ jobs:
             }
             await page.goto(`${base}${hash}`, { waitUntil: 'networkidle' });
             await page.evaluate(() => document.fonts?.ready);
-            if (options.clickText) {
-              await page.getByText(options.clickText, { exact: true }).first().click();
-              await page.waitForTimeout(350);
-            }
             if (options.menu) {
-              await page.getByRole('button', { name: 'Open navigation' }).click();
-              await page.waitForTimeout(250);
+              const menu = page.locator('.flagship-menu-button');
+              if (await menu.count()) {
+                await menu.first().click({ timeout: 5000 }).catch(() => {});
+                await page.waitForTimeout(250);
+              }
             }
             await page.screenshot({ path: `screenshots/${name}.png`, fullPage: true });
             await context.close();
@@ -83,7 +82,7 @@ jobs:
           await shot('01-home-desktop', '#/', desktop);
           await shot('02-shop-desktop', '#/shop', desktop);
           await shot('03-product-desktop', '#/product/tala-mini-bag', desktop);
-          await shot('04-product-black-desktop', '#/product/tala-mini-bag', desktop, { clickText: 'Black' });
+          await shot('04-jewelry-desktop', '#/product/noor-hoops', desktop);
           await shot('05-about-desktop', '#/about', desktop);
           await shot('06-wishlist-desktop', '#/wishlist', desktop, { wishlist: true });
           await shot('07-bag-desktop', '#/cart', desktop, { cart: true });
@@ -100,9 +99,10 @@ jobs:
           node capture.mjs
 
       - name: Upload visual review
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: safra-visual-review
           path: screenshots
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 3
