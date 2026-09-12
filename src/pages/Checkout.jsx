@@ -75,7 +75,7 @@ export default function Checkout() {
 
       <section className="fs-checkout-layout">
         <div className="fs-checkout-form-wrap">
-          <form className="fs-checkout-form" onSubmit={submitOrder} noValidate>
+          <form id="checkout-form" className="fs-checkout-form" onSubmit={submitOrder} noValidate>
             <section className="fs-form-section">
               <div className="fs-form-section-head"><span className="fs-form-number">01</span><div><h2>Delivery details</h2><p>Where this concept order would be delivered.</p></div></div>
               <div className="fs-checkout-fields">
@@ -97,8 +97,8 @@ export default function Checkout() {
               </div>
             </section>
 
-            <button className="btn btn-dark fs-place-order" type="submit">Place demo order · {total} DH</button>
-            <p className="fs-checkout-disclaimer">Nothing is charged or transmitted. This page demonstrates interface, validation and commerce state only.</p>
+            <button className="btn btn-dark fs-place-order fs-desktop-order-submit" type="submit">Place demo order · {total} DH</button>
+            <p className="fs-checkout-disclaimer fs-desktop-order-submit">Nothing is charged or transmitted. This page demonstrates interface, validation and commerce state only.</p>
           </form>
         </div>
 
@@ -124,6 +124,8 @@ export default function Checkout() {
             </div>
 
             <div className="fs-checkout-trust"><span>30-day returns</span><span>Local cart storage</span><span>No real payment</span></div>
+            <button className="btn btn-light fs-place-order fs-mobile-order-submit" type="submit" form="checkout-form">Place demo order · {total} DH</button>
+            <p className="fs-checkout-disclaimer fs-mobile-order-submit">Nothing is charged or transmitted. This page demonstrates interface, validation and commerce state only.</p>
           </div>
         </aside>
       </section>
