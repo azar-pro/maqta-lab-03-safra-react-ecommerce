@@ -17,7 +17,7 @@ export default function ProductCard({ product }) {
   }
 
   return (
-    <article className="flagship-product-card">
+    <article className={`flagship-product-card ${product.studioShot ? 'is-studio-shot' : ''}`}>
       <div className="flagship-product-media" style={{ '--variant-hex': variant.hex }}>
         <Link to={`/product/${product.id}`} aria-label={`View ${product.name}`}>
           <div className="flagship-image-stage">
