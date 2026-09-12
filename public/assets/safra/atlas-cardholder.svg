@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" role="img" aria-label="SAFRA Atlas Cardholder studio artwork">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8e0d4"/><stop offset="1" stop-color="#cbbca9"/></linearGradient>
+  <linearGradient id="leather" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1734ff"/><stop offset=".55" stop-color="#2442ff"/><stop offset="1" stop-color="#1023a8"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="30" stdDeviation="25" flood-color="#172274" flood-opacity=".24"/></filter>
+</defs>
+<rect width="1200" height="1500" fill="url(#bg)"/>
+<circle cx="960" cy="280" r="220" fill="#f6f1e9" opacity=".62"/>
+<g filter="url(#shadow)" transform="translate(155 415) rotate(-8 445 330)">
+  <rect x="0" y="0" width="890" height="620" rx="54" fill="url(#leather)"/>
+  <rect x="35" y="35" width="820" height="550" rx="34" fill="none" stroke="#89a0ff" stroke-opacity=".42" stroke-width="3" stroke-dasharray="9 11"/>
+  <path d="M85 155 H805" stroke="#10269f" stroke-width="5" opacity=".72"/>
+  <path d="M85 245 H805" stroke="#10269f" stroke-width="5" opacity=".72"/>
+  <path d="M85 335 H805" stroke="#10269f" stroke-width="5" opacity=".72"/>
+  <path d="M445 0 V620" stroke="#7e96ff" stroke-opacity=".25" stroke-width="4"/>
+  <path d="M130 115 C260 88 356 91 445 108" fill="none" stroke="#7891ff" stroke-opacity=".28" stroke-width="14" stroke-linecap="round"/>
+</g>
+<rect x="165" y="1110" width="870" height="8" rx="4" fill="#9e8e7c" opacity=".55"/>
+</svg>
