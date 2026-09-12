@@ -1,0 +1,170 @@
+/* SAFRA brand v4 — fully local product art direction.
+   This layer replaces the remaining stock-driven visual moments with
+   original SAFRA studio assets and tunes SVG product artwork for commerce. */
+
+/* Original SVG studio artworks already include their own set/background,
+   so they should fill the frame rather than receiving the padded photo treatment. */
+.flagship-product-card.is-studio-shot .flagship-image-stage img[src$=".svg"],
+.fs-product-shot.is-studio-shot img[src$=".svg"] {
+  width: 100%;
+  height: 100%;
+  padding: 0 !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+.flagship-product-card.is-studio-shot .flagship-image-stage:has(img[src$=".svg"]),
+.fs-product-shot.is-studio-shot:has(img[src$=".svg"]) {
+  background: #ddd1c1 !important;
+}
+
+/* Detail views of vector artwork need a quieter crop than photography. */
+.fs-product-shot.detail:has(img[src$=".svg"]) img {
+  transform: scale(1.07) !important;
+  object-position: center !important;
+}
+.fs-product-shot.detail:has(img[src$=".svg"]):hover img {
+  transform: scale(1.11) !important;
+}
+
+/* Keep variant feedback visible without destroying the artwork's original light. */
+.flagship-image-stage:has(img[src$=".svg"]) .variant-wash,
+.fs-product-shot:has(img[src$=".svg"]) .variant-wash {
+  mix-blend-mode: color;
+  opacity: min(var(--variant-opacity, .14), .22) !important;
+}
+
+/* Category cards now use the same product universe as the actual catalog. */
+.fs-cat-jewelry::before {
+  background-image: url('/assets/safra/noor-hoops.svg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+.fs-cat-eyewear::before {
+  background-image: url('/assets/safra/azur-sunglasses.svg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+.fs-cat-jewelry::after,
+.fs-cat-eyewear::after {
+  background: linear-gradient(0deg, rgba(13,13,13,.67), rgba(13,13,13,.04) 67%) !important;
+}
+
+/* The home editorial image now introduces a second hero product instead of
+   repeating the Mini Bag everywhere. */
+.fs-editorial-image {
+  background-image: url('/assets/safra/sirocco-shoulder-bag.svg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: #d8cdbf !important;
+}
+
+/* Collection grid: local artwork gets a crisp gallery frame and deeper hover. */
+.flagship-product-card.is-studio-shot {
+  --art-frame: rgba(13,13,13,.10);
+}
+.flagship-product-card.is-studio-shot .flagship-product-media {
+  border: 1px solid var(--art-frame);
+}
+.flagship-product-card.is-studio-shot:hover .flagship-product-media {
+  border-color: rgba(13,13,13,.24);
+}
+.flagship-product-card.is-studio-shot .flagship-image-stage img {
+  will-change: transform, filter;
+}
+
+/* Shopping flow thumbnails should feel like miniature campaign frames. */
+.fs-cart-image.is-studio-shot img[src$=".svg"],
+.fs-checkout-line.is-studio-shot img[src$=".svg"] {
+  padding: 0 !important;
+  object-fit: cover !important;
+  background: #ddd1c1 !important;
+}
+
+.fs-checkout-line.is-studio-shot img,
+.fs-cart-image.is-studio-shot img {
+  transition: transform .35s ease, filter .3s ease;
+}
+.fs-cart-item:hover .fs-cart-image.is-studio-shot img {
+  transform: scale(1.025);
+}
+
+/* Give the collection a gallery-like rhythm instead of a uniform catalog wall. */
+.fs-shop-grid-v2 .flagship-product-card:nth-of-type(3n + 2) {
+  margin-top: clamp(18px, 3vw, 48px);
+}
+.fs-shop-grid-v2 .flagship-product-card:nth-of-type(3n + 3) {
+  margin-top: clamp(42px, 5.6vw, 88px);
+}
+
+/* Product page gallery behaves as a real art-directed object study. */
+.fs-product-gallery-v2 {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.18), transparent 22%),
+    #e4dbcf;
+}
+.fs-product-gallery-heading strong {
+  max-width: 520px;
+  text-align: right;
+}
+.fs-product-material-card {
+  isolation: isolate;
+  overflow: hidden;
+}
+.fs-product-material-card::after {
+  content: 'SAFRA';
+  position: absolute;
+  right: -20px;
+  bottom: -35px;
+  z-index: -1;
+  font-family: var(--fs-display);
+  font-size: clamp(90px, 10vw, 160px);
+  line-height: .8;
+  letter-spacing: -.08em;
+  color: rgba(13,13,13,.035);
+}
+
+/* Small UX polish expected from a premium store. */
+.flagship-quick-add {
+  backdrop-filter: blur(10px);
+}
+.flagship-card-swatches button,
+.fs-pdp-swatches button,
+.fs-save-button,
+.fs-cart-remove {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+@media (max-width: 1080px) {
+  .fs-shop-grid-v2 .flagship-product-card:nth-of-type(3n + 2),
+  .fs-shop-grid-v2 .flagship-product-card:nth-of-type(3n + 3) {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .fs-cat-jewelry::before,
+  .fs-cat-eyewear::before,
+  .fs-editorial-image {
+    background-position: center !important;
+  }
+
+  .flagship-product-card.is-studio-shot .flagship-product-media {
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .fs-product-gallery-heading strong {
+    text-align: left;
+  }
+}
