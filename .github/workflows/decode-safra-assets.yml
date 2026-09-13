@@ -26,37 +26,36 @@ jobs:
           shopt -s nullglob
           stage="public/assets/safra-staging"
           ready="$stage/.ready"
+          checksums="$stage/checksums.sha256"
 
           if [ ! -f "$ready" ]; then
             echo "SAFRA staging is not marked ready yet."
             exit 0
           fi
 
-          manifests=("$stage"/*.manifest)
-          if [ ${#manifests[@]} -eq 0 ]; then
-            echo "No SAFRA manifests found."
+          payloads=("$stage"/*.b64)
+          if [ ${#payloads[@]} -eq 0 ]; then
+            echo "No SAFRA payloads found."
+            exit 1
+          fi
+          if [ ! -f "$checksums" ]; then
+            echo "Missing SAFRA checksum manifest."
             exit 1
           fi
 
           mkdir -p public/assets/safra
 
-          for manifest in "${manifests[@]}"; do
-            name="$(basename "$manifest" .manifest)"
-            output="public/assets/safra/$name"
-            parts=("$stage/$name".b64.part*)
-            if [ ${#parts[@]} -eq 0 ]; then
-              echo "No chunks found for $name"
-              exit 1
-            fi
-            cat "${parts[@]}" | tr -d '\n\r' | base64 --decode > "$output"
-            expected="$(cat "$manifest")"
-            actual="$(sha256sum "$output" | awk '{print $1}')"
-            if [ "$expected" != "$actual" ]; then
-              echo "SHA256 mismatch for $name"
-              exit 1
-            fi
-            echo "Decoded and verified $output"
+          for payload in "${payloads[@]}"; do
+            filename="$(basename "$payload" .b64)"
+            output="public/assets/safra/$filename"
+            tr -d '\n\r' < "$payload" | base64 --decode > "$output"
+            echo "Decoded $output"
           done
+
+          (
+            cd public/assets/safra
+            sha256sum -c ../safra-staging/checksums.sha256
+          )
 
           rm -rf "$stage"
 
