@@ -1,21 +1,23 @@
 # MAQTA Lab 03 — SAFRA React E-commerce
 
-![SAFRA campaign](public/assets/safra/campaign-hero-v2.webp)
+![SAFRA campaign](public/assets/safra/campaign-hero-v3.avif)
 
 **SAFRA** is a fictional contemporary accessories label from Fès, Morocco, designed and developed as a complete fashion e-commerce portfolio project for **MAQTA Studio**.
 
 The project explores how editorial art direction and practical commerce UX can coexist across campaign, catalog, product detail, wishlist, bag and checkout experiences.
 
+**Live project:** https://azar-pro.github.io/maqta-lab-03-safra-react-ecommerce/
+
 ## Project status
 
 - ✅ Responsive React storefront
 - ✅ Original SAFRA campaign and product photography direction
+- ✅ High-resolution local AVIF product and campaign photography
 - ✅ Desktop + mobile visual QA
 - ✅ Automated production build check
-- ✅ Production dependency audit
-- ✅ Automated WCAG accessibility audit
+- ✅ Automated WCAG A/AA accessibility audit
 - ✅ SEO/social metadata, manifest, robots and sitemap
-- ⏳ GitHub Pages deployment workflow prepared — repository Pages must be enabled once in GitHub settings
+- ✅ GitHub Pages production deployment
 
 ## Design direction
 
@@ -41,7 +43,8 @@ The goal is a recognizable SAFRA identity rather than a generic “luxury templa
 - CSS
 - localStorage for cart and wishlist state
 - GitHub Actions
-- Playwright visual regression review
+- GitHub Pages
+- Playwright visual QA
 - axe-core accessibility review
 
 ## Commerce experience
@@ -49,7 +52,7 @@ The goal is a recognizable SAFRA identity rather than a generic “luxury templa
 - Campaign-led responsive Home page
 - Product catalog with search, category filters and sorting
 - Dynamic product detail routes
-- Color preview selection
+- Color selection state
 - Quantity controls
 - Quick Add and full Add to Bag flows
 - Persistent cart
@@ -63,15 +66,19 @@ The goal is a recognizable SAFRA identity rather than a generic “luxury templa
 
 ## Product imagery
 
-The current catalog uses local WebP product photography with SVG artwork retained only as a fallback. Alternate colors are simulated visual previews in this portfolio version; a production store would use dedicated photography for every sellable color variant.
+The storefront uses a local high-resolution **AVIF** photography set for the campaign and all eight catalog products. Older WebP/SVG assets are retained only as compatibility fallbacks where useful.
+
+The interface intentionally does **not** recolor photography with CSS filters. Product swatches update the selected commerce state, while the photography continues to show the campaign colorway. A production store would use dedicated photography for every sellable color variant.
 
 ## Quality assurance
 
-The repository contains two primary automated QA workflows:
+The repository contains two primary automated QA workflows.
 
 **Build check** installs dependencies, audits production dependencies, creates the Vite production bundle and uploads the build artifact.
 
-**Visual review** builds the project, launches Chromium with Playwright, captures the key desktop/mobile routes and runs an automated WCAG A/AA accessibility audit with axe-core.
+**Visual review** builds the project, launches Chromium with Playwright, captures 14 representative desktop/mobile screens and runs an automated WCAG A/AA accessibility audit with axe-core. The current audited route/state set reports no axe violations.
+
+The screenshot workflow also normalizes sticky-header behavior only inside full-page QA captures, preventing Chromium compositing artifacts from being mistaken for live-layout regressions.
 
 See [TESTING.md](TESTING.md) for the complete test matrix and [CASE-STUDY.md](CASE-STUDY.md) for the design and development case study.
 
@@ -95,7 +102,9 @@ npm run preview
 
 ## Architecture notes
 
-SAFRA uses `HashRouter` so the static portfolio build works reliably on GitHub Pages without server-side route rewrites. As a result, the root document is the primary indexable URL; a production commerce implementation would normally use framework/server rendering or route-aware static generation for richer per-product SEO.
+SAFRA uses `HashRouter` so the static portfolio build works reliably on GitHub Pages without server-side route rewrites. Product asset URLs use Vite's `BASE_URL`, so production paths remain correct under the repository subdirectory.
+
+Because HashRouter is used, the root document is the primary indexable URL. A production commerce implementation would normally use framework/server rendering or route-aware static generation for richer per-product SEO.
 
 ## Demo limitations
 
