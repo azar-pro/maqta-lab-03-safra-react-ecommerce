@@ -154,19 +154,25 @@ jobs:
             { name: 'about', hash: '#/about' },
             { name: 'bag', hash: '#/cart', cart: true },
             { name: 'checkout', hash: '#/checkout', cart: true },
+            { name: 'mobile-menu', hash: '#/', viewport: { width: 390, height: 844 }, menu: true },
           ];
 
           const report = [];
-          let critical = 0;
+          let blocking = 0;
 
           for (const target of targets) {
-            const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+            const context = await browser.newContext({ viewport: target.viewport || { width: 1280, height: 900 } });
             const page = await context.newPage();
             if (target.cart) {
               await page.addInitScript(value => localStorage.setItem('safra-cart', JSON.stringify(value)), cart);
             }
             await page.goto(`${base}${target.hash}`, { waitUntil: 'networkidle' });
             await page.evaluate(() => document.fonts?.ready);
+
+            if (target.menu) {
+              await page.locator('.flagship-menu-button').click();
+              await page.waitForTimeout(200);
+            }
 
             const results = await new AxeBuilder({ page })
               .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
@@ -180,8 +186,8 @@ jobs:
               nodes: item.nodes.map(node => ({ target: node.target, summary: node.failureSummary })),
             }));
 
-            critical += violations.filter(item => item.impact === 'critical').length;
-            report.push({ route: target.hash, violations });
+            blocking += violations.filter(item => item.impact === 'serious' || item.impact === 'critical').length;
+            report.push({ route: target.hash, state: target.name, violations });
             console.log(`${target.name}: ${violations.length} accessibility violations`);
             await context.close();
           }
@@ -189,8 +195,8 @@ jobs:
           await fs.writeFile('accessibility-report.json', JSON.stringify(report, null, 2));
           await browser.close();
 
-          if (critical > 0) {
-            console.error(`Accessibility audit found ${critical} critical violation(s).`);
+          if (blocking > 0) {
+            console.error(`Accessibility audit found ${blocking} serious/critical violation group(s).`);
             process.exit(1);
           }
           EOF
