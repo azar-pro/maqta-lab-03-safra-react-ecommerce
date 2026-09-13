@@ -130,10 +130,10 @@
 }
 
 @media (max-width: 760px) {
-  /* Checkout title used to sit too tightly under the sticky mobile header.
-     Give the editorial headline enough vertical air to render its ascenders fully. */
+  /* Keep the checkout masthead safely below the sticky mobile header. The extra
+     breathing room is intentional editorial spacing, not a compensation scale. */
   .fs-checkout-top {
-    padding: 72px 16px 30px;
+    padding: 104px 16px 32px !important;
     overflow: visible;
   }
   .fs-checkout-top-inner {
@@ -141,9 +141,10 @@
     overflow: visible;
   }
   .fs-checkout-title {
+    margin-top: 6px;
     padding-top: 6px;
     font-size: clamp(60px, 18vw, 72px);
-    line-height: .88;
+    line-height: .90;
   }
   .fs-checkout-steps {
     width: 100%;
