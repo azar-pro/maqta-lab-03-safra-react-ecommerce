@@ -2,17 +2,19 @@
 
 .fs-hero-media {
   background-image:
+    url('/assets/safra/campaign-hero-v3.webp'),
     url('/assets/safra/campaign-hero-v2.webp'),
     url('/assets/safra/campaign-hero.webp') !important;
-  background-position: center 27%, center 27% !important;
-  background-size: cover, cover !important;
-  filter: saturate(.82) contrast(1.03);
+  background-position: center 35%, center 27%, center 27% !important;
+  background-size: cover, cover, cover !important;
+  background-repeat: no-repeat !important;
+  filter: none !important;
 }
 
 .fs-hero::after {
   background:
-    linear-gradient(90deg, rgba(10,9,8,.84), rgba(10,9,8,.53) 43%, rgba(10,9,8,.12) 74%),
-    linear-gradient(0deg, rgba(7,7,7,.62), transparent 48%) !important;
+    linear-gradient(90deg, rgba(10,9,8,.80), rgba(10,9,8,.46) 42%, rgba(10,9,8,.08) 72%),
+    linear-gradient(0deg, rgba(7,7,7,.56), transparent 48%) !important;
 }
 
 .fs-hero-copy { max-width: 880px; }
@@ -23,20 +25,19 @@
   border-color: rgba(255,255,255,.34) !important;
 }
 
-/* Product photography made specifically for SAFRA should read like studio imagery. */
+/* Product photography should remain photographic: no artificial recolouring or padding. */
 .flagship-product-card.is-studio-shot .flagship-product-media,
 .fs-product-shot.is-studio-shot {
   background: #ebe4d8;
 }
-.flagship-product-card.is-studio-shot .flagship-image-stage img,
-.fs-product-shot.is-studio-shot img {
-  object-fit: contain !important;
+.flagship-product-card.is-studio-shot .flagship-image-stage img:not([src$='.svg']),
+.fs-product-shot.is-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover !important;
   object-position: center !important;
-  padding: clamp(18px, 3.2vw, 42px);
-}
-.flagship-product-card.is-studio-shot .variant-wash,
-.fs-product-shot.is-studio-shot .variant-wash {
-  mix-blend-mode: color;
+  padding: 0 !important;
+  filter: none !important;
 }
 
 /* Brand manifesto — intentionally sparse, more campaign than card UI. */
@@ -124,7 +125,6 @@
   letter-spacing: .08em;
 }
 
-/* Newsletter becomes a real editorial panel rather than a utility row. */
 .fs-footer-newsletter {
   margin-top: 0;
   padding-top: clamp(74px, 7vw, 110px) !important;
@@ -142,11 +142,11 @@
 
 @media (max-width: 760px) {
   .fs-hero-media {
-    background-position: 57% 22%, 57% 22% !important;
-    transform: scale(1.02);
+    background-position: 67% 28%, 57% 22%, 57% 22% !important;
+    transform: none !important;
   }
   .fs-hero::after {
-    background: linear-gradient(0deg, rgba(7,7,7,.78), rgba(7,7,7,.18) 72%) !important;
+    background: linear-gradient(0deg, rgba(7,7,7,.78), rgba(7,7,7,.14) 72%) !important;
   }
   .fs-hero-copy { align-self: end; padding-bottom: 72px; }
   .fs-hero-note { display: none; }
