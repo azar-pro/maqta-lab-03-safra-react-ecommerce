@@ -59,12 +59,12 @@ export default function Cart() {
                     style={{ background: variant.hex }}
                   >
                     <img
-                      src={item.product.image}
+                      src={item.product.photo || item.product.image}
                       alt={item.product.alt}
                       onError={(event) => {
-                        if (!item.product.fallbackImage || event.currentTarget.dataset.fallbackApplied === 'true') return;
+                        if (!item.product.image || event.currentTarget.dataset.fallbackApplied === 'true') return;
                         event.currentTarget.dataset.fallbackApplied = 'true';
-                        event.currentTarget.src = item.product.fallbackImage;
+                        event.currentTarget.src = item.product.image;
                       }}
                       style={{ filter: variant.imageFilter }}
                     />
