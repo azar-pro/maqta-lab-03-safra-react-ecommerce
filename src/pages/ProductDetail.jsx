@@ -34,7 +34,7 @@ export default function ProductDetail() {
   }
 
   const saved = wishlist.includes(product.id);
-  const variant = variantPresets[selectedColor] || { hex: '#d9c5a7', imageFilter: 'none', overlayOpacity: 0 };
+  const variant = variantPresets[selectedColor] || { hex: '#d9c5a7' };
 
   function handleAdd() {
     addToCart(product.id, selectedColor, quantity);
@@ -42,34 +42,43 @@ export default function ProductDetail() {
     window.setTimeout(() => setAdded(false), 1800);
   }
 
+  function useFallbackImage(event) {
+    const img = event.currentTarget;
+    if (img.dataset.fallbackStage === 'legacy') return;
+
+    if (img.dataset.fallbackStage !== 'photo' && product.photoFallback) {
+      img.dataset.fallbackStage = 'photo';
+      img.src = product.photoFallback;
+      return;
+    }
+
+    if (product.image) {
+      img.dataset.fallbackStage = 'legacy';
+      img.src = product.image;
+    }
+  }
+
   const variantStage = (detail = false) => {
     const source = detail
-      ? (product.detailPhoto || product.photo || product.image)
-      : (product.photo || product.image);
+      ? (product.detailPhoto || product.photo || product.photoFallback || product.image)
+      : (product.photo || product.photoFallback || product.image);
 
     return (
       <div
-        className={`fs-product-shot ${detail ? 'detail' : ''} ${product.studioShot ? 'is-studio-shot' : ''} ${product.artwork ? 'is-artwork' : 'is-photo'}`}
-        style={{ '--variant-hex': variant.hex, '--variant-opacity': variant.overlayOpacity ?? 0 }}
+        className={`fs-product-shot ${detail ? 'detail' : ''} ${product.studioShot ? 'is-studio-shot' : ''} is-photo`}
       >
         <img
           src={source}
-          alt={detail ? '' : `${product.alt} in ${selectedColor}`}
+          alt={detail ? '' : `${product.alt}. Selected color: ${selectedColor}.`}
           aria-hidden={detail || undefined}
-          width="800"
-          height="1000"
+          width="1122"
+          height="1402"
           sizes={detail ? '(max-width: 760px) 100vw, 28vw' : '(max-width: 760px) 100vw, 42vw'}
           loading={detail ? 'lazy' : 'eager'}
           decoding="async"
           fetchPriority={detail ? 'auto' : 'high'}
-          onError={(event) => {
-            if (!product.image || event.currentTarget.dataset.fallbackApplied === 'true') return;
-            event.currentTarget.dataset.fallbackApplied = 'true';
-            event.currentTarget.src = product.image;
-          }}
-          style={{ filter: variant.imageFilter }}
+          onError={useFallbackImage}
         />
-        <span className="variant-wash" aria-hidden="true" style={{ background: variant.hex, opacity: variant.overlayOpacity ?? 0 }}></span>
       </div>
     );
   };
@@ -95,7 +104,7 @@ export default function ProductDetail() {
             );
           })}
         </div>
-        <div className="fs-variant-banner" aria-live={mobile ? 'off' : 'polite'}><i style={{ background: variant.hex }}></i><span>Previewing {selectedColor}. Product tone updates instantly.</span></div>
+        <div className="fs-variant-banner" aria-live={mobile ? 'off' : 'polite'}><i style={{ background: variant.hex }}></i><span>Selected {selectedColor}. Photography shows the campaign colorway.</span></div>
       </div>
 
       <div className="fs-option-block fs-material-row"><span>Material</span><strong>{product.material}</strong></div>
