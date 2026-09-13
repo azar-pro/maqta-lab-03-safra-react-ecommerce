@@ -16,6 +16,12 @@ export default function ProductCard({ product }) {
     window.setTimeout(() => setAdded(false), 1400);
   }
 
+  function useFallbackImage(event) {
+    if (!product.fallbackImage || event.currentTarget.dataset.fallbackApplied === 'true') return;
+    event.currentTarget.dataset.fallbackApplied = 'true';
+    event.currentTarget.src = product.fallbackImage;
+  }
+
   return (
     <article className={`flagship-product-card ${product.studioShot ? 'is-studio-shot' : ''}`}>
       <div className="flagship-product-media" style={{ '--variant-hex': variant.hex }}>
@@ -26,6 +32,7 @@ export default function ProductCard({ product }) {
               alt={`${product.alt} in ${previewColor}`}
               loading="lazy"
               decoding="async"
+              onError={useFallbackImage}
               style={{ filter: variant.imageFilter }}
             />
             <span
