@@ -59,9 +59,6 @@ jobs:
           ];
 
           async function warmLazyMedia(page) {
-            // Force every real image to participate in review. Chromium can report
-            // offscreen eager/lazy images as complete while deferring raster decode,
-            // which produces false blank cards in full-page screenshots.
             await page.evaluate(() => {
               document.querySelectorAll('img').forEach(img => { img.loading = 'eager'; });
             });
@@ -84,9 +81,7 @@ jobs:
                     img.addEventListener('error', resolve, { once: true });
                   });
                 }
-                if (typeof img.decode === 'function') {
-                  await img.decode().catch(() => {});
-                }
+                if (typeof img.decode === 'function') await img.decode().catch(() => {});
               }));
               window.scrollTo(0, 0);
             });
@@ -94,10 +89,6 @@ jobs:
           }
 
           async function normalizeFullPageCapture(page) {
-            // Playwright/Chromium can composite sticky headers at the last warm-up
-            // scroll offset during full-page rasterization. That creates fake overlaps
-            // that never occur in the live viewport. Neutralize stickiness for the
-            // review image only; the website CSS itself remains untouched.
             await page.addStyleTag({ content: `
               .flagship-header {
                 position: relative !important;
@@ -109,6 +100,20 @@ jobs:
               if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
             });
             await page.waitForTimeout(180);
+          }
+
+          async function completeCheckout(page) {
+            await page.locator('input[name="name"]').fill('Meryem Fares');
+            await page.locator('input[name="email"]').fill('meryem@example.com');
+            await page.locator('input[name="phone"]').fill('+212 600 000 000');
+            await page.locator('input[name="city"]').fill('Fès');
+            await page.locator('input[name="address"]').fill('12 Rue Safra, Fès');
+            const desktopSubmit = page.locator('.fs-desktop-order-submit.fs-place-order');
+            const mobileSubmit = page.locator('.fs-mobile-order-submit.fs-place-order');
+            if (await desktopSubmit.isVisible().catch(() => false)) await desktopSubmit.click();
+            else await mobileSubmit.click();
+            await page.waitForURL(/#\/order-confirmation/);
+            await page.waitForTimeout(250);
           }
 
           async function shot(name, hash, viewport, options = {}) {
@@ -124,6 +129,7 @@ jobs:
             await page.goto(`${base}${hash}`, { waitUntil: 'networkidle' });
             await page.evaluate(() => document.fonts?.ready);
 
+            if (options.checkoutSuccess) await completeCheckout(page);
             if (!options.menu) await warmLazyMedia(page);
 
             if (options.menu) {
@@ -134,8 +140,11 @@ jobs:
               }
             }
 
-            await normalizeFullPageCapture(page);
-            await page.screenshot({ path: `screenshots/${name}.png`, fullPage: true });
+            const fullPage = options.fullPage !== false;
+            if (fullPage) await normalizeFullPageCapture(page);
+            else await page.evaluate(() => window.scrollTo(0, 0));
+
+            await page.screenshot({ path: `screenshots/${name}.png`, fullPage });
             await context.close();
           }
 
@@ -150,12 +159,19 @@ jobs:
           await shot('06-wishlist-desktop', '#/wishlist', desktop, { wishlist: true });
           await shot('07-bag-desktop', '#/cart', desktop, { cart: true });
           await shot('08-checkout-desktop', '#/checkout', desktop, { cart: true });
-          await shot('09-home-mobile', '#/', mobile);
-          await shot('10-menu-mobile', '#/', mobile, { menu: true });
-          await shot('11-shop-mobile', '#/shop', mobile);
-          await shot('12-product-mobile', '#/product/tala-mini-bag', mobile);
-          await shot('13-bag-mobile', '#/cart', mobile, { cart: true });
-          await shot('14-checkout-mobile', '#/checkout', mobile, { cart: true });
+          await shot('09-confirmation-desktop', '#/checkout', desktop, { cart: true, checkoutSuccess: true });
+          await shot('10-customer-care-desktop', '#/customer-care', desktop);
+          await shot('11-contact-desktop', '#/contact', desktop);
+          await shot('12-privacy-desktop', '#/privacy', desktop);
+          await shot('13-home-mobile', '#/', mobile);
+          await shot('14-menu-mobile-viewport', '#/', mobile, { menu: true, fullPage: false });
+          await shot('15-shop-mobile', '#/shop', mobile);
+          await shot('16-product-mobile', '#/product/tala-mini-bag', mobile);
+          await shot('17-bag-mobile', '#/cart', mobile, { cart: true });
+          await shot('18-checkout-mobile', '#/checkout', mobile, { cart: true });
+          await shot('19-confirmation-mobile', '#/checkout', mobile, { cart: true, checkoutSuccess: true });
+          await shot('20-customer-care-mobile', '#/customer-care', mobile);
+          await shot('21-contact-mobile', '#/contact', mobile);
 
           await browser.close();
           EOF
@@ -181,6 +197,10 @@ jobs:
             { name: 'about', hash: '#/about' },
             { name: 'bag', hash: '#/cart', cart: true },
             { name: 'checkout', hash: '#/checkout', cart: true },
+            { name: 'customer-care', hash: '#/customer-care' },
+            { name: 'contact', hash: '#/contact' },
+            { name: 'privacy', hash: '#/privacy' },
+            { name: 'terms', hash: '#/terms' },
             { name: 'mobile-menu', hash: '#/', viewport: { width: 390, height: 844 }, menu: true },
           ];
 
