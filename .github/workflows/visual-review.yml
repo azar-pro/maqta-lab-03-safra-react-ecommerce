@@ -59,30 +59,38 @@ jobs:
           ];
 
           async function warmLazyMedia(page) {
-            await page.evaluate(async () => {
-              const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-              const step = Math.max(520, Math.floor(window.innerHeight * 0.78));
-              let y = 0;
-              let lastHeight = 0;
-
-              while (y < document.documentElement.scrollHeight && document.documentElement.scrollHeight !== lastHeight) {
-                lastHeight = document.documentElement.scrollHeight;
-                for (; y < lastHeight; y += step) {
-                  window.scrollTo(0, y);
-                  await sleep(45);
-                }
-              }
-
-              window.scrollTo(0, document.documentElement.scrollHeight);
-              await sleep(180);
-              window.scrollTo(0, 0);
-              await sleep(260);
+            // Force every real image to participate in review. Chromium can report
+            // offscreen eager/lazy images as complete while deferring raster decode,
+            // which produces false blank cards in full-page screenshots.
+            await page.evaluate(() => {
+              document.querySelectorAll('img').forEach(img => { img.loading = 'eager'; });
             });
 
-            await page.waitForFunction(
-              () => [...document.images].filter(img => img.getBoundingClientRect().width > 0).every(img => img.complete),
-              { timeout: 10000 },
-            ).catch(() => {});
+            const images = page.locator('img');
+            const count = await images.count();
+            for (let i = 0; i < count; i += 1) {
+              const img = images.nth(i);
+              if (!(await img.isVisible().catch(() => false))) continue;
+              await img.scrollIntoViewIfNeeded().catch(() => {});
+              await page.waitForTimeout(55);
+            }
+
+            await page.evaluate(async () => {
+              const visible = [...document.images].filter(img => img.getBoundingClientRect().width > 0);
+              await Promise.all(visible.map(async img => {
+                if (!img.complete) {
+                  await new Promise(resolve => {
+                    img.addEventListener('load', resolve, { once: true });
+                    img.addEventListener('error', resolve, { once: true });
+                  });
+                }
+                if (typeof img.decode === 'function') {
+                  await img.decode().catch(() => {});
+                }
+              }));
+              window.scrollTo(0, 0);
+            });
+            await page.waitForTimeout(300);
           }
 
           async function shot(name, hash, viewport, options = {}) {
