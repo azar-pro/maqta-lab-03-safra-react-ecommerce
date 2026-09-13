@@ -34,3 +34,11 @@ jobs:
           path: dist
           if-no-files-found: error
           retention-days: 3
+
+      - name: Upload generated lockfile
+        uses: actions/upload-artifact@v4
+        with:
+          name: safra-package-lock
+          path: package-lock.json
+          if-no-files-found: error
+          retention-days: 3
