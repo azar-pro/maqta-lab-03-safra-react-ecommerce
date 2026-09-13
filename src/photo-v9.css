@@ -1,0 +1,141 @@
+/* SAFRA photo v9 — final high-resolution photography layer.
+   This file intentionally loads last so no earlier campaign experiment can
+   re-introduce low-resolution imagery, artificial recolouring or padded photos. */
+
+/* Campaign imagery */
+.fs-hero-media,
+.fs-shop-masthead-v2::before,
+.fs-about-hero::before {
+  background-image:
+    url('/assets/safra/campaign-hero-v3.webp'),
+    url('/assets/safra/campaign-hero-v2.webp'),
+    url('/assets/safra/campaign-hero.webp') !important;
+  background-size: cover, cover, cover !important;
+  background-repeat: no-repeat !important;
+  filter: none !important;
+}
+
+.fs-hero-media { background-position: center 35%, center 27%, center 27% !important; }
+.fs-shop-masthead-v2::before { background-position: center 38%, center 33%, center 33% !important; }
+.fs-about-hero::before { background-position: 64% 34%, 61% 28%, 61% 28% !important; }
+
+/* Use real product photography in supporting editorial blocks. */
+.fs-shop-editorial-media {
+  background-image:
+    linear-gradient(0deg, rgba(0,0,0,.08), rgba(0,0,0,.08)),
+    url('/assets/safra/sirocco-shoulder-bag-black-v3.webp'),
+    url('/assets/safra/campaign-sand-portrait.webp') !important;
+  background-size: auto, cover, cover !important;
+  background-position: center, center 48%, center 28% !important;
+  background-repeat: no-repeat !important;
+}
+
+.fs-about-origin-image,
+.fs-wishlist-empty-media {
+  background-image:
+    linear-gradient(0deg, rgba(15,13,11,.025), rgba(15,13,11,.025)),
+    url('/assets/safra/safra-mini-sand-v3.webp'),
+    url('/assets/safra/safra-mini-sand-v2.webp') !important;
+  background-size: auto, cover, cover !important;
+  background-position: center, center 52%, center 52% !important;
+  background-repeat: no-repeat !important;
+  background-color: #ded2bf !important;
+}
+
+.fs-editorial-image {
+  background-image:
+    linear-gradient(0deg, rgba(10,9,8,.035), rgba(10,9,8,.035)),
+    url('/assets/safra/sirocco-shoulder-bag-black-v3.webp'),
+    url('/assets/safra/sirocco-shoulder-bag-black.webp') !important;
+  background-size: auto, cover, cover !important;
+  background-position: center, center 50%, center !important;
+  background-repeat: no-repeat !important;
+  filter: none !important;
+}
+
+.fs-cat-bags::before {
+  background-image:
+    url('/assets/safra/safra-mini-sand-v3.webp'),
+    url('/assets/safra/safra-mini-sand-v2.webp') !important;
+  background-size: cover, cover !important;
+  background-position: center 54%, center 48% !important;
+}
+
+.fs-cat-jewelry::before {
+  background-image:
+    url('/assets/safra/noor-hoops-gold-v3.webp'),
+    url('/assets/safra/noor-hoops-gold.webp') !important;
+  background-size: cover, cover !important;
+  background-position: center 54%, center 52% !important;
+}
+
+.fs-cat-eyewear::before {
+  background-image:
+    url('/assets/safra/dune-sunglasses-tortoise-v3.webp'),
+    url('/assets/safra/dune-sunglasses-tortoise.webp') !important;
+  background-size: cover, cover !important;
+  background-position: center 54%, center 52% !important;
+}
+
+/* Preserve the photographic pixels. Earlier versions used CSS colour filters to
+   simulate variants; that made real photographs muddy and soft. */
+.flagship-product-card .flagship-image-stage img:not([src$='.svg']),
+.fs-product-shot.is-photo img,
+.fs-cart-image img:not([src$='.svg']),
+.fs-checkout-line img:not([src$='.svg']) {
+  filter: none !important;
+  padding: 0 !important;
+  object-fit: cover !important;
+  image-rendering: auto;
+}
+
+.flagship-product-card .variant-wash,
+.fs-product-shot .variant-wash {
+  display: none !important;
+}
+
+.flagship-product-card .flagship-image-stage img:not([src$='.svg']) {
+  width: 100%;
+  height: 100%;
+  object-position: center 52% !important;
+}
+
+.fs-product-primary-shot .fs-product-shot.is-photo img {
+  object-position: center 52% !important;
+}
+
+.fs-product-detail-shot .fs-product-shot.is-photo img {
+  object-position: center 48% !important;
+  transform: none !important;
+}
+
+.fs-product-detail-shot .fs-product-shot.is-photo:hover img {
+  transform: scale(1.012) !important;
+}
+
+/* Cart and checkout thumbnails should crop like photographs rather than look like
+   padded catalogue icons. */
+.fs-cart-image.is-studio-shot img:not([src$='.svg']),
+.fs-checkout-line.is-studio-shot img:not([src$='.svg']) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover !important;
+  object-position: center !important;
+  padding: 0 !important;
+  background: #ded3c2 !important;
+}
+
+@media (max-width: 760px) {
+  .fs-hero-media { background-position: 68% 30%, 57% 22%, 57% 22% !important; }
+  .fs-shop-masthead-v2::before { background-position: 68% 28%, 58% 25%, 58% 25% !important; }
+  .fs-about-hero::before { background-position: 69% 27%, 62% 24%, 61% 23% !important; }
+
+  .fs-about-origin-image,
+  .fs-wishlist-empty-media {
+    background-position: center, center 50%, center 50% !important;
+  }
+
+  .flagship-product-card .flagship-image-stage img:not([src$='.svg']) {
+    object-position: center 52% !important;
+  }
+}
