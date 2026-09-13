@@ -61,6 +61,26 @@ function SiteMeta() {
   return null;
 }
 
+function KeyboardNavigationMode() {
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.key === 'Tab') document.body.classList.add('is-keyboard-nav');
+    };
+    const onPointerDown = () => document.body.classList.remove('is-keyboard-nav');
+
+    window.addEventListener('keydown', onKeyDown, true);
+    window.addEventListener('pointerdown', onPointerDown, true);
+
+    return () => {
+      document.body.classList.remove('is-keyboard-nav');
+      window.removeEventListener('keydown', onKeyDown, true);
+      window.removeEventListener('pointerdown', onPointerDown, true);
+    };
+  }, []);
+
+  return null;
+}
+
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -90,6 +110,7 @@ export default function App() {
 
   return (
     <>
+      <KeyboardNavigationMode />
       <a className="fs-skip-link" href="#main-content">Skip to content</a>
       <SiteMeta />
       <ScrollToTop />
