@@ -36,6 +36,18 @@
   color: #666057;
 }
 
+/* Some automated browsers initially focus the first anchor. Keep the skip link off-canvas
+   unless the session has actually entered keyboard-navigation mode with Tab. */
+.fs-skip-link:focus,
+.fs-skip-link:focus-visible {
+  top: -80px;
+}
+
+body.is-keyboard-nav .fs-skip-link:focus,
+body.is-keyboard-nav .fs-skip-link:focus-visible {
+  top: 14px;
+}
+
 /* The translated-offscreen mobile menu must not remain keyboard-focusable while closed. */
 @media (max-width: 900px) {
   .flagship-navlinks {
