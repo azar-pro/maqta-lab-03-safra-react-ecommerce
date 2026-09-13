@@ -58,7 +58,16 @@ export default function Cart() {
                     className={`fs-cart-image ${item.product.studioShot ? 'is-studio-shot' : ''}`}
                     style={{ background: variant.hex }}
                   >
-                    <img src={item.product.image} alt={item.product.alt} style={{ filter: variant.imageFilter }} />
+                    <img
+                      src={item.product.image}
+                      alt={item.product.alt}
+                      onError={(event) => {
+                        if (!item.product.fallbackImage || event.currentTarget.dataset.fallbackApplied === 'true') return;
+                        event.currentTarget.dataset.fallbackApplied = 'true';
+                        event.currentTarget.src = item.product.fallbackImage;
+                      }}
+                      style={{ filter: variant.imageFilter }}
+                    />
                     <span className="variant-wash" aria-hidden="true" style={{ background: variant.hex, opacity: variant.overlayOpacity ?? 0 }}></span>
                   </Link>
 
