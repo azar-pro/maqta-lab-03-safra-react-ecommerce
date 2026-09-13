@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
 import { variantPresets } from '../data/products';
 
 export default function Checkout() {
   const { detailedCart, subtotal, clearCart } = useStore();
-  const [complete, setComplete] = useState(false);
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
   const shipping = subtotal >= 900 || subtotal === 0 ? 0 : 45;
   const total = subtotal + shipping;
 
@@ -25,9 +25,33 @@ export default function Checkout() {
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length === 0) {
+      const name = String(form.get('name') || '').trim();
+      const order = {
+        number: `SF-${new Date().getFullYear().toString().slice(-2)}${String(new Date().getMonth() + 1).padStart(2, '0')}${String(new Date().getDate()).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}`,
+        deliveryWindow: '2–4 business days',
+        subtotal,
+        shipping,
+        total,
+        customer: {
+          name,
+          firstName: name.split(/\s+/)[0] || 'there',
+          email: String(form.get('email') || '').trim(),
+          phone: String(form.get('phone') || '').trim(),
+          city: String(form.get('city') || '').trim(),
+          address: String(form.get('address') || '').trim(),
+        },
+        items: detailedCart.map(item => ({
+          key: item.key,
+          name: item.product.name,
+          price: item.product.price,
+          quantity: item.quantity,
+          color: item.color,
+          image: item.product.photo || item.product.photoFallback || item.product.image,
+        })),
+      };
+
       clearCart();
-      setComplete(true);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      navigate('/order-confirmation', { replace: true, state: { order } });
       return;
     }
 
@@ -35,20 +59,6 @@ export default function Checkout() {
       const firstInvalid = formElement.querySelector('[aria-invalid="true"]');
       firstInvalid?.focus();
     });
-  }
-
-  if (complete) {
-    return (
-      <main className="fs-checkout-success">
-        <div className="fs-checkout-success-inner">
-          <span className="fs-success-mark" aria-hidden="true">✓</span>
-          <p className="eyebrow">Demo order confirmed</p>
-          <h1>Thank you.</h1>
-          <p>Your SAFRA demo order is complete. No payment was collected and no personal information was transmitted to a server.</p>
-          <div className="fs-success-actions"><Link className="btn btn-dark" to="/shop">Continue exploring</Link><Link className="text-link" to="/">Back home</Link></div>
-        </div>
-      </main>
-    );
   }
 
   if (!detailedCart.length) {
