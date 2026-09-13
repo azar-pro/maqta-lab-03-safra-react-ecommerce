@@ -42,23 +42,35 @@ export default function ProductDetail() {
     window.setTimeout(() => setAdded(false), 1800);
   }
 
-  const variantStage = (detail = false) => (
-    <div
-      className={`fs-product-shot ${detail ? 'detail' : ''} ${product.studioShot ? 'is-studio-shot' : ''} ${product.artwork ? 'is-artwork' : 'is-photo'}`}
-      style={{ '--variant-hex': variant.hex, '--variant-opacity': variant.overlayOpacity ?? 0 }}
-    >
-      <img
-        src={product.image}
-        alt={detail ? '' : `${product.alt} in ${selectedColor}`}
-        aria-hidden={detail || undefined}
-        loading={detail ? 'lazy' : 'eager'}
-        decoding="async"
-        fetchPriority={detail ? 'auto' : 'high'}
-        style={{ filter: variant.imageFilter }}
-      />
-      <span className="variant-wash" aria-hidden="true" style={{ background: variant.hex, opacity: variant.overlayOpacity ?? 0 }}></span>
-    </div>
-  );
+  const variantStage = (detail = false) => {
+    const source = detail ? (product.detailImage || product.image) : product.image;
+    const fallback = detail
+      ? (product.fallbackDetailImage || product.fallbackImage)
+      : product.fallbackImage;
+
+    return (
+      <div
+        className={`fs-product-shot ${detail ? 'detail' : ''} ${product.studioShot ? 'is-studio-shot' : ''} ${product.artwork ? 'is-artwork' : 'is-photo'}`}
+        style={{ '--variant-hex': variant.hex, '--variant-opacity': variant.overlayOpacity ?? 0 }}
+      >
+        <img
+          src={source}
+          alt={detail ? '' : `${product.alt} in ${selectedColor}`}
+          aria-hidden={detail || undefined}
+          loading={detail ? 'lazy' : 'eager'}
+          decoding="async"
+          fetchPriority={detail ? 'auto' : 'high'}
+          onError={(event) => {
+            if (!fallback || event.currentTarget.dataset.fallbackApplied === 'true') return;
+            event.currentTarget.dataset.fallbackApplied = 'true';
+            event.currentTarget.src = fallback;
+          }}
+          style={{ filter: variant.imageFilter }}
+        />
+        <span className="variant-wash" aria-hidden="true" style={{ background: variant.hex, opacity: variant.overlayOpacity ?? 0 }}></span>
+      </div>
+    );
+  };
 
   const purchaseContent = (mobile = false) => (
     <>
