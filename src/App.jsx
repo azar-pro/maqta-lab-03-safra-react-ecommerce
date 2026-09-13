@@ -8,7 +8,11 @@ import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import Wishlist from './pages/Wishlist';
 import Checkout from './pages/Checkout';
+import OrderConfirmation from './pages/OrderConfirmation';
 import About from './pages/About';
+import CustomerCare from './pages/CustomerCare';
+import Contact from './pages/Contact';
+import Legal from './pages/Legal';
 import { products } from './data/products';
 
 const defaultMeta = {
@@ -17,77 +21,60 @@ const defaultMeta = {
 };
 
 function resolveMeta(pathname) {
-  if (pathname === '/shop') return {
-    title: 'The Edit — SAFRA',
-    description: 'Explore SAFRA Drop 01: a tightly edited collection of contemporary bags, jewelry, eyewear and small leather goods.',
-  };
-  if (pathname === '/about') return {
-    title: 'About SAFRA — Form, Material, Movement',
-    description: 'Discover SAFRA’s point of view: contemporary accessories informed by Fès, tactile materials, controlled color and everyday movement.',
-  };
+  if (pathname === '/shop') return { title: 'The Edit — SAFRA', description: 'Explore SAFRA Drop 01: a tightly edited collection of contemporary bags, jewelry, eyewear and small leather goods.' };
+  if (pathname === '/about') return { title: 'About SAFRA — Form, Material, Movement', description: 'Discover SAFRA’s point of view: contemporary accessories informed by Fès, tactile materials, controlled color and everyday movement.' };
   if (pathname === '/wishlist') return { title: 'Saved Pieces — SAFRA', description: 'Revisit the SAFRA pieces saved to your private local edit.' };
   if (pathname === '/cart') return { title: 'Your Bag — SAFRA', description: 'Review selected SAFRA pieces, colors, quantities and delivery before checkout.' };
   if (pathname === '/checkout') return { title: 'Checkout — SAFRA', description: 'SAFRA portfolio checkout experience with accessible form validation and local commerce state.' };
+  if (pathname === '/order-confirmation') return { title: 'Order Confirmed — SAFRA', description: 'SAFRA demo order confirmation and complete portfolio commerce journey.' };
+  if (pathname === '/customer-care') return { title: 'Customer Care — SAFRA', description: 'SAFRA delivery, returns, orders, product care and packaging information.' };
+  if (pathname === '/contact') return { title: 'Contact — SAFRA', description: 'Contact the SAFRA concept store about products, delivery, orders and collaborations.' };
+  if (pathname === '/privacy') return { title: 'Privacy — SAFRA', description: 'Privacy information for the SAFRA portfolio storefront demo.' };
+  if (pathname === '/terms') return { title: 'Terms — SAFRA', description: 'Terms for the fictional SAFRA portfolio commerce concept.' };
   if (pathname.startsWith('/product/')) {
     const id = decodeURIComponent(pathname.split('/product/')[1] || '');
     const product = products.find(item => item.id === id);
-    if (product) return {
-      title: `${product.name} — SAFRA`,
-      description: `${product.description} ${product.material}. Available in ${product.colors.join(', ')}.`,
-    };
+    if (product) return { title: `${product.name} — SAFRA`, description: `${product.description} ${product.material}. Available in ${product.colors.join(', ')}.` };
   }
   return defaultMeta;
 }
 
 function SiteMeta() {
   const { pathname } = useLocation();
-
   useEffect(() => {
     const meta = resolveMeta(pathname);
     document.title = meta.title;
-
     const setMeta = (selector, attribute, value) => {
       const element = document.querySelector(selector);
       if (element) element.setAttribute(attribute, value);
     };
-
     setMeta('meta[name="description"]', 'content', meta.description);
     setMeta('meta[property="og:title"]', 'content', meta.title);
     setMeta('meta[property="og:description"]', 'content', meta.description);
     setMeta('meta[name="twitter:title"]', 'content', meta.title);
     setMeta('meta[name="twitter:description"]', 'content', meta.description);
   }, [pathname]);
-
   return null;
 }
 
 function KeyboardNavigationMode() {
   useEffect(() => {
-    const onKeyDown = (event) => {
-      if (event.key === 'Tab') document.body.classList.add('is-keyboard-nav');
-    };
+    const onKeyDown = event => { if (event.key === 'Tab') document.body.classList.add('is-keyboard-nav'); };
     const onPointerDown = () => document.body.classList.remove('is-keyboard-nav');
-
     window.addEventListener('keydown', onKeyDown, true);
     window.addEventListener('pointerdown', onPointerDown, true);
-
     return () => {
       document.body.classList.remove('is-keyboard-nav');
       window.removeEventListener('keydown', onKeyDown, true);
       window.removeEventListener('pointerdown', onPointerDown, true);
     };
   }, []);
-
   return null;
 }
 
 function ScrollToTop() {
   const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
 }
 
@@ -107,7 +94,6 @@ function NotFound() {
 export default function App() {
   const location = useLocation();
   const meta = resolveMeta(location.pathname);
-
   return (
     <>
       <KeyboardNavigationMode />
@@ -123,7 +109,12 @@ export default function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/order-confirmation" element={<OrderConfirmation />} />
           <Route path="/about" element={<About />} />
+          <Route path="/customer-care" element={<CustomerCare />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<Legal type="privacy" />} />
+          <Route path="/terms" element={<Legal type="terms" />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
