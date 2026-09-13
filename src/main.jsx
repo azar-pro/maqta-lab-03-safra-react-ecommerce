@@ -13,6 +13,7 @@ import './brand-v3.css';
 import './brand-v4.css';
 import './final-v5.css';
 import './final-v6.css';
+import './photo-v7.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
