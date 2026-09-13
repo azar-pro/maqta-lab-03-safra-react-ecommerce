@@ -16,10 +16,11 @@ body { overflow-x: clip; }
   letter-spacing: .1em;
   text-decoration: none;
   text-transform: uppercase;
-  transform: translateY(-160%);
+  transform: translateY(calc(-100% - 32px));
   transition: transform .18s ease;
 }
-.fs-skip-link:focus { transform: translateY(0); }
+.fs-skip-link:focus,
+.fs-skip-link:focus-visible { transform: translateY(0); }
 #main-content:focus { outline: none; }
 
 .fs-route-stage {
