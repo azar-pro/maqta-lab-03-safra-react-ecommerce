@@ -1,0 +1,35 @@
+/* SAFRA a11y v8 — targeted contrast corrections after automated WCAG review. */
+
+:root {
+  /* Keeps the editorial warmth while clearing AA contrast on the main paper background. */
+  --fs-muted: #706a62;
+}
+
+/* Warm editorial panel: its darker paper needs a stronger text tone than the global muted value. */
+.fs-manifesto .eyebrow,
+.fs-manifesto-copy p,
+.fs-manifesto-copy .text-link {
+  color: #5b564e;
+}
+
+/* Service strip uses a slightly darker warm gray so small utility copy remains readable. */
+.fs-service-item > span,
+.fs-service-item > small {
+  color: #666057;
+}
+
+/* Footer sits on near-black, so muted copy must move lighter rather than darker. */
+.fs-footer-newsletter .eyebrow {
+  color: #888178;
+}
+
+.fs-footer-bottom,
+.fs-footer-bottom > span,
+.fs-footer-bottom a {
+  color: #918a80;
+}
+
+/* Demo payment placeholders are visible text, not decorative ghost content. */
+.fs-payment-ghost span {
+  color: #666057;
+}
