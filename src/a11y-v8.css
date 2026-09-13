@@ -35,3 +35,16 @@
 .fs-payment-ghost span {
   color: #666057;
 }
+
+/* The translated-offscreen mobile menu must not remain keyboard-focusable while closed. */
+@media (max-width: 900px) {
+  .flagship-navlinks {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .flagship-navlinks.open {
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
