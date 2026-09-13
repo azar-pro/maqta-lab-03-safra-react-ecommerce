@@ -130,10 +130,10 @@
 }
 
 @media (max-width: 760px) {
-  /* Keep the checkout masthead safely below the sticky mobile header. The extra
-     breathing room is intentional editorial spacing, not a compensation scale. */
+  /* Give the checkout masthead deliberate mobile breathing room without turning
+     the top of the page into an oversized spacer. */
   .fs-checkout-top {
-    padding: 104px 16px 32px !important;
+    padding: 72px 16px 32px !important;
     overflow: visible;
   }
   .fs-checkout-top-inner {
