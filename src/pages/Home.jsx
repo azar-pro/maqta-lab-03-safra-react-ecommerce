@@ -52,7 +52,7 @@ export default function Home() {
             <span className="fs-section-counter">04 selected / 08 total</span>
           </div>
           <div className="product-grid">
-            {featured.map(product => <ProductCard key={product.id} product={product} />)}
+            {featured.map((product, index) => <ProductCard key={product.id} product={product} priority={index < 2} />)}
           </div>
         </div>
       </section>
