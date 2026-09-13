@@ -43,10 +43,9 @@ export default function ProductDetail() {
   }
 
   const variantStage = (detail = false) => {
-    const source = detail ? (product.detailImage || product.image) : product.image;
-    const fallback = detail
-      ? (product.fallbackDetailImage || product.fallbackImage)
-      : product.fallbackImage;
+    const source = detail
+      ? (product.detailPhoto || product.photo || product.image)
+      : (product.photo || product.image);
 
     return (
       <div
@@ -61,9 +60,9 @@ export default function ProductDetail() {
           decoding="async"
           fetchPriority={detail ? 'auto' : 'high'}
           onError={(event) => {
-            if (!fallback || event.currentTarget.dataset.fallbackApplied === 'true') return;
+            if (!product.image || event.currentTarget.dataset.fallbackApplied === 'true') return;
             event.currentTarget.dataset.fallbackApplied = 'true';
-            event.currentTarget.src = fallback;
+            event.currentTarget.src = product.image;
           }}
           style={{ filter: variant.imageFilter }}
         />
