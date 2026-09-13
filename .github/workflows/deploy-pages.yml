@@ -1,8 +1,9 @@
 name: Deploy GitHub Pages
 
+# GitHub Pages must be enabled once in Settings → Pages → Build and deployment → GitHub Actions.
+# Until that repository-level setting exists, GitHub blocks configure-pages from creating the site
+# through the Actions integration. Keep deployment manual so normal code pushes stay green.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -34,8 +35,6 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
