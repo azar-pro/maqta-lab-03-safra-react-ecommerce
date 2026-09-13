@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuButtonRef = useRef(null);
+  const navRef = useRef(null);
   const { cartCount, wishlist } = useStore();
   const location = useLocation();
   const logoPath = `${import.meta.env.BASE_URL}safra-mark.svg`;
@@ -25,9 +27,38 @@ export default function Header() {
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
 
+    if (open && window.innerWidth <= 900) {
+      window.requestAnimationFrame(() => navRef.current?.querySelector('a')?.focus());
+    }
+
     const onKeyDown = (event) => {
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key === 'Escape' && open) {
+        setOpen(false);
+        window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+        return;
+      }
+
+      if (event.key !== 'Tab' || !open || window.innerWidth > 900) return;
+
+      const focusable = [
+        menuButtonRef.current,
+        ...(navRef.current ? [...navRef.current.querySelectorAll('a[href]')] : []),
+      ].filter(Boolean);
+
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
+
     const onResize = () => {
       if (window.innerWidth > 900) setOpen(false);
     };
@@ -52,6 +83,7 @@ export default function Header() {
 
       <div className="shell flagship-nav">
         <button
+          ref={menuButtonRef}
           className={`flagship-menu-button ${open ? 'open' : ''}`}
           type="button"
           aria-expanded={open}
@@ -62,7 +94,7 @@ export default function Header() {
           <div aria-hidden="true"><span></span><span></span></div>
         </button>
 
-        <nav id="flagship-navigation" className={`flagship-navlinks ${open ? 'open' : ''}`} aria-label="Main navigation">
+        <nav ref={navRef} id="flagship-navigation" className={`flagship-navlinks ${open ? 'open' : ''}`} aria-label="Main navigation">
           <NavLink to="/" onClick={close}>Home</NavLink>
           <NavLink to="/shop" onClick={close}>Shop</NavLink>
           <NavLink to="/about" onClick={close}>About</NavLink>
