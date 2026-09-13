@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
 import { variantPresets } from '../data/products';
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, priority = false }) {
   const { wishlist, toggleWishlist, addToCart } = useStore();
   const [added, setAdded] = useState(false);
   const [previewColor, setPreviewColor] = useState(product.colors?.[0] || '');
@@ -30,8 +30,12 @@ export default function ProductCard({ product }) {
             <img
               src={product.photo || product.image}
               alt={`${product.alt} in ${previewColor}`}
-              loading="lazy"
+              width="800"
+              height="1000"
+              sizes="(max-width: 760px) 100vw, (max-width: 1100px) 50vw, 33vw"
+              loading={priority ? 'eager' : 'lazy'}
               decoding="async"
+              fetchPriority={priority ? 'high' : 'auto'}
               onError={useFallbackImage}
               style={{ filter: variant.imageFilter }}
             />
