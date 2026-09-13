@@ -56,6 +56,9 @@ export default function ProductDetail() {
           src={source}
           alt={detail ? '' : `${product.alt} in ${selectedColor}`}
           aria-hidden={detail || undefined}
+          width="800"
+          height="1000"
+          sizes={detail ? '(max-width: 760px) 100vw, 28vw' : '(max-width: 760px) 100vw, 42vw'}
           loading={detail ? 'lazy' : 'eager'}
           decoding="async"
           fetchPriority={detail ? 'auto' : 'high'}
