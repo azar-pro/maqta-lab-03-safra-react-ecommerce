@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'public/assets/safra/*.webp.b64'
+      - 'public/assets/safra-staging/**'
       - '.github/workflows/decode-safra-assets.yml'
 
 permissions:
@@ -19,21 +19,46 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Decode image payloads
+      - name: Decode staged high-resolution image payloads
         shell: bash
         run: |
+          set -euo pipefail
           shopt -s nullglob
-          files=(public/assets/safra/*.webp.b64)
-          if [ ${#files[@]} -eq 0 ]; then
-            echo "No SAFRA payloads to decode."
+          stage="public/assets/safra-staging"
+          ready="$stage/.ready"
+
+          if [ ! -f "$ready" ]; then
+            echo "SAFRA staging is not marked ready yet."
             exit 0
           fi
-          for payload in "${files[@]}"; do
-            output="${payload%.b64}"
-            base64 --decode "$payload" > "$output"
-            rm "$payload"
-            echo "Decoded $output"
+
+          manifests=("$stage"/*.manifest)
+          if [ ${#manifests[@]} -eq 0 ]; then
+            echo "No SAFRA manifests found."
+            exit 1
+          fi
+
+          mkdir -p public/assets/safra
+
+          for manifest in "${manifests[@]}"; do
+            name="$(basename "$manifest" .manifest)"
+            output="public/assets/safra/$name"
+            parts=("$stage/$name".b64.part*)
+            if [ ${#parts[@]} -eq 0 ]; then
+              echo "No chunks found for $name"
+              exit 1
+            fi
+            cat "${parts[@]}" | tr -d '\n\r' | base64 --decode > "$output"
+            expected="$(cat "$manifest")"
+            actual="$(sha256sum "$output" | awk '{print $1}')"
+            if [ "$expected" != "$actual" ]; then
+              echo "SHA256 mismatch for $name"
+              exit 1
+            fi
+            echo "Decoded and verified $output"
           done
+
+          rm -rf "$stage"
 
       - name: Commit decoded assets
         shell: bash
@@ -44,6 +69,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/assets/safra
-          git commit -m "Decode SAFRA campaign assets [skip ci]"
+          git add public/assets/safra public/assets/safra-staging
+          git commit -m "Decode SAFRA high-resolution photography [skip ci]"
           git push origin HEAD:main
