@@ -55,8 +55,35 @@ jobs:
           const cart = [
             { key: 'tala-mini-bag-Sand', productId: 'tala-mini-bag', color: 'Sand', quantity: 1 },
             { key: 'noor-hoops-Gold', productId: 'noor-hoops', color: 'Gold', quantity: 1 },
-            { key: 'azur-sunglasses-Cobalt', productId: 'azur-sunglasses', color: 'Cobalt', quantity: 1 },
+            { key: 'azur-sunglasses-Tortoise', productId: 'azur-sunglasses', color: 'Tortoise', quantity: 1 },
           ];
+
+          async function warmLazyMedia(page) {
+            await page.evaluate(async () => {
+              const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+              const step = Math.max(520, Math.floor(window.innerHeight * 0.78));
+              let y = 0;
+              let lastHeight = 0;
+
+              while (y < document.documentElement.scrollHeight && document.documentElement.scrollHeight !== lastHeight) {
+                lastHeight = document.documentElement.scrollHeight;
+                for (; y < lastHeight; y += step) {
+                  window.scrollTo(0, y);
+                  await sleep(45);
+                }
+              }
+
+              window.scrollTo(0, document.documentElement.scrollHeight);
+              await sleep(180);
+              window.scrollTo(0, 0);
+              await sleep(260);
+            });
+
+            await page.waitForFunction(
+              () => [...document.images].filter(img => img.getBoundingClientRect().width > 0).every(img => img.complete),
+              { timeout: 10000 },
+            ).catch(() => {});
+          }
 
           async function shot(name, hash, viewport, options = {}) {
             const context = await browser.newContext({ viewport, deviceScaleFactor: 1 });
@@ -70,13 +97,17 @@ jobs:
             }
             await page.goto(`${base}${hash}`, { waitUntil: 'networkidle' });
             await page.evaluate(() => document.fonts?.ready);
+
+            if (!options.menu) await warmLazyMedia(page);
+
             if (options.menu) {
               const menu = page.locator('.flagship-menu-button');
               if (await menu.count()) {
                 await menu.first().click({ timeout: 5000 }).catch(() => {});
-                await page.waitForTimeout(250);
+                await page.waitForTimeout(300);
               }
             }
+
             await page.screenshot({ path: `screenshots/${name}.png`, fullPage: true });
             await context.close();
           }
