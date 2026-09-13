@@ -93,6 +93,24 @@ jobs:
             await page.waitForTimeout(300);
           }
 
+          async function normalizeFullPageCapture(page) {
+            // Playwright/Chromium can composite sticky headers at the last warm-up
+            // scroll offset during full-page rasterization. That creates fake overlaps
+            // that never occur in the live viewport. Neutralize stickiness for the
+            // review image only; the website CSS itself remains untouched.
+            await page.addStyleTag({ content: `
+              .flagship-header {
+                position: relative !important;
+                top: auto !important;
+              }
+            ` });
+            await page.evaluate(() => {
+              window.scrollTo(0, 0);
+              if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+            });
+            await page.waitForTimeout(180);
+          }
+
           async function shot(name, hash, viewport, options = {}) {
             const context = await browser.newContext({ viewport, deviceScaleFactor: 1 });
             const page = await context.newPage();
@@ -116,6 +134,7 @@ jobs:
               }
             }
 
+            await normalizeFullPageCapture(page);
             await page.screenshot({ path: `screenshots/${name}.png`, fullPage: true });
             await context.close();
           }
