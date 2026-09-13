@@ -14,6 +14,7 @@ import './brand-v4.css';
 import './final-v5.css';
 import './final-v6.css';
 import './photo-v7.css';
+import './a11y-v8.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
