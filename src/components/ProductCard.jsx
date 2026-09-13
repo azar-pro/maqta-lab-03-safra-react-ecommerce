@@ -17,9 +17,9 @@ export default function ProductCard({ product }) {
   }
 
   function useFallbackImage(event) {
-    if (!product.fallbackImage || event.currentTarget.dataset.fallbackApplied === 'true') return;
+    if (!product.image || event.currentTarget.dataset.fallbackApplied === 'true') return;
     event.currentTarget.dataset.fallbackApplied = 'true';
-    event.currentTarget.src = product.fallbackImage;
+    event.currentTarget.src = product.image;
   }
 
   return (
@@ -28,7 +28,7 @@ export default function ProductCard({ product }) {
         <Link to={`/product/${product.id}`} aria-label={`View ${product.name}`}>
           <div className="flagship-image-stage">
             <img
-              src={product.image}
+              src={product.photo || product.image}
               alt={`${product.alt} in ${previewColor}`}
               loading="lazy"
               decoding="async"
