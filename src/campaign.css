@@ -1,8 +1,11 @@
 /* SAFRA campaign layer — original imagery + ecommerce polish. */
 
 .fs-hero-media {
-  background-image: url('/assets/safra/campaign-hero.webp') !important;
-  background-position: center 27% !important;
+  background-image:
+    url('/assets/safra/campaign-hero-v2.webp'),
+    url('/assets/safra/campaign-hero.webp') !important;
+  background-position: center 27%, center 27% !important;
+  background-size: cover, cover !important;
   filter: saturate(.82) contrast(1.03);
 }
 
@@ -139,7 +142,7 @@
 
 @media (max-width: 760px) {
   .fs-hero-media {
-    background-position: 57% 22% !important;
+    background-position: 57% 22%, 57% 22% !important;
     transform: scale(1.02);
   }
   .fs-hero::after {
