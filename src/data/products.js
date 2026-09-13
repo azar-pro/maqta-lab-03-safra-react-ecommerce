@@ -23,7 +23,7 @@ export const products = [
     image: asset('safra-mini-sand.webp'),
     photo: asset('safra-mini-sand-v3.webp'),
     photoFallback: asset('safra-mini-sand-v2.webp'),
-    detailPhoto: asset('safra-mini-sand-v3.webp'),
+    detailPhoto: asset('safra-mini-detail-v3.webp'),
     studioShot: true,
     alt: 'SAFRA structured sand mini handbag photographed in warm Mediterranean light',
     description: 'A compact structured handbag with a clean silhouette, softly grained finish and polished gold-tone hardware.',
