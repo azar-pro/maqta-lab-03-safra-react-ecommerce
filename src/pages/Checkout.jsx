@@ -110,7 +110,20 @@ export default function Checkout() {
               const variant = variantPresets[item.color] || { imageFilter: 'none' };
               return (
                 <div className={`fs-checkout-line ${item.product.studioShot ? 'is-studio-shot' : ''}`} key={item.key}>
-                  <img src={item.product.image} alt="" style={{ filter: variant.imageFilter }} />
+                  <img
+                    src={item.product.photo || item.product.image}
+                    alt=""
+                    width="96"
+                    height="120"
+                    loading="eager"
+                    decoding="async"
+                    onError={(event) => {
+                      if (!item.product.image || event.currentTarget.dataset.fallbackApplied === 'true') return;
+                      event.currentTarget.dataset.fallbackApplied = 'true';
+                      event.currentTarget.src = item.product.image;
+                    }}
+                    style={{ filter: variant.imageFilter }}
+                  />
                   <span><strong>{item.product.name}</strong><small>{item.color || 'Standard'} · Qty {item.quantity}</small></span>
                   <strong>{item.product.price * item.quantity} DH</strong>
                 </div>
