@@ -111,16 +111,26 @@ export default function Checkout() {
               return (
                 <div className={`fs-checkout-line ${item.product.studioShot ? 'is-studio-shot' : ''}`} key={item.key}>
                   <img
-                    src={item.product.photo || item.product.image}
+                    src={item.product.photo || item.product.photoFallback || item.product.image}
                     alt=""
                     width="96"
                     height="120"
                     loading="eager"
                     decoding="async"
                     onError={(event) => {
-                      if (!item.product.image || event.currentTarget.dataset.fallbackApplied === 'true') return;
-                      event.currentTarget.dataset.fallbackApplied = 'true';
-                      event.currentTarget.src = item.product.image;
+                      const img = event.currentTarget;
+                      if (img.dataset.fallbackStage === 'legacy') return;
+
+                      if (img.dataset.fallbackStage !== 'photo' && item.product.photoFallback) {
+                        img.dataset.fallbackStage = 'photo';
+                        img.src = item.product.photoFallback;
+                        return;
+                      }
+
+                      if (item.product.image) {
+                        img.dataset.fallbackStage = 'legacy';
+                        img.src = item.product.image;
+                      }
                     }}
                     style={{ filter: variant.imageFilter }}
                   />
