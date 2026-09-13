@@ -36,16 +36,23 @@
   color: #666057;
 }
 
-/* Some automated browsers initially focus the first anchor. Keep the skip link off-canvas
-   unless the session has actually entered keyboard-navigation mode with Tab. */
+/* Keep the skip link completely off-canvas during pointer browsing and automated
+   raster review. KeyboardNavigationMode adds body.is-keyboard-nav on the first Tab,
+   so keyboard users still receive the link exactly when it becomes useful. */
+.fs-skip-link,
 .fs-skip-link:focus,
 .fs-skip-link:focus-visible {
-  top: -80px;
+  top: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-180%);
 }
 
 body.is-keyboard-nav .fs-skip-link:focus,
 body.is-keyboard-nav .fs-skip-link:focus-visible {
-  top: 14px;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 /* The translated-offscreen mobile menu must not remain keyboard-focusable while closed. */
