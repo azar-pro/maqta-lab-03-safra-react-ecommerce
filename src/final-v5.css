@@ -7,7 +7,7 @@ body { overflow-x: clip; }
   position: fixed;
   z-index: 10000;
   left: 18px;
-  top: 14px;
+  top: -80px;
   padding: 11px 14px;
   background: var(--fs-cobalt);
   color: white;
@@ -16,11 +16,10 @@ body { overflow-x: clip; }
   letter-spacing: .1em;
   text-decoration: none;
   text-transform: uppercase;
-  transform: translateY(calc(-100% - 32px));
-  transition: transform .18s ease;
+  transition: top .18s ease;
 }
 .fs-skip-link:focus,
-.fs-skip-link:focus-visible { transform: translateY(0); }
+.fs-skip-link:focus-visible { top: 14px; }
 #main-content:focus { outline: none; }
 
 .fs-route-stage {
