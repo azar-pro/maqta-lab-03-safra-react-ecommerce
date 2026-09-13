@@ -12,10 +12,12 @@
   color: #5b564e;
 }
 
-/* Service strip uses a slightly darker warm gray so small utility copy remains readable. */
+/* Service strip uses a slightly darker warm gray so small utility copy remains readable.
+   final-v6 intentionally used !important for the strip, so the accessibility correction
+   must explicitly supersede that older QA rule. */
 .fs-service-item > span,
 .fs-service-item > small {
-  color: #666057;
+  color: #666057 !important;
 }
 
 /* Footer sits on near-black, so muted copy must move lighter rather than darker. */
