@@ -102,7 +102,7 @@ export default function Shop() {
             <div className="product-grid fs-shop-grid fs-shop-grid-v2">
               {filtered.map((product, index) => (
                 <Fragment key={product.id}>
-                  <ProductCard product={product} />
+                  <ProductCard product={product} priority={index < 4} />
                   {index === 3 && filtered.length > 4 && (
                     <article className="fs-shop-editorial-card">
                       <div className="fs-shop-editorial-media" aria-hidden="true"></div>
