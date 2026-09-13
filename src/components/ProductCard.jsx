@@ -8,7 +8,6 @@ export default function ProductCard({ product, priority = false }) {
   const [added, setAdded] = useState(false);
   const [previewColor, setPreviewColor] = useState(product.colors?.[0] || '');
   const saved = wishlist.includes(product.id);
-  const variant = variantPresets[previewColor] || { hex: '#d9c5a7', imageFilter: 'none', overlayOpacity: 0 };
 
   function quickAdd() {
     addToCart(product.id, previewColor, 1);
@@ -17,33 +16,37 @@ export default function ProductCard({ product, priority = false }) {
   }
 
   function useFallbackImage(event) {
-    if (!product.image || event.currentTarget.dataset.fallbackApplied === 'true') return;
-    event.currentTarget.dataset.fallbackApplied = 'true';
-    event.currentTarget.src = product.image;
+    const img = event.currentTarget;
+    if (img.dataset.fallbackStage === 'legacy') return;
+
+    if (img.dataset.fallbackStage !== 'photo' && product.photoFallback) {
+      img.dataset.fallbackStage = 'photo';
+      img.src = product.photoFallback;
+      return;
+    }
+
+    if (product.image) {
+      img.dataset.fallbackStage = 'legacy';
+      img.src = product.image;
+    }
   }
 
   return (
     <article className={`flagship-product-card ${product.studioShot ? 'is-studio-shot' : ''}`}>
-      <div className="flagship-product-media" style={{ '--variant-hex': variant.hex }}>
+      <div className="flagship-product-media">
         <Link to={`/product/${product.id}`} aria-label={`View ${product.name}`}>
           <div className="flagship-image-stage">
             <img
-              src={product.photo || product.image}
-              alt={`${product.alt} in ${previewColor}`}
-              width="800"
-              height="1000"
+              src={product.photo || product.photoFallback || product.image}
+              alt={`${product.alt}. Selected color: ${previewColor}.`}
+              width="1122"
+              height="1402"
               sizes="(max-width: 760px) 100vw, (max-width: 1100px) 50vw, 33vw"
               loading={priority ? 'eager' : 'lazy'}
               decoding="async"
               fetchPriority={priority ? 'high' : 'auto'}
               onError={useFallbackImage}
-              style={{ filter: variant.imageFilter }}
             />
-            <span
-              className="variant-wash"
-              aria-hidden="true"
-              style={{ background: variant.hex, opacity: variant.overlayOpacity ?? 0 }}
-            ></span>
           </div>
         </Link>
 
@@ -74,7 +77,7 @@ export default function ProductCard({ product, priority = false }) {
         <div>
           <p>{product.material}</p>
           <h3><Link to={`/product/${product.id}`}>{product.name}</Link></h3>
-          <div className="flagship-card-swatches" aria-label={`Preview colors for ${product.name}`}>
+          <div className="flagship-card-swatches" aria-label={`Choose color for ${product.name}`}>
             {product.colors.map(color => {
               const preset = variantPresets[color] || { hex: '#d9c5a7' };
               const active = previewColor === color;
@@ -84,7 +87,7 @@ export default function ProductCard({ product, priority = false }) {
                   type="button"
                   className={active ? 'active' : ''}
                   onClick={() => setPreviewColor(color)}
-                  aria-label={`Preview ${color}`}
+                  aria-label={`Select ${color}`}
                   aria-pressed={active}
                   title={color}
                 >
