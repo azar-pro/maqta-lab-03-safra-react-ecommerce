@@ -1,0 +1,157 @@
+/* SAFRA photo v7 — high-resolution campaign + product photography rollout.
+   Every new asset has an existing project asset underneath it as a runtime fallback,
+   so the storefront remains intact while the generated WebPs are added to public/assets/safra. */
+
+/* ---------- CAMPAIGN ---------- */
+.fs-shop-masthead-v2::before {
+  background-image:
+    url('/assets/safra/campaign-hero-v2.webp'),
+    url('/assets/safra/campaign-hero.webp') !important;
+  background-size: cover, cover !important;
+  background-position: center 33%, center 33% !important;
+}
+
+.fs-shop-editorial-media {
+  background-image:
+    linear-gradient(0deg, rgba(0,0,0,.10), rgba(0,0,0,.10)),
+    url('/assets/safra/campaign-sand-portrait.webp'),
+    url('/assets/safra/campaign-hero.webp') !important;
+  background-size: auto, cover, cover !important;
+  background-position: center, center 28%, center 28% !important;
+  background-repeat: no-repeat !important;
+}
+
+.fs-about-hero::before {
+  background-image:
+    url('/assets/safra/campaign-hero-v2.webp'),
+    url('/assets/safra/campaign-hero.webp') !important;
+  background-size: cover, cover !important;
+  background-position: 61% 28%, 61% 28% !important;
+}
+
+.fs-about-origin-image {
+  background-image:
+    linear-gradient(0deg, rgba(15,13,11,.04), rgba(15,13,11,.04)),
+    url('/assets/safra/campaign-sand-portrait.webp'),
+    url('/assets/safra/safra-mini-sand.webp') !important;
+  background-size: auto, cover, min(74%, 760px) !important;
+  background-position: center, center 31%, center 46% !important;
+  background-repeat: no-repeat !important;
+  background-color: #d8cebd !important;
+}
+
+/* ---------- HOME PRODUCT / CATEGORY STORY ---------- */
+.fs-editorial-image {
+  background-image:
+    linear-gradient(0deg, rgba(10,9,8,.04), rgba(10,9,8,.04)),
+    url('/assets/safra/sirocco-shoulder-bag-black.webp'),
+    url('/assets/safra/sirocco-shoulder-bag.svg') !important;
+  background-size: auto, cover, cover !important;
+  background-position: center, center, center !important;
+  background-repeat: no-repeat !important;
+  background-color: #d8cdbf !important;
+}
+
+.fs-cat-bags::before {
+  background-image:
+    url('/assets/safra/safra-mini-sand-v2.webp'),
+    url('/assets/safra/safra-mini-sand.webp') !important;
+  background-size: cover, cover !important;
+  background-position: center 48%, center 43% !important;
+  background-repeat: no-repeat !important;
+  background-color: #d9cfbf !important;
+}
+
+.fs-cat-jewelry::before {
+  background-image:
+    url('/assets/safra/noor-hoops-gold.webp'),
+    url('/assets/safra/noor-hoops.svg') !important;
+  background-size: cover, cover !important;
+  background-position: center 52%, center !important;
+  background-repeat: no-repeat !important;
+}
+
+.fs-cat-eyewear::before {
+  background-image:
+    url('/assets/safra/dune-sunglasses-tortoise.webp'),
+    url('/assets/safra/azur-sunglasses.svg') !important;
+  background-size: cover, cover !important;
+  background-position: center 52%, center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* ---------- CATALOG PHOTOGRAPHY ---------- */
+/* Real product photographs should fill their commercial frame. SVG fallbacks keep
+   the former padded artwork treatment from brand-v4.css until the WebP is present. */
+.flagship-product-card.is-studio-shot .flagship-image-stage img:not([src$='.svg']) {
+  width: 100%;
+  height: 100%;
+  padding: 0 !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+.flagship-product-card.is-studio-shot .flagship-image-stage:has(img:not([src$='.svg'])) {
+  background: #e7ded1 !important;
+}
+
+.flagship-product-card.is-studio-shot .flagship-image-stage:has(img:not([src$='.svg'])) .variant-wash,
+.fs-product-shot.is-photo .variant-wash {
+  mix-blend-mode: color;
+  opacity: min(var(--variant-opacity, .10), .18) !important;
+}
+
+.fs-product-shot.is-photo img {
+  padding: 0 !important;
+  object-fit: cover !important;
+}
+
+.fs-product-primary-shot .fs-product-shot.is-photo img {
+  object-position: center 52% !important;
+}
+
+.fs-product-detail-shot .fs-product-shot.is-photo img {
+  transform: none !important;
+  object-position: center !important;
+}
+
+.fs-product-detail-shot .fs-product-shot.is-photo:hover img {
+  transform: scale(1.018) !important;
+}
+
+/* The first oversized Shop card needs a slightly wider editorial crop. */
+.fs-shop-grid-v2 .flagship-product-card:nth-of-type(1) .flagship-image-stage img:not([src$='.svg']) {
+  object-position: center 55% !important;
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 760px) {
+  .fs-shop-masthead-v2::before {
+    background-position: 58% 25%, 58% 25% !important;
+  }
+
+  .fs-shop-editorial-media {
+    background-position: center, center 24%, 58% 24% !important;
+  }
+
+  .fs-about-hero::before {
+    background-position: 62% 24%, 61% 23% !important;
+  }
+
+  .fs-about-origin-image {
+    min-height: 520px;
+    background-size: auto, cover, 84% !important;
+    background-position: center, center 26%, center 44% !important;
+  }
+
+  .fs-cat-bags::before,
+  .fs-cat-jewelry::before,
+  .fs-cat-eyewear::before,
+  .fs-editorial-image {
+    background-position: center !important;
+  }
+
+  .flagship-product-card.is-studio-shot .flagship-image-stage img:not([src$='.svg']) {
+    object-position: center 52% !important;
+  }
+}
