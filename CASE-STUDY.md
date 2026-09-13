@@ -6,6 +6,8 @@ SAFRA is a fictional contemporary accessories label created as a complete e-comm
 
 The concept is rooted in Fès, Morocco, with an editorial direction built around warm stone, hard light, quiet geometry, black and ivory foundations, and a cobalt accent.
 
+**Live storefront:** https://azar-pro.github.io/maqta-lab-03-safra-react-ecommerce/
+
 ## The challenge
 
 The first versions worked functionally but still felt like a polished template. The main weaknesses were inconsistent photography, uniform product grids, weak hierarchy on interior pages, and mobile commerce flows that prioritized atmosphere over buying clarity.
@@ -24,7 +26,7 @@ The final visual system uses:
 - **Manrope** for interface, utility and commerce copy.
 - Ivory, black, warm stone and restrained cobalt accents.
 - Full-bleed campaign moments mixed with sharp, minimal controls.
-- Product photography with warm directional light and tactile surfaces.
+- High-resolution AVIF product photography with warm directional light and tactile surfaces.
 - Asymmetric retail grids instead of repetitive card layouts.
 - Large-scale typography and controlled negative space.
 
@@ -52,6 +54,21 @@ The bag includes quantity editing, removal, delivery-threshold progress and a st
 
 On mobile, the final order button appears after the order summary so the user reviews the total before confirming the demo order.
 
+## Photography rebuild
+
+Image quality became a major part of the final refinement. Early compressed WebP assets were too small for large editorial layouts and appeared soft when stretched across desktop cards and hero blocks.
+
+The final catalog therefore moved to a local AVIF photography set created from the full-resolution masters. The main product sources are generally around `1122 × 1402`, with a `1536 × 1024` campaign hero. The interface now:
+
+- loads AVIF as the primary source,
+- keeps older WebP/SVG files only as fallbacks,
+- avoids CSS color filters that muddy photographic detail,
+- uses tuned `object-fit` / `object-position` rules for each context,
+- preserves the same photography through Shop, PDP, Bag and Checkout,
+- preloads the campaign hero above the fold.
+
+Color swatches represent the selected commerce state; they do not pretend to be dedicated photography for colors that were not actually photographed.
+
 ## Technical implementation
 
 - React 18
@@ -68,22 +85,16 @@ On mobile, the final order button appears after the order summary so the user re
 - Open Graph, Twitter Card, manifest, robots and sitemap metadata
 - Reduced-motion support
 - Keyboard skip link and accessible form labels
+- Vite `BASE_URL` asset handling for repository-subpath deployment
+- Automated GitHub Pages deployment
 
 ## Visual QA process
 
-The project includes a GitHub Actions visual-review workflow using Playwright. Every relevant push builds the app, launches a review server and captures a fixed set of desktop and mobile screenshots for:
+The project includes a GitHub Actions visual-review workflow using Playwright. Every relevant push builds the app, launches a review server and captures 14 desktop/mobile screenshots covering Home, Shop, product detail, About, Wishlist, Bag, Checkout and mobile navigation.
 
-- Home
-- Shop
-- Product detail
-- Jewelry product detail
-- About
-- Wishlist
-- Bag
-- Checkout
-- Mobile navigation
+The QA workflow explicitly warms and decodes real images before capture. It also neutralizes sticky positioning only in full-page QA screenshots so Chromium compositing artifacts are not mistaken for live layout regressions.
 
-This made it possible to review spacing, crop, hierarchy and responsive behavior from rendered pages instead of relying only on source-code inspection.
+The same workflow runs axe-core across the main storefront states. The final audited route/state set reports zero WCAG A/AA violations detected by the automated scan.
 
 ## Key refinements made during QA
 
@@ -94,8 +105,11 @@ This made it possible to review spacing, crop, hierarchy and responsive behavior
 - Increased functional microtype where it became too small to read comfortably.
 - Improved contrast in service and utility sections.
 - Replaced mixed stock/vector catalog imagery with a unified SAFRA photography direction.
-- Updated bag and checkout summaries to use the same product photography as the storefront.
+- Replaced destructive low-resolution product files with AVIF-first photography.
+- Removed artificial CSS recoloring from photography.
+- Updated bag and checkout summaries to use the same AVIF-first image fallback chain as the storefront.
 - Added intrinsic image dimensions and loading priorities to reduce layout shift and improve perceived loading.
+- Hardened keyboard focus, skip-link and hidden mobile-menu behavior.
 
 ## Constraints
 
@@ -107,11 +121,12 @@ SAFRA is a portfolio concept, not a production commerce platform. It intentional
 - a real order API
 - inventory synchronization
 - server-side checkout
+- dedicated photography for every color variant
 
 A production version would connect the interface to a secure backend, payment provider, product CMS and image CDN.
 
 ## Outcome
 
-The final result is a compact editorial storefront that demonstrates both brand design and front-end commerce thinking. The project is intended to show how MAQTA Studio can move beyond a homepage mockup and design a coherent retail system across campaign, catalog, product, cart and checkout experiences.
+The final result is a compact editorial storefront that demonstrates both brand design and front-end commerce thinking. The project now ships as a working GitHub Pages site with a successful production build, repeatable visual QA, accessibility checks and a coherent high-resolution image system across desktop and mobile.
 
 Created by **MAQTA Studio** — https://maqtastudio.com
