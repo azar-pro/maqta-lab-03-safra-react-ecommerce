@@ -1,0 +1,85 @@
+name: Mobile focus review
+
+on:
+  push:
+    paths:
+      - '.github/workflows/mobile-focus-review.yml'
+      - 'src/**'
+      - 'public/**'
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Verify build
+        run: npm run build
+
+      - name: Start review server
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 4173 > /tmp/safra-focus.log 2>&1 &
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/safra-focus.log
+          exit 1
+
+      - name: Capture real viewport sticky states
+        run: |
+          mkdir -p focus-screenshots
+          cat > focus.mjs <<'EOF'
+          import { chromium } from 'playwright';
+
+          const browser = await chromium.launch({ headless: true });
+          const context = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 });
+          const page = await context.newPage();
+          const base = 'http://127.0.0.1:4173/';
+
+          async function ready(hash) {
+            await page.goto(`${base}${hash}`, { waitUntil: 'networkidle' });
+            await page.evaluate(() => document.fonts?.ready);
+            await page.waitForTimeout(300);
+          }
+
+          await ready('#/shop');
+          await page.locator('.fs-shop-controls-wrap').scrollIntoViewIfNeeded();
+          await page.waitForTimeout(250);
+          await page.screenshot({ path: 'focus-screenshots/01-shop-controls-mobile-viewport.png', fullPage: false });
+
+          await page.evaluate(() => window.scrollBy(0, 650));
+          await page.waitForTimeout(250);
+          await page.screenshot({ path: 'focus-screenshots/02-shop-controls-sticky-mobile-viewport.png', fullPage: false });
+
+          await ready('#/product/tala-mini-bag');
+          await page.locator('.fs-mobile-pdp-core').scrollIntoViewIfNeeded();
+          await page.waitForTimeout(250);
+          await page.screenshot({ path: 'focus-screenshots/03-product-purchase-mobile-viewport.png', fullPage: false });
+
+          await page.evaluate(() => window.scrollBy(0, 650));
+          await page.waitForTimeout(250);
+          await page.screenshot({ path: 'focus-screenshots/04-product-buybar-sticky-mobile-viewport.png', fullPage: false });
+
+          await browser.close();
+          EOF
+          node focus.mjs
+
+      - name: Upload focused screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: safra-mobile-focus-review
+          path: focus-screenshots
+          retention-days: 3
