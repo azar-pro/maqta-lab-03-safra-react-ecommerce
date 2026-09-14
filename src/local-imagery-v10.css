@@ -1,0 +1,67 @@
+/* SAFRA local imagery v10 — self-contained campaign fallbacks.
+   This layer removes runtime dependence on legacy external stock URLs left in
+   early visual-system CSS. photo-v9 still owns the final high-resolution crop
+   decisions; these rules guarantee that every legacy state also stays local. */
+
+.fs-hero-media,
+.fs-shop-masthead::before,
+.fs-shop-masthead-v2::before,
+.fs-about-hero::before {
+  background-image: url('/assets/safra/campaign-hero-v3.avif'), url('/assets/safra/campaign-hero-v2.webp'), url('/assets/safra/campaign-hero.webp');
+  background-size: cover, cover, cover;
+  background-repeat: no-repeat;
+}
+
+.fs-hero-media { background-position: center 35%, center 27%, center 27%; }
+.fs-shop-masthead::before,
+.fs-shop-masthead-v2::before { background-position: center 38%, center 33%, center 33%; }
+.fs-about-hero::before { background-position: 64% 34%, 61% 28%, 61% 28%; }
+
+.fs-editorial-image {
+  background-image:
+    linear-gradient(0deg, rgba(10,9,8,.035), rgba(10,9,8,.035)),
+    url('/assets/safra/sirocco-shoulder-bag-black-v3.avif'),
+    url('/assets/safra/sirocco-shoulder-bag-black.webp');
+  background-size: auto, cover, cover;
+  background-position: center, center 50%, center;
+  background-repeat: no-repeat;
+}
+
+.fs-cat-bags::before {
+  background-image: url('/assets/safra/safra-mini-sand-v3.avif'), url('/assets/safra/safra-mini-sand-v2.webp');
+  background-size: cover, cover;
+  background-position: center 54%, center 48%;
+}
+
+.fs-cat-jewelry::before {
+  background-image: url('/assets/safra/noor-hoops-gold-v3.avif'), url('/assets/safra/noor-hoops-gold.webp');
+  background-size: cover, cover;
+  background-position: center 54%, center 52%;
+}
+
+.fs-cat-eyewear::before {
+  background-image: url('/assets/safra/dune-sunglasses-tortoise-v3.avif'), url('/assets/safra/dune-sunglasses-tortoise.webp');
+  background-size: cover, cover;
+  background-position: center 54%, center 52%;
+}
+
+.fs-wishlist-empty-media,
+.fs-about-origin-image {
+  background-image:
+    linear-gradient(0deg, rgba(15,13,11,.025), rgba(15,13,11,.025)),
+    url('/assets/safra/safra-mini-sand-v3.avif'),
+    url('/assets/safra/safra-mini-sand-v2.webp');
+  background-size: auto, cover, cover;
+  background-position: center, center 52%, center 52%;
+  background-repeat: no-repeat;
+  background-color: #ded2bf;
+}
+
+@media (max-width: 760px) {
+  .fs-hero-media { background-position: 68% 30%, 57% 22%, 57% 22%; }
+  .fs-shop-masthead::before,
+  .fs-shop-masthead-v2::before { background-position: 68% 28%, 58% 25%, 58% 25%; }
+  .fs-about-hero::before { background-position: 69% 27%, 62% 24%, 61% 23%; }
+  .fs-wishlist-empty-media,
+  .fs-about-origin-image { background-position: center, center 50%, center 50%; }
+}
