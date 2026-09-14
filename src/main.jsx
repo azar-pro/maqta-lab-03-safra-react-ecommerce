@@ -16,6 +16,7 @@ import './final-v6.css';
 import './photo-v7.css';
 import './a11y-v8.css';
 import './photo-v9.css';
+import './local-imagery-v10.css';
 import './portfolio-completion.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
