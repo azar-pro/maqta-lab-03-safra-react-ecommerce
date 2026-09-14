@@ -38,7 +38,7 @@ jobs:
           cat /tmp/safra-focus.log
           exit 1
 
-      - name: Capture real viewport sticky states
+      - name: Diagnose and capture mobile viewport states
         run: |
           mkdir -p focus-screenshots
           cat > focus.mjs <<'EOF'
@@ -59,18 +59,35 @@ jobs:
           await page.locator('.fs-shop-controls-wrap').scrollIntoViewIfNeeded();
           await page.waitForTimeout(250);
           await page.screenshot({ path: 'focus-screenshots/01-shop-controls-mobile-viewport.png', fullPage: false });
-
           await page.evaluate(() => window.scrollBy(0, 650));
           await page.waitForTimeout(250);
           await page.screenshot({ path: 'focus-screenshots/02-shop-controls-sticky-mobile-viewport.png', fullPage: false });
 
           await ready('#/product/tala-mini-bag');
+          const buybar = page.locator('.fs-mobile-buybar');
+          console.log('BUYBAR count:', await buybar.count());
+          console.log('BUYBAR visible at top:', await buybar.isVisible().catch(() => false));
+          console.log('BUYBAR top state:', await page.evaluate(() => {
+            const el = document.querySelector('.fs-mobile-buybar');
+            if (!el) return null;
+            const s = getComputedStyle(el);
+            const r = el.getBoundingClientRect();
+            return { display:s.display, position:s.position, visibility:s.visibility, opacity:s.opacity, zIndex:s.zIndex, bottom:s.bottom, left:r.left, top:r.top, right:r.right, rectBottom:r.bottom, width:r.width, height:r.height, innerWidth:innerWidth, innerHeight:innerHeight };
+          }));
+
           await page.locator('.fs-mobile-pdp-core').scrollIntoViewIfNeeded();
           await page.waitForTimeout(250);
           await page.screenshot({ path: 'focus-screenshots/03-product-purchase-mobile-viewport.png', fullPage: false });
-
           await page.evaluate(() => window.scrollBy(0, 650));
           await page.waitForTimeout(250);
+          console.log('BUYBAR visible after scroll:', await buybar.isVisible().catch(() => false));
+          console.log('BUYBAR scrolled state:', await page.evaluate(() => {
+            const el = document.querySelector('.fs-mobile-buybar');
+            if (!el) return null;
+            const s = getComputedStyle(el);
+            const r = el.getBoundingClientRect();
+            return { display:s.display, position:s.position, visibility:s.visibility, opacity:s.opacity, zIndex:s.zIndex, bottom:s.bottom, left:r.left, top:r.top, right:r.right, rectBottom:r.bottom, width:r.width, height:r.height, innerWidth:innerWidth, innerHeight:innerHeight };
+          }));
           await page.screenshot({ path: 'focus-screenshots/04-product-buybar-sticky-mobile-viewport.png', fullPage: false });
 
           await browser.close();
